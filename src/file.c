@@ -14,8 +14,6 @@ FILE* loadMap(const short level) {
 
     map = fopen(filepath, "r");
 
-    assert(map != NULL);
-
     return map;
 }
 

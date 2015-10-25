@@ -8,12 +8,14 @@
 
 /**
  * Structure de l'état du jeu.
+ *     score : score total du jeu
+ *     levelScore : score du niveau courant
+ *     level : numéro du niveau courant
  */
 typedef struct GameState {
     unsigned short score;
     unsigned short levelScore;
-    unsigned char level;
-    unsigned int time;
+    unsigned short level;
 } GameState;
 
 #endif

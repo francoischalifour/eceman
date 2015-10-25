@@ -48,7 +48,7 @@ void changeCaseType(char board[ROWS][COLS], Position* pos) {
             break;
     }
 
-    goToXY(pos);
+    goToXY(pos->x, pos->y);
     board[pos->x][pos->y] = elem;
     putchar(convertCase(elem));
 }
@@ -56,20 +56,16 @@ void changeCaseType(char board[ROWS][COLS], Position* pos) {
 /**
  * Change le comportement du jeu en fonction de l'arrivée sur une case.
  * Cette fonction est appelée après le déplacement du joueur.
+ * @param game L'état du jeu
  * @param board Le plateau de jeu
- * @param pos La position du héro
- * @return La case effective après son déplacement
+ * @param hero Le Eceman
  */
-void runCaseAction(char board[ROWS][COLS], Position* pos) {
-    unsigned char actualCase = board[pos->x][pos->y];
+void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    unsigned char actualCase = board[hero->pos->x][hero->pos->y];
 
-    switch(actualCase) {
-        case DOOR:
-            loadNextLevel();
-            break;
-
-        case MELT:
-            gameOver();
+    switch (actualCase) {
+        case DOOR_CHAR:
+            loadNextLevel(game, board, hero);
             break;
     }
 }

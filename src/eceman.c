@@ -12,7 +12,7 @@ Eceman* newEceman() {
     Eceman* hero = malloc(sizeof(Eceman));
 
     pos->x = 0;
-    pos->y = 0;
+    pos->y = 2;
 
     hero->state = NORMAL;
     hero->pos = pos;
@@ -56,42 +56,50 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
 /**
  * Déplace le Eceman sur le plateau de jeu.
  * @param key La touche appuyée
+ * @param game L'état du jeu
  * @param board Le plateau de jeu
  * @param hero Le Eceman à déplacer
  * @return Le Eceman avec sa nouvelle position
  */
-Eceman* moveEceman(const char key, char board[ROWS][COLS], Eceman* hero) {
+Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    unsigned short prevPosX = hero->pos->x;
+    unsigned short prevPosY = hero->pos->y;
+
     switch (key) {
         case UP_KEY:
-            /*if (board[hero->pos->x][hero->pos->y - 1] == WALL_CHAR)
-                return NULL;*/
+            if (board[hero->pos->x][hero->pos->y - 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y - 1] == MELT_CHAR)
+                return NULL;
 
             hero->pos->y -= 1;
             break;
 
         case DOWN_KEY:
-/*            if (board[hero->pos->x][hero->pos->y + 1] == WALL_CHAR)
-                return NULL;*/
+            if (board[hero->pos->x][hero->pos->y + 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y + 1] == MELT_CHAR)
+                return NULL;
 
             hero->pos->y += 1;
             break;
 
         case LEFT_KEY:
-/*            if (board[hero->pos->x - 1][hero->pos->y] == WALL_CHAR)
-                return NULL;*/
+            if (board[hero->pos->x - 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x - 1][hero->pos->y] == MELT_CHAR)
+                return NULL;
 
             hero->pos->x -= 1;
             break;
 
         case RIGHT_KEY:
-/*            if (board[hero->pos->x + 1][hero->pos->y] == WALL_CHAR)
-                return NULL;*/
+            if (board[hero->pos->x + 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x + 1][hero->pos->y] == MELT_CHAR)
+                return NULL;
 
             hero->pos->x += 1;
             break;
     }
 
-    //runCaseAction(board, hero->pos);
+    if (prevPosX != hero->pos->x || prevPosY != hero->pos->y) {
+        game->levelScore++;
+        runCaseAction(game, board, hero);
+        drawToolbar(game);
+    }
 
     return hero;
 }
@@ -103,6 +111,6 @@ Eceman* moveEceman(const char key, char board[ROWS][COLS], Eceman* hero) {
  */
 void drawEceman(char board[ROWS][COLS], Eceman* hero) {
     board[hero->pos->x][hero->pos->y] = HERO_CHAR;
-    goToXY(hero->pos);
+    goToXY(hero->pos->x, hero->pos->y);
     putchar(HERO_CHAR);
 }

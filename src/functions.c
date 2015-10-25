@@ -30,11 +30,11 @@ void stopGame() {
  * @param x La ligne
  * @param y La colonne
  */
-void goToXY(Position* pos) {
+void goToXY(const unsigned short x, const unsigned short y) {
     COORD coord;
 
-    coord.X = pos->x;
-    coord.Y = pos->y;
+    coord.X = x;
+    coord.Y = y;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }

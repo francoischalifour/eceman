@@ -48,26 +48,27 @@ void closeMap(FILE* map);
 // case.c
 char convertCase(char elem);
 void changeCaseType(char board[ROWS][COLS], Position* pos);
-void runCaseAction(char board[ROWS][COLS], Position* pos);
+void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
 
 // eceman.c
 Eceman* newEceman();
 void destroyEceman(Eceman* hero);
 int goToSpawn(char board[ROWS][COLS], Eceman* hero);
 void drawEceman(char board[ROWS][COLS], Eceman* hero);
-Eceman* moveEceman(const char key, char board[ROWS][COLS], Eceman* hero);
+Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
 
 // board.c
-void drawBoard(FILE* map, char board[ROWS][COLS]);
+void drawToolbar(GameState* game);
+void drawBoard(FILE* map, char board[ROWS][COLS], GameState* game);
 
 // game.c
-void startGame();
+void initGame();
 void loadNextLevel();
 void gameOver();
 
 // functions.c
 void goBack();
 void stopGame();
-void goToXY(Position* pos);
+void goToXY(const unsigned short x, const unsigned short y);
 
 #endif

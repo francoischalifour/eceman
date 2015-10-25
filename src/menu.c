@@ -33,7 +33,7 @@ static void exitGame() {
 void launchAction(const char choice) {
     switch (choice) {
         case '1':
-            startGame();
+            initGame();
             break;
         case '2':
             displaySettings();
