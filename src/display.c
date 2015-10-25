@@ -43,9 +43,20 @@ void displaySettings() {
  * Affiche les règles du jeu.
  */
 void displayRules() {
+    FILE* rules = NULL;
+    char c;
+
+    rules = fopen("../data/rules.txt", "r");
+
     displayTitle();
 
     printf("\tRegles\n\n");
+
+    while ((c = fgetc(rules)) != EOF) {
+        putchar(c);
+    }
+
+    printf("\n");
 
     goBack();
 }

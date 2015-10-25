@@ -1,71 +1,46 @@
 #include "../lib/setup.h"
 #include "../lib/eceman.h"
-#include <windows.h>
 
 /**
- * Convertit le caractère de la map en élément à afficher.
- * @param elem Le caractère initial
- * @return L'élément à afficher
+ * Retourne l'endroit de spawn de la map.
+ * @param board Le plateau du niveau
  */
-static char convertMap(char elem) {
-    switch(elem) {
-        case '0':
-            elem = ' ';
-            break;
-    }
+/*Position* getSpawnPosition(char board[ROWS][COLS]) {
+    Position* pos = NULL;
+    unsigned short x, y;
 
-    return elem;
-}
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            if (board[x][y] == SPAWN_CHAR) {
+                pos->x = x;
+                pos->y = y;
 
-/**
- * Initialise le plateau de jeu.
- * @return Le plateau de jeu
- */
-void initBoard(char board[ROWS][COLS]) {
-    unsigned short i, j;
-
-    for (i = 0; i < ROWS; i++) {
-        for (j = 0; j < COLS; j++) {
-            board[i][j] = '0';
+                break;
+            }
         }
     }
-}
 
-/**
- * Nettoie l'emplacement du Eceman sur le plateau de jeu.
- * @param board Le plateau sur lequel le Eceman est à enlever
- * @param hero Le Eceman à nettoyer
- */
-void clearEceman(char board[ROWS][COLS], Eceman* hero) {
-     // TODO : prendre en compte les cases épaisses et les outils
-    board[hero->pos->x][hero->pos->y] = MELT_CHAR;
-    goToXY(hero->pos);
-    putchar(convertMap(MELT_CHAR));
-}
-
-/**
- * Dessine le Eceman sur le plateau de jeu.
- * @param board Le plateau sur lequel le Eceman est ajouté
- * @param hero Le Eceman à ajouter
- */
-void drawEceman(char board[ROWS][COLS], Eceman* hero) {
-    board[hero->pos->x][hero->pos->y] = HERO_CHAR;
-    putchar(HERO_CHAR);
-    goToXY(hero->pos);
-}
+    return pos;
+}*/
 
 /**
  * Dessine le plateau de jeu.
+ * @param map Le fichier correspondant à la map
  * @param board Le plateau à afficher
  */
-void drawBoard(char board[ROWS][COLS], Eceman* hero) {
-    unsigned short i, j;
+void drawBoard(FILE* map, char board[ROWS][COLS]) {
+    unsigned short x, y;
+    char elem;
 
-    for (i = 0; i < ROWS; i++) {
-        for (j = 0; j < COLS; j++) {
-            printf("%c", convertMap(board[i][j]));
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS ; y++) {
+            elem = fgetc(map);
+            putchar(convertCase(elem));
+            board[x][y] = elem;
         }
     }
 
     printf("\n");
+
+    closeMap(map);
 }

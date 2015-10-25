@@ -2,26 +2,55 @@
 #include "../lib/case.h"
 
 /**
+ * Convertit la case de la map en élément à afficher.
+ * @param elem Le caractère initial
+ * @return La case à afficher
+ */
+char convertCase(char elem) {
+    switch (elem) {
+        case WALL_CHAR:
+            elem = 254;
+            break;
+        case THIN_CHAR:
+            elem = 176;
+            break;
+        case THICK_CHAR:
+            elem = 177;
+            break;
+        case MELT_CHAR:
+            elem = 247;
+            break;
+        case UNDEFINED_CHAR:
+            elem = 178;
+            break;
+        case DOOR_CHAR:
+            elem = 233;
+            break;
+    }
+
+    return elem;
+}
+
+/**
  * Change le type de la case de Eceman avant son déplacement.
  * Cette fonction est appelée avant le déplacement du joueur.
  * @param board Le plateau de jeu
  * @param pos La position actuelle du héro
  * @return Le contenu de la case effective avant son déplacement
  */
-char changeCaseType(char board[ROWS][COLS], Position* pos) {
-    unsigned char actualCase = board[pos->x][pos->y];
+void changeCaseType(char board[ROWS][COLS], Position* pos) {
+    char currentCase = board[pos->x][pos->y];
+    char elem = MELT_CHAR;
 
-    switch (actualCase) {
-        case THIN:
-            board[pos->x][pos->y] = MELT;
-            break;
-
-        case THICK:
-            board[pos->x][pos->y] = THIN;
+    switch (currentCase) {
+        case THICK_CHAR:
+            elem = THIN_CHAR;
             break;
     }
 
-    return actualCase;
+    goToXY(pos);
+    board[pos->x][pos->y] = elem;
+    putchar(convertCase(elem));
 }
 
 /**

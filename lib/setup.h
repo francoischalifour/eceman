@@ -14,12 +14,16 @@
 
 #define QUIT_CHOICE '4'
 
-#define DELAY 200
+#define DELAY 50
 
-#define HERO_CHAR 'P'
+#define HERO_CHAR '*'
 #define SPAWN_CHAR '$'
-#define WALL_CHAR '_'
+#define WALL_CHAR 'W'
+#define DOOR_CHAR 'D'
+#define THIN_CHAR 'o'
+#define THICK_CHAR 'O'
 #define MELT_CHAR '~'
+#define UNDEFINED_CHAR '#'
 
 /*
  * Prototypes
@@ -37,20 +41,24 @@ void displayMenu();
 char getChoice();
 void launchAction(const char choice);
 
+// file.c
+FILE* loadMap(const short level);
+void closeMap(FILE* map);
+
 // case.c
-char changeCaseType(char board[ROWS][COLS], Position* pos);
+char convertCase(char elem);
+void changeCaseType(char board[ROWS][COLS], Position* pos);
 void runCaseAction(char board[ROWS][COLS], Position* pos);
 
 // eceman.c
 Eceman* newEceman();
 void destroyEceman(Eceman* hero);
+int goToSpawn(char board[ROWS][COLS], Eceman* hero);
+void drawEceman(char board[ROWS][COLS], Eceman* hero);
+Eceman* moveEceman(const char key, char board[ROWS][COLS], Eceman* hero);
 
 // board.c
-void initBoard(char board[ROWS][COLS]);
-void clearEceman(char board[ROWS][COLS], Eceman* hero);
-void drawEceman(char board[ROWS][COLS], Eceman* hero);
-void drawBoard(char board[ROWS][COLS], Eceman* hero);
-Eceman* moveEceman(char board[ROWS][COLS], const char key, Eceman* hero);
+void drawBoard(FILE* map, char board[ROWS][COLS]);
 
 // game.c
 void startGame();

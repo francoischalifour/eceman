@@ -1,5 +1,6 @@
 #include "../lib/setup.h"
 #include <conio.h>
+#include <assert.h>
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -8,11 +9,26 @@
 
 /**
  * Lance une action liée à l'appui d'une touche.
- * @param hero Le Eceman
  * @param key La touche
+ * @param board Le plateau de jeu
+ * @param hero Le Eceman
  */
-void launchGameAction(Eceman* hero, const char key) {
-    // TODO
+void launchGameAction(const char key, char board[ROWS][COLS], Eceman* hero) {
+    if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
+        changeCaseType(board, hero->pos);
+        moveEceman(key, board, hero);
+        drawEceman(board, hero);
+    }
+
+    switch (key) {
+        case 'p':
+            stopGame();
+            break;
+
+        case 'q':
+            displayMenu();
+            break;
+    }
 }
 
 /**
@@ -37,24 +53,24 @@ void gameOver() {
  * et les changements intervenants au cours du jeu.
  */
 void startGame() {
-    char board[ROWS][COLS] = {{'0'}};
-    char key;
-    Eceman* hero = newEceman();
+    unsigned char key;
+    char board[ROWS][COLS];
+    Eceman* hero = NULL;
+    FILE* map = NULL;
+
+    map = loadMap(1);
+    hero = newEceman();
 
     system("cls");
 
-    drawBoard(board, hero);
+    drawBoard(map, board);
+
+    drawEceman(board, hero);
 
     while (1) {
-        if (kbhit()) {
-            launchGameAction(hero, getch());
-        }
+        key = getch();
 
-        clearEceman(board, hero);
-
-        moveEceman(board, key, hero);
-
-        drawEceman(board, hero);
+        launchGameAction(key, board, hero);
 
         #ifdef _WIN32
         Sleep(DELAY);
