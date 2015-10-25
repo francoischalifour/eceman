@@ -34,7 +34,7 @@ void destroyEceman(Eceman* hero) {
  * Place le héro à l'endroit de spawn de la map.
  * @param board Le plateau du niveau
  * @param hero Le Eceman à placer
- * @return 1 si l'endroit du spawn a été trouvé, 0 sinon
+ * @return 0 si l'endroit du spawn a été trouvé, -1 sinon
  */
 int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
     unsigned short x, y;
@@ -45,12 +45,12 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
                 hero->pos->x = x;
                 hero->pos->y = y;
 
-                return 1;
+                return 0;
             }
         }
     }
 
-    return 0;
+    return -1;
 }
 
 /**

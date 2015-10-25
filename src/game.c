@@ -88,7 +88,9 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     system("cls");
 
-    drawBoard(map, board, game);
+    drawBoard(map, game, board);
+
+    goToSpawn(board, hero);
 
     drawEceman(board, hero);
 

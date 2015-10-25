@@ -13,19 +13,21 @@ void drawToolbar(GameState* game) {
 /**
  * Dessine le plateau de jeu.
  * @param map Le fichier correspondant à la map
+ * @param game L'état du jeu
  * @param board Le plateau à afficher
  */
-void drawBoard(FILE* map, char board[ROWS][COLS], GameState* game) {
+void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]) {
     unsigned short x, y;
-    char elem;
+    unsigned char elem;
 
     drawToolbar(game);
 
     for (x = 0; x < ROWS; x++) {
-        for (y = 0; y < COLS ; y++) {
+        for (y = 0; y < COLS; y++) {
             elem = fgetc(map);
-            putchar(convertCase(elem));
+
             board[x][y] = elem;
+            putchar(convertCase(board[x][y]));
         }
     }
 

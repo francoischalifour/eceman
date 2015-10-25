@@ -59,7 +59,7 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
 
 // board.c
 void drawToolbar(GameState* game);
-void drawBoard(FILE* map, char board[ROWS][COLS], GameState* game);
+void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 
 // game.c
 void initGame();
