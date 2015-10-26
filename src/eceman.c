@@ -41,7 +41,7 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
 
     for (x = 0; x < ROWS; x++) {
         for (y = 0; y < COLS; y++) {
-            if (board[x][y] == SPAWN_CHAR) {
+            if (board[y][x] == SPAWN_CHAR) {
                 hero->pos->x = x;
                 hero->pos->y = y;
 
@@ -67,28 +67,28 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
 
     switch (key) {
         case UP_KEY:
-            if (board[hero->pos->x][hero->pos->y - 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y - 1] == MELT_CHAR)
+            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
                 return NULL;
 
             hero->pos->y -= 1;
             break;
 
         case DOWN_KEY:
-            if (board[hero->pos->x][hero->pos->y + 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y + 1] == MELT_CHAR)
+            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
                 return NULL;
 
             hero->pos->y += 1;
             break;
 
         case LEFT_KEY:
-            if (board[hero->pos->x - 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x - 1][hero->pos->y] == MELT_CHAR)
+            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
                 return NULL;
 
             hero->pos->x -= 1;
             break;
 
         case RIGHT_KEY:
-            if (board[hero->pos->x + 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x + 1][hero->pos->y] == MELT_CHAR)
+            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR)
                 return NULL;
 
             hero->pos->x += 1;

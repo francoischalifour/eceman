@@ -9,8 +9,8 @@
 #include "tool.h"
 #include "game.h"
 
-#define ROWS 19
-#define COLS 15
+#define ROWS 15
+#define COLS 19
 
 #define QUIT_CHOICE '4'
 
