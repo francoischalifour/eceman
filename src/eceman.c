@@ -65,31 +65,43 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
     unsigned short prevPosX = hero->pos->x;
     unsigned short prevPosY = hero->pos->y;
 
+    goToXY(0, 19);
+    printf("                                         \n");
+    goToXY(0, 19);
+
     switch (key) {
         case UP_KEY:
-            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
+            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR) {
+                printf("> Collision\n");
                 return NULL;
+            }
 
             hero->pos->y -= 1;
             break;
 
         case DOWN_KEY:
-            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
+            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR) {
+                printf("> Collision\n");
                 return NULL;
+            }
 
             hero->pos->y += 1;
             break;
 
         case LEFT_KEY:
-            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
+            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR) {
+                printf("> Collision\n");
                 return NULL;
+            }
 
             hero->pos->x -= 1;
             break;
 
         case RIGHT_KEY:
-            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR)
+            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR) {
+                printf("> Collision\n");
                 return NULL;
+            }
 
             hero->pos->x += 1;
             break;
@@ -100,6 +112,10 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
         runCaseAction(game, board, hero);
         drawToolbar(game);
     }
+
+    // TODO : à supprimer
+    goToXY(0, 18);
+    printf("(%d, %d) \n", hero->pos->x, hero->pos->y);
 
     return hero;
 }

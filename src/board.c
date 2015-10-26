@@ -17,25 +17,18 @@ void drawToolbar(GameState* game) {
  * @param board Le plateau à afficher
  */
 void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]) {
-    unsigned short x = 0, y = 0;
-    unsigned char elem;
+    unsigned short x, y;
 
-    while (x < ROWS - 1) {
-        y = 0;
-        while ((elem = getc(map)) != '\n') {
-            board[x][y] = elem;
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y <= COLS; y++) {
+            board[x][y] = fgetc(map);
             putchar(convertCase(board[x][y]));
-            y++;
         }
-        x++;
-        printf("\n");
     }
 
     printf("\n");
 
     drawToolbar(game);
-
-    printf("\n");
 
     closeMap(map);
 }

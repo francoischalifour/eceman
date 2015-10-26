@@ -5,6 +5,7 @@
  * Charge le fichier correspondant à la map du niveau
  * passé en paramètre.
  * @param level Le niveau correspondant à la map
+ * @return La map
  */
 FILE* loadMap(const short level) {
     char filepath[18];
@@ -13,6 +14,8 @@ FILE* loadMap(const short level) {
     sprintf(filepath, "../data/map/%d.map", level);
 
     map = fopen(filepath, "r");
+
+    assert(map);
 
     return map;
 }

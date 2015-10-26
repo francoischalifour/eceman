@@ -128,9 +128,13 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 void initGame() {
     GameState* game = newGameState();
     Eceman* hero = newEceman();
+    FILE* saving = NULL;
     char board[ROWS][COLS];
 
-    setGameState(game, 0, 0, 1);
+    if ((saving = loadSaving())) {
+        setGameState(game, getScore(), 0, getLevel(saving));
+        closeSaving(saving);
+    }
 
     playGame(game, board, hero);
 

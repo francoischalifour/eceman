@@ -41,9 +41,15 @@ void displayMenu();
 char getChoice();
 void launchAction(const char choice);
 
-// file.c
+// map.c
 FILE* loadMap(const short level);
 void closeMap(FILE* map);
+
+// saving.c
+FILE* loadSaving();
+void closeSaving(FILE* saving);
+int getLevel();
+int getScore();
 
 // case.c
 char convertCase(char elem);
