@@ -2,11 +2,11 @@
 
 
 /**
- * Sauvegarde la partie
+ * Sauvegarde la partie.
  * @param level Numéro du niveau à sauvegarder
  * @param score Score à sauvegarder
  */
-void save(int level, int score) {
+void save(const int level, const int score) {
     char filepath[23];
     FILE* save = NULL;
 
