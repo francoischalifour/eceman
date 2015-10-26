@@ -62,6 +62,7 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
             break;
 
         case 'q':
+            save(game->level, game->score);
             displayMenu();
             break;
     }

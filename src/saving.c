@@ -1,5 +1,25 @@
 #include "../lib/setup.h"
 
+
+/**
+ * Sauvegarde la partie
+ * @param level Numéro du niveau à sauvegarder
+ * @param score Score à sauvegarder
+ */
+void save(int level, int score) {
+    char filepath[23];
+    FILE* save = NULL;
+
+    sprintf(filepath, "../data/saving/game.sav");
+
+    save = fopen(filepath, "w");
+
+    fprintf(save, "%d\n%d", level, score);
+
+    fclose(save);
+
+}
+
 /**
  * Charge le fichier correspondant à la dernière sauvegarde.
  * @return La dernière sauvegarde (NULL si aucune)

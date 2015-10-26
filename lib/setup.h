@@ -46,6 +46,7 @@ FILE* loadMap(const short level);
 void closeMap(FILE* map);
 
 // saving.c
+void save(int level, int score);
 FILE* loadSaving();
 void closeSaving(FILE* saving);
 int getLevel();
