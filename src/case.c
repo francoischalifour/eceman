@@ -39,8 +39,8 @@ char convertCase(char elem) {
  * @return Le contenu de la case effective avant son déplacement
  */
 void changeCaseType(char board[ROWS][COLS], Position* pos) {
-    char currentCase = board[pos->x][pos->y];
-    char elem = MELT_CHAR;
+    unsigned char currentCase = board[pos->x][pos->y];
+    unsigned char elem = MELT_CHAR;
 
     switch (currentCase) {
         case THICK_CHAR:

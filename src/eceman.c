@@ -41,7 +41,7 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
 
     for (x = 0; x < ROWS; x++) {
         for (y = 0; y < COLS; y++) {
-            if (board[y][x] == SPAWN_CHAR) {
+            if (board[x][y] == SPAWN_CHAR) {
                 hero->pos->x = x;
                 hero->pos->y = y;
 
@@ -71,39 +71,31 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
 
     switch (key) {
         case UP_KEY:
-            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR) {
-                printf("> Collision\n");
+            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
                 return NULL;
-            }
-
-            hero->pos->y -= 1;
-            break;
-
-        case DOWN_KEY:
-            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR) {
-                printf("> Collision\n");
-                return NULL;
-            }
-
-            hero->pos->y += 1;
-            break;
-
-        case LEFT_KEY:
-            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR) {
-                printf("> Collision\n");
-                return NULL;
-            }
 
             hero->pos->x -= 1;
             break;
 
-        case RIGHT_KEY:
-            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR) {
-                printf("> Collision\n");
+        case DOWN_KEY:
+            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR)
                 return NULL;
-            }
 
             hero->pos->x += 1;
+            break;
+
+        case LEFT_KEY:
+            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
+                return NULL;
+
+            hero->pos->y -= 1;
+            break;
+
+        case RIGHT_KEY:
+            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
+                return NULL;
+
+            hero->pos->y += 1;
             break;
     }
 
@@ -113,11 +105,7 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
         drawToolbar(game);
     }
 
-    // TODO : à supprimer
-    goToXY(0, 18);
-    printf("(%d, %d) \n", hero->pos->x, hero->pos->y);
-
-    if (isCircle(board, hero)) {
+    if (isSurrounded(board, hero)) {
         reloadLevel(game, board, hero);
     }
 
@@ -133,6 +121,18 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
     board[hero->pos->x][hero->pos->y] = HERO_CHAR;
     goToXY(hero->pos->x, hero->pos->y);
     putchar(HERO_CHAR);
+
+
+    unsigned short x, y;
+
+    system("cls");
+
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            putchar(convertCase(board[x][y]));
+        }
+        printf("\n");
+    }
 }
 
 /**
@@ -141,7 +141,7 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
  * @param hero Le Eceman à tester
  * @return 1 si le Eceman est encerclé, 0 sinon
  */
-int isCircle(char board[ROWS][COLS], Eceman* hero) {
+int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
     if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
         && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
         && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
