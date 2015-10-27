@@ -6,6 +6,22 @@
 #define LEFT_KEY 75
 #define RIGHT_KEY 77
 
+#define ROWS 15
+#define COLS 19
+
+#define DELAY 50
+
+#define SCORE_MAX 9999
+
+#define HERO_CHAR '*'
+#define SPAWN_CHAR '$'
+#define WALL_CHAR 'W'
+#define DOOR_CHAR 'D'
+#define THIN_CHAR 'o'
+#define THICK_CHAR 'O'
+#define MELT_CHAR '~'
+#define UNDEFINED_CHAR '#'
+
 /**
  * Structure de l'état du jeu.
  *     score : score total du jeu

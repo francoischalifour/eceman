@@ -9,21 +9,7 @@
 #include "tool.h"
 #include "game.h"
 
-#define ROWS 15
-#define COLS 19
-
 #define QUIT_CHOICE '4'
-
-#define DELAY 50
-
-#define HERO_CHAR '*'
-#define SPAWN_CHAR '$'
-#define WALL_CHAR 'W'
-#define DOOR_CHAR 'D'
-#define THIN_CHAR 'o'
-#define THICK_CHAR 'O'
-#define MELT_CHAR '~'
-#define UNDEFINED_CHAR '#'
 
 /*
  * Prototypes
