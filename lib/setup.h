@@ -72,6 +72,7 @@ void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 // game.c
 void initGame();
 void loadNextLevel();
+void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void stopGame(GameState* game);
 void gameOver(GameState* game);
 void backToMenu(GameState* game);
