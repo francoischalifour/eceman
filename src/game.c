@@ -156,6 +156,16 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 }
 
 /**
+ * @param game La partie à redémarrer
+ * @param board Le plateau à reinitialiser
+ * @param hero Le héro
+ */
+void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    game->levelScore = 0;
+    playGame(game, board, hero);
+}
+
+/**
  * Initialise une partie de jeu.
  */
 void initGame() {

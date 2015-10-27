@@ -117,11 +117,8 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
     goToXY(0, 18);
     printf("(%d, %d) \n", hero->pos->x, hero->pos->y);
 
-    if (isCircle(board, hero) == 1) {
-        system("cls");
-        gameOver(game);
-        goBack();
-        backToMenu(game);
+    if (isCircle(board, hero)) {
+        reloadLevel(game, board, hero);
     }
 
     return hero;
@@ -140,7 +137,6 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
 
 /**
  * Vérifie si le Eceman est entouré de murs ou d'eau.
- * Dans ce cas, on recommence le niveau.
  * @param board Le plateau sur lequel le joueur joue
  * @param hero Le Eceman à tester
  * @return 1 si le Eceman est encerclé, 0 sinon
