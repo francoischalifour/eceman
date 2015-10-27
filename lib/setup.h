@@ -35,6 +35,7 @@ void closeMap(FILE* map);
 void save(int level, int score);
 FILE* loadSaving();
 void closeSaving(FILE* saving);
+int getNbLevels();
 int getLevel();
 int getScore();
 

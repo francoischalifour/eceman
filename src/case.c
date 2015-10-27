@@ -65,7 +65,8 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     switch (actualCase) {
         case DOOR_CHAR:
-            loadNextLevel(game, board, hero);
+            if (game->level < getNbLevels())
+                loadNextLevel(game, board, hero);
             break;
     }
 }
