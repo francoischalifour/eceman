@@ -1,5 +1,6 @@
 #include "../lib/setup.h"
 #include "../lib/case.h"
+#include <windows.h>
 
 /**
  * Convertit la case de la map en élément à afficher.
@@ -20,7 +21,7 @@ char convertCase(char elem) {
         case MELT_CHAR:
             elem = 247;
             break;
-        case UNDEFINED_CHAR:
+        case OUTSIDE_CHAR:
             elem = 178;
             break;
         case DOOR_CHAR:
@@ -41,16 +42,23 @@ char convertCase(char elem) {
 void changeCaseType(char board[ROWS][COLS], Position* pos) {
     unsigned char currentCase = board[pos->x][pos->y];
     unsigned char elem = MELT_CHAR;
+    unsigned short int color = MELT_CHAR_COLOR;
+    HANDLE  hConsole;
+
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     switch (currentCase) {
         case THICK_CHAR:
             elem = THIN_CHAR;
+            color = THIN_CHAR_COLOR;
             break;
     }
 
     goToXY(pos->y, pos->x);
     board[pos->x][pos->y] = elem;
+    SetConsoleTextAttribute(hConsole, color);
     putchar(convertCase(elem));
+    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
 }
 
 /**
