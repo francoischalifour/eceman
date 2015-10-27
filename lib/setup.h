@@ -43,7 +43,7 @@ int getScore();
 // case.c
 char convertCase(char elem);
 int getCaseColor(char elem);
-void changeCaseType(char board[ROWS][COLS], Position* pos);
+void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
 
 // eceman.c

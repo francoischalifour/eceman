@@ -137,7 +137,6 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
     }
 
     if (prevPosX != hero->pos->x || prevPosY != hero->pos->y) {
-        game->levelScore++;
         runCaseAction(game, board, hero);
         drawToolbar(game);
     }

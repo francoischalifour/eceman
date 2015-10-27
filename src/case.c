@@ -27,6 +27,9 @@ char convertCase(char elem) {
         case DOOR_CHAR:
             elem = 233;
             break;
+        case LIGHT_POTION:
+            elem = 80;
+            break;
     }
 
     return elem;
@@ -69,27 +72,56 @@ int getCaseColor(char elem) {
 /**
  * Change le type de la case de Eceman avant son déplacement.
  * Cette fonction est appelée avant le déplacement du joueur.
+ * @param game L'état du jeu pour incrémenter le score
  * @param board Le plateau de jeu
- * @param pos La position actuelle du héro
+ * @param hero Le Eceman pour verifier s'il a l'état de légèreté
  * @return Le contenu de la case effective avant son déplacement
  */
-void changeCaseType(char board[ROWS][COLS], Position* pos) {
-    unsigned char currentCase = board[pos->x][pos->y];
-    unsigned char elem = MELT_CHAR;
-    unsigned short int color = MELT_CHAR_COLOR;
+void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    const unsigned char currentCase = board[hero->pos->x][hero->pos->y];
+    unsigned char elem;
+    unsigned short int color;
     HANDLE  hConsole;
 
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     switch (currentCase) {
+        case THIN_CHAR:
+            if (hero->state == LIGHTNESS) {
+                elem = currentCase;
+                color = THIN_CHAR_COLOR;
+            } else {
+                elem = MELT_CHAR;
+                color = MELT_CHAR_COLOR;
+            }
+            break;
+
         case THICK_CHAR:
+            if (hero->state == LIGHTNESS) {
+                elem = THICK_CHAR;
+                color = THICK_CHAR_COLOR;
+            } else {
+                elem = THIN_CHAR;
+                color = THIN_CHAR_COLOR;
+            }
+            break;
+
+        case LIGHT_POTION:
             elem = THIN_CHAR;
             color = THIN_CHAR_COLOR;
             break;
+
+        default:
+            elem = MELT_CHAR;
+            color = MELT_CHAR_COLOR;
     }
 
-    goToXY(pos->y, pos->x);
-    board[pos->x][pos->y] = elem;
+    if (hero->state != LIGHTNESS) {
+        game->levelScore++;
+    }
+
+    goToXY(hero->pos->y, hero->pos->x);
+    board[hero->pos->x][hero->pos->y] = elem;
     SetConsoleTextAttribute(hConsole, color);
     putchar(convertCase(elem));
     SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
@@ -111,6 +143,10 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
                 loadNextLevel(game, board, hero);
             else
                 gameOver(game);
+            break;
+
+        case LIGHT_POTION:
+            hero->state = LIGHTNESS;
             break;
     }
 }

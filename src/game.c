@@ -89,7 +89,7 @@ void gameOver(GameState* game) {
  */
 static void launchGameAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
     if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
-        changeCaseType(board, hero->pos);
+        changeCaseType(game, board, hero);
         moveEceman(key, game, board, hero);
         drawEceman(board, hero);
     }
@@ -148,6 +148,7 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->level += 1;
     game->score += game->levelScore;
     game->levelScore = 0;
+    hero->state = NORMAL;
 
     playGame(game, board, hero);
 }
@@ -160,6 +161,8 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  */
 void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->levelScore = 0;
+    hero->state = NORMAL;
+
     playGame(game, board, hero);
 }
 
