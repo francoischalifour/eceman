@@ -63,6 +63,7 @@ void destroyEceman(Eceman* hero);
 int goToSpawn(char board[ROWS][COLS], Eceman* hero);
 void drawEceman(char board[ROWS][COLS], Eceman* hero);
 Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
+int isCircle(char board[ROWS][COLS], Eceman* hero);
 
 // board.c
 void drawToolbar(GameState* game);
@@ -71,6 +72,7 @@ void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 // game.c
 void initGame();
 void loadNextLevel();
+void backToMenu(GameState* game);
 void gameOver();
 
 // functions.c

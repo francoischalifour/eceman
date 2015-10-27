@@ -117,6 +117,13 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
     goToXY(0, 18);
     printf("(%d, %d) \n", hero->pos->x, hero->pos->y);
 
+    if (isCircle(board, hero) == 1){
+        system("cls");
+        gameOver();
+        goBack();
+        backToMenu(game);
+    }
+
     return hero;
 }
 
@@ -129,4 +136,21 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
     board[hero->pos->x][hero->pos->y] = HERO_CHAR;
     goToXY(hero->pos->x, hero->pos->y);
     putchar(HERO_CHAR);
+}
+
+/**
+ * Test si le Eceman est entouré de murs/eau
+ * @param board Le plateau sur lequel le joueur joue
+ * @param hero Le Eceman à tester
+ * @return 1 si le Eceman est encerclé, 0 sinon
+ */
+int isCircle(char board[ROWS][COLS], Eceman* hero) {
+    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
+        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
+        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
+        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
