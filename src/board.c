@@ -7,8 +7,34 @@
  * @param game L'état actuel du jeu
  */
 void drawToolbar(GameState* game) {
-    goToXY(0, 16);
-    printf("Niveau %d \tScore : %d\n\n", game->level, game->score + game->levelScore);
+    goToXY(26, 0);
+    printf("Niveau %2d", game->level);
+    goToXY(26, 1);
+    printf("Score %3d\n\n", game->score + game->levelScore);
+}
+
+/**
+ * Affiche la légende du jeu.
+ */
+static void drawPanel() {
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 8);
+
+    goToXY(26, 4);
+    printf("%c %s\n", HERO_CHAR, "Personnage");
+    goToXY(26, 5);
+    printf("%c %s\n", convertCase(WALL_CHAR), "Mur");
+    goToXY(26, 6);
+    printf("%c %s\n", convertCase(DOOR_CHAR), "Porte de sortie");
+    goToXY(26, 7);
+    printf("%c %s\n", convertCase(THIN_CHAR), "Glace fine");
+    goToXY(26, 8);
+    printf("%c %s\n", convertCase(THICK_CHAR), "Glace epaisse");
+    goToXY(26, 9);
+    printf("%c %s\n", convertCase(MELT_CHAR), "Eau");
+
+    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
 }
 
 /**
@@ -19,7 +45,6 @@ void drawToolbar(GameState* game) {
  */
 void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]) {
     unsigned short x, y;
-    unsigned short color;
     HANDLE  hConsole;
 
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -28,39 +53,17 @@ void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]) {
         for (y = 0; y <= COLS; y++) {
             board[x][y] = fgetc(map);
 
-            switch (board[x][y]) {
-                case THIN_CHAR:
-                    color = THIN_CHAR_COLOR;
-                    break;
-                case THICK_CHAR:
-                    color = THICK_CHAR_COLOR;
-                    break;
-                case DOOR_CHAR:
-                    color = DOOR_CHAR_COLOR;
-                    break;
-                case WALL_CHAR:
-                    color = WALL_CHAR_COLOR;
-                    break;
-                case MELT_CHAR:
-                    color = MELT_CHAR_COLOR;
-                    break;
-                case OUTSIDE_CHAR:
-                    color = OUTSIDE_CHAR_COLOR;
-                    break;
-                default:
-                    color = 8;
-            }
-
-            SetConsoleTextAttribute(hConsole, color);
+            SetConsoleTextAttribute(hConsole, getCaseColor(board[x][y]));
             putchar(convertCase(board[x][y]));
         }
     }
 
     SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
 
-    printf("\n");
-
     drawToolbar(game);
+    drawPanel();
+
+    printf("\n");
 
     closeMap(map);
 }

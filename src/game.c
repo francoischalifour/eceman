@@ -77,6 +77,7 @@ void stopGame(GameState* game) {
  */
 void gameOver(GameState* game) {
     game->pause = 1;
+    clearSaving();
     displayGameOver();
 }
 
@@ -113,8 +114,6 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
  * @param board Le plateau de jeu
  */
 static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
-    unsigned char key;
-
     FILE* map = loadMap(game->level);
 
     system("cls");
@@ -128,9 +127,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     drawEceman(board, hero);
 
     while (!(game->pause)) {
-        key = getch();
-
-        launchGameAction(key, game, board, hero);
+        launchGameAction(getch(), game, board, hero);
 
         #ifdef _WIN32
         Sleep(DELAY);
@@ -176,7 +173,7 @@ void initGame() {
     char board[ROWS][COLS];
 
     if ((saving = loadSaving())) {
-        setGameState(game, getScore(), 0, getLevel(saving), 1);
+        setGameState(game, getScore(saving), 0, getLevel(saving), 1);
         closeSaving(saving);
     }
 

@@ -33,6 +33,40 @@ char convertCase(char elem) {
 }
 
 /**
+ * Récupère la couleur associée à la case.
+ * @param elem La case
+ * @return La couleur de la case
+ */
+int getCaseColor(char elem) {
+    unsigned short color;
+
+    switch (elem) {
+        case THIN_CHAR:
+            color = THIN_CHAR_COLOR;
+            break;
+        case THICK_CHAR:
+            color = THICK_CHAR_COLOR;
+            break;
+        case DOOR_CHAR:
+            color = DOOR_CHAR_COLOR;
+            break;
+        case WALL_CHAR:
+            color = WALL_CHAR_COLOR;
+            break;
+        case MELT_CHAR:
+            color = MELT_CHAR_COLOR;
+            break;
+        case OUTSIDE_CHAR:
+            color = OUTSIDE_CHAR_COLOR;
+            break;
+        default:
+            color = 8;
+    }
+
+    return color;
+}
+
+/**
  * Change le type de la case de Eceman avant son déplacement.
  * Cette fonction est appelée avant le déplacement du joueur.
  * @param board Le plateau de jeu
@@ -69,12 +103,14 @@ void changeCaseType(char board[ROWS][COLS], Position* pos) {
  * @param hero Le Eceman
  */
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
-    unsigned char actualCase = board[hero->pos->x][hero->pos->y];
+    const unsigned char actualCase = board[hero->pos->x][hero->pos->y];
 
     switch (actualCase) {
         case DOOR_CHAR:
             if (game->level < getNbLevels())
                 loadNextLevel(game, board, hero);
+            else
+                gameOver(game);
             break;
     }
 }

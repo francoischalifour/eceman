@@ -13,7 +13,7 @@ Eceman* newEceman() {
     Eceman* hero = malloc(sizeof(Eceman));
 
     pos->x = 0;
-    pos->y = 2;
+    pos->y = 0;
 
     hero->state = NORMAL;
     hero->pos = pos;
@@ -55,7 +55,47 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
 }
 
 /**
+ * Vérifie si le Eceman est entouré de murs ou d'eau.
+ * @param board Le plateau sur lequel le joueur joue
+ * @param hero Le Eceman à tester
+ * @return 1 si le Eceman est encerclé, 0 sinon
+ */
+static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
+    if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR)
+        return 0;
+
+    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
+        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
+        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
+        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR))
+        return 1;
+
+    return 0;
+}
+
+/**
+ * Dessine le Eceman sur le plateau de jeu.
+ * @param board Le plateau sur lequel le Eceman est ajouté
+ * @param hero Le Eceman à ajouter
+ */
+void drawEceman(char board[ROWS][COLS], Eceman* hero) {
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    board[hero->pos->y][hero->pos->x] = HERO_CHAR;
+    goToXY(hero->pos->y, hero->pos->x);
+
+    SetConsoleTextAttribute(hConsole, HERO_CHAR_COLOR);
+    putchar(HERO_CHAR);
+    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+}
+
+/**
  * Déplace le Eceman sur le plateau de jeu.
+ * Cette fonction augmente le score si le héro a avancé,
+ * lance l'action de la case actuelle,
+ * met à jour la toolbar avec le score,
+ * recharge le niveau si le héro est encerclé.
  * @param key La touche appuyée
  * @param game L'état du jeu
  * @param board Le plateau de jeu
@@ -65,10 +105,6 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
 Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
     unsigned short prevPosX = hero->pos->x;
     unsigned short prevPosY = hero->pos->y;
-
-    goToXY(0, 19);
-    printf("                                         \n");
-    goToXY(0, 19);
 
     switch (key) {
         case UP_KEY:
@@ -106,45 +142,8 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
         drawToolbar(game);
     }
 
-    if (isSurrounded(board, hero)) {
+    if (isSurrounded(board, hero))
         reloadLevel(game, board, hero);
-    }
 
     return hero;
-}
-
-/**
- * Dessine le Eceman sur le plateau de jeu.
- * @param board Le plateau sur lequel le Eceman est ajouté
- * @param hero Le Eceman à ajouter
- */
-void drawEceman(char board[ROWS][COLS], Eceman* hero) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    board[hero->pos->y][hero->pos->x] = HERO_CHAR;
-    goToXY(hero->pos->y, hero->pos->x);
-
-    SetConsoleTextAttribute(hConsole, HERO_CHAR_COLOR);
-    putchar(HERO_CHAR);
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
-}
-
-/**
- * Vérifie si le Eceman est entouré de murs ou d'eau.
- * @param board Le plateau sur lequel le joueur joue
- * @param hero Le Eceman à tester
- * @return 1 si le Eceman est encerclé, 0 sinon
- */
-int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
-    if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR)
-        return 0;
-
-    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
-        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
-        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
-        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR))
-        return 1;
-
-    return 0;
 }

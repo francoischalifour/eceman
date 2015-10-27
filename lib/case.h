@@ -1,5 +1,5 @@
-#ifndef CASE_H
-#define CASE_H
+#ifndef ECEMAN_CASE_H
+#define ECEMAN_CASE_H
 
 /**
  * Enumération des types de case.
@@ -21,4 +21,4 @@ typedef struct Case {
     enum CaseType type;
 } Case;
 
-#endif
+#endif // ECEMAN_CASE_H

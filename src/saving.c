@@ -8,16 +8,28 @@
  * @param score Le score à sauvegarder
  */
 void save(const int level, const int score) {
-    char filepath[23];
-    FILE* save = NULL;
+    FILE* saveFile = NULL;
+    FILE* scoreFile = NULL;
 
-    sprintf(filepath, "../data/saving/game.sav");
+    saveFile = fopen("../data/saving/game.sav", "w");
+    fprintf(saveFile, "%d\n%d", level, score);
 
-    save = fopen(filepath, "w");
+    saveFile = fopen("../data/saving/scores.sav", "a");
+    fprintf(scoreFile, "%d\n", score);
 
-    fprintf(save, "%d\n%d", level, score);
+    fclose(saveFile);
+    fclose(scoreFile);
+}
 
-    fclose(save);
+/**
+ * Nettoie le fichier de sauvegarde de partie.
+ */
+void clearSaving() {
+    FILE* saveFile = NULL;
+
+    saveFile = fopen("../data/saving/game.sav", "w");
+
+    fclose(saveFile);
 }
 
 /**
@@ -25,12 +37,9 @@ void save(const int level, const int score) {
  * @return La dernière sauvegarde (NULL si aucune)
  */
 FILE* loadSaving() {
-    char filepath[23];
     FILE* saving = NULL;
 
-    sprintf(filepath, "../data/saving/game.sav");
-
-    saving = fopen(filepath, "r");
+    saving = fopen("../data/saving/game.sav", "r");
 
     return saving;
 }

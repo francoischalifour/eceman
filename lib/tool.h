@@ -1,5 +1,5 @@
-#ifndef TOOL_H
-#define TOOL_H
+#ifndef ECEMAN_TOOL_H
+#define ECEMAN_TOOL_H
 
 /**
  * Enumération des types d'outil.
@@ -19,4 +19,4 @@ typedef struct Tool {
     enum ToolType type;
 } Tool;
 
-#endif
+#endif // ECEMAN_TOOL_H

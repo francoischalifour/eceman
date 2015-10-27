@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef ECEMAN_GAME_H
+#define ECEMAN_GAME_H
 
 #define UP_KEY 72
 #define DOWN_KEY 80
@@ -45,4 +45,4 @@ typedef struct GameState {
     unsigned short pause;
 } GameState;
 
-#endif
+#endif // ECEMAN_GAME_H

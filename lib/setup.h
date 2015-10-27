@@ -1,5 +1,5 @@
-#ifndef SETUP_H
-#define SETUP_H
+#ifndef ECEMAN_SETUP_H
+#define ECEMAN_SETUP_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -33,6 +33,7 @@ void closeMap(FILE* map);
 
 // saving.c
 void save(int level, int score);
+void clearSaving();
 FILE* loadSaving();
 void closeSaving(FILE* saving);
 int getNbLevels();
@@ -41,6 +42,7 @@ int getScore();
 
 // case.c
 char convertCase(char elem);
+int getCaseColor(char elem);
 void changeCaseType(char board[ROWS][COLS], Position* pos);
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
 
@@ -50,7 +52,6 @@ void destroyEceman(Eceman* hero);
 int goToSpawn(char board[ROWS][COLS], Eceman* hero);
 void drawEceman(char board[ROWS][COLS], Eceman* hero);
 Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
-int isSurrounded(char board[ROWS][COLS], Eceman* hero);
 
 // board.c
 void drawToolbar(GameState* game);
@@ -68,4 +69,4 @@ void backToMenu(GameState* game);
 void goBack();
 void goToXY(const unsigned short x, const unsigned short y);
 
-#endif
+#endif // ECEMAN_SETUP_H

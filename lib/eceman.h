@@ -1,5 +1,5 @@
-#ifndef ECEMAN_H
-#define ECEMAN_H
+#ifndef ECEMAN_ECEMAN_H
+#define ECEMAN_ECEMAN_H
 
 /**
  * Enumération de l'état de Eceman.
@@ -25,4 +25,4 @@ typedef struct Eceman {
    Position* pos;
 } Eceman;
 
-#endif
+#endif // ECEMAN_ECEMAN_H
