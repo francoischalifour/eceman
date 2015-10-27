@@ -1,10 +1,10 @@
 #include "../lib/setup.h"
-
+#include <ctype.h>
 
 /**
  * Sauvegarde la partie.
- * @param level Numéro du niveau à sauvegarder
- * @param score Score à sauvegarder
+ * @param level Le numéro du niveau à sauvegarder
+ * @param score Le score à sauvegarder
  */
 void save(const int level, const int score) {
     char filepath[23];
@@ -17,7 +17,6 @@ void save(const int level, const int score) {
     fprintf(save, "%d\n%d", level, score);
 
     fclose(save);
-
 }
 
 /**
@@ -54,6 +53,9 @@ int getLevel(FILE* saving) {
 
     fscanf(saving, "%d", &level);
 
+    if (!isdigit(level))
+        level = 1;
+
     return level;
 }
 
@@ -66,6 +68,9 @@ int getScore(FILE* saving) {
     int score;
 
     fscanf(saving, "\n%d", &score);
+
+    if (!isdigit(score))
+        score = 0;
 
     return score;
 }
