@@ -75,7 +75,7 @@ void gameOver();
 
 // functions.c
 void goBack();
-void stopGame();
+void stopGame(GameState* game);
 void goToXY(const unsigned short x, const unsigned short y);
 
 #endif

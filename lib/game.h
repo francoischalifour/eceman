@@ -11,11 +11,13 @@
  *     score : score total du jeu
  *     levelScore : score du niveau courant
  *     level : numéro du niveau courant
+ *     pause : 0 pour non, 1 pour oui
  */
 typedef struct GameState {
     unsigned short score;
     unsigned short levelScore;
     unsigned short level;
+    unsigned short pause;
 } GameState;
 
 #endif

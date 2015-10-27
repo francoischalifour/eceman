@@ -17,6 +17,7 @@ static GameState* newGameState() {
     game->score = 0;
     game->levelScore = 0;
     game->level = 1;
+    game->pause = 1;
 
     return game;
 }
@@ -28,10 +29,11 @@ static GameState* newGameState() {
  * @param level Le niveau actuel
  * @return Le nouvel état du jeu
  */
-void setGameState(GameState* game, const unsigned short score, const unsigned short levelScore, const unsigned short level) {
+void setGameState(GameState* game, const unsigned short score, const unsigned short levelScore, const unsigned short level, const unsigned short pause) {
     game->score = score;
     game->levelScore = levelScore;
     game->level = level;
+    game->pause = pause;
 }
 
 /**
@@ -41,6 +43,22 @@ void setGameState(GameState* game, const unsigned short score, const unsigned sh
  */
 static void destroyGameState(GameState* game) {
     free(game);
+}
+
+/**
+ * Retourne au menu et stop le jeu.
+ * @param game L'état du jeu
+ */
+void backToMenu(GameState* game) {
+    game->pause = 1;
+    displayMenu();
+}
+
+/**
+ * Met fin au jeu.
+ */
+void gameOver() {
+    displayGameOver();
 }
 
 /**
@@ -58,21 +76,14 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
 
     switch (key) {
         case 'p':
-            stopGame();
+            stopGame(game);
             break;
 
         case 'q':
             save(game->level, game->score);
-            displayMenu();
+            backToMenu(game);
             break;
     }
-}
-
-/**
- * Met fin au jeu.
- */
-void gameOver() {
-    displayGameOver();
 }
 
 /**
@@ -89,13 +100,15 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     system("cls");
 
+    game->pause = 0;
+
     drawBoard(map, game, board);
 
     goToSpawn(board, hero);
 
     drawEceman(board, hero);
 
-    while (1) {
+    while (!(game->pause)) {
         key = getch();
 
         launchGameAction(key, game, board, hero);
@@ -133,7 +146,7 @@ void initGame() {
     char board[ROWS][COLS];
 
     if ((saving = loadSaving())) {
-        setGameState(game, getScore(), 0, getLevel(saving));
+        setGameState(game, getScore(), 0, getLevel(saving), 1);
         closeSaving(saving);
     }
 

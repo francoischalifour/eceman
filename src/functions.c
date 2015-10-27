@@ -15,14 +15,18 @@ void goBack() {
 /**
  * Met le jeu en pause.
  * Bloque le timer et toutes les interactions.
+ * @param game L'état du jeu
  */
-void stopGame() {
-    // TODO
-    printf("\n\n\tPause\n");
-
-    printf("\n\n\tAppuyez sur une touche pour reprendre...\n");
+void stopGame(GameState* game) {
+    game->pause = 1;
+    goToXY(22, 0);
+    printf("Pause\n");
 
     getch();
+
+    game->pause = 0;
+    goToXY(22, 0);
+    printf("     \n");
 }
 
 /**
