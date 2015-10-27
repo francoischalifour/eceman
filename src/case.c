@@ -48,8 +48,8 @@ void changeCaseType(char board[ROWS][COLS], Position* pos) {
             break;
     }
 
-    goToXY(pos->x, pos->y);
-    board[pos->x][pos->y] = elem;
+    goToXY(pos->y, pos->x);
+    board[pos->y][pos->x] = elem;
     putchar(convertCase(elem));
 }
 

@@ -118,21 +118,9 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
  * @param hero Le Eceman à ajouter
  */
 void drawEceman(char board[ROWS][COLS], Eceman* hero) {
-    board[hero->pos->x][hero->pos->y] = HERO_CHAR;
-    goToXY(hero->pos->x, hero->pos->y);
+    board[hero->pos->y][hero->pos->x] = HERO_CHAR;
+    goToXY(hero->pos->y, hero->pos->x);
     putchar(HERO_CHAR);
-
-
-    unsigned short x, y;
-
-    system("cls");
-
-    for (x = 0; x < ROWS; x++) {
-        for (y = 0; y < COLS; y++) {
-            putchar(convertCase(board[x][y]));
-        }
-        printf("\n");
-    }
 }
 
 /**
