@@ -41,7 +41,7 @@ int getScore();
 
 // case.c
 char convertCase(char elem);
-void changeCaseType(char board[ROWS][COLS], Position* pos);
+void changeCaseType(char board[ROWS][COLS], Position* pos, GameState* game, Eceman* hero);
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
 
 // eceman.c
@@ -67,5 +67,8 @@ void backToMenu(GameState* game);
 // functions.c
 void goBack();
 void goToXY(const unsigned short x, const unsigned short y);
+
+// tools.c
+void onDrinkPotion(Eceman* hero);
 
 #endif

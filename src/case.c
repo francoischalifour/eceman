@@ -27,6 +27,9 @@ char convertCase(char elem) {
         case DOOR_CHAR:
             elem = 233;
             break;
+        case LIGHT_POTION:
+            elem = 80;
+            break;
     }
 
     return elem;
@@ -37,9 +40,11 @@ char convertCase(char elem) {
  * Cette fonction est appelée avant le déplacement du joueur.
  * @param board Le plateau de jeu
  * @param pos La position actuelle du héro
+ * @param game Etat du jeu pour incrémenter le score
+ * @param hero Héro pour verifier si il est léger
  * @return Le contenu de la case effective avant son déplacement
  */
-void changeCaseType(char board[ROWS][COLS], Position* pos) {
+void changeCaseType(char board[ROWS][COLS], Position* pos, GameState* game, Eceman* hero) {
     unsigned char currentCase = board[pos->x][pos->y];
     unsigned char elem = MELT_CHAR;
     unsigned short int color = MELT_CHAR_COLOR;
@@ -47,13 +52,25 @@ void changeCaseType(char board[ROWS][COLS], Position* pos) {
 
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    switch (currentCase) {
-        case THICK_CHAR:
-            elem = THIN_CHAR;
-            color = THIN_CHAR_COLOR;
-            break;
+    if (hero->state == NORMAL) {
+        switch (currentCase) {
+            case THICK_CHAR:
+                elem = THIN_CHAR;
+                color = THIN_CHAR_COLOR;
+                break;
+        }
+        game->levelScore++;
+    } else {
+        color = THIN_CHAR_COLOR;
+        switch (currentCase) {
+            case LIGHT_POTION:
+                elem = THIN_CHAR;
+                break;
+            default:
+                elem = currentCase;
+        }
     }
-
+    
     goToXY(pos->y, pos->x);
     board[pos->x][pos->y] = elem;
     SetConsoleTextAttribute(hConsole, color);
@@ -75,6 +92,9 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
         case DOOR_CHAR:
             if (game->level < getNbLevels())
                 loadNextLevel(game, board, hero);
+            break;
+        case LIGHT_POTION:
+            onDrinkPotion(hero);
             break;
     }
 }

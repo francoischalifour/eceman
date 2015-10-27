@@ -22,6 +22,8 @@
 #define MELT_CHAR '~'
 #define OUTSIDE_CHAR '#'
 
+#define LIGHT_POTION 'P'
+
 #define HERO_CHAR_COLOR 176
 #define WALL_CHAR_COLOR 63
 #define DOOR_CHAR_COLOR 232
