@@ -13,23 +13,6 @@ void goBack() {
 }
 
 /**
- * Met le jeu en pause.
- * Bloque le timer et toutes les interactions.
- * @param game L'état du jeu
- */
-void stopGame(GameState* game) {
-    game->pause = 1;
-    goToXY(22, 0);
-    printf("Pause\n");
-
-    getch();
-
-    game->pause = 0;
-    goToXY(22, 0);
-    printf("     \n");
-}
-
-/**
  * Place le curseur à l'endroit passé en paramètre.
  * @param x La ligne
  * @param y La colonne

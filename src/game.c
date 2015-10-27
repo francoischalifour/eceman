@@ -55,9 +55,28 @@ void backToMenu(GameState* game) {
 }
 
 /**
- * Met fin au jeu.
+ * Met le jeu en pause.
+ * Bloque le timer et toutes les interactions.
+ * @param game L'état du jeu
  */
-void gameOver() {
+void stopGame(GameState* game) {
+    game->pause = 1;
+    goToXY(22, 0);
+    printf("Pause\n");
+
+    getch();
+
+    game->pause = 0;
+    goToXY(22, 0);
+    printf("     \n");
+}
+
+/**
+ * Met fin au jeu.
+ * @param game L'état du jeu
+ */
+void gameOver(GameState* game) {
+    game->pause = 1;
     displayGameOver();
 }
 

@@ -71,11 +71,11 @@ void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 // game.c
 void initGame();
 void loadNextLevel();
-void gameOver();
+void stopGame(GameState* game);
+void gameOver(GameState* game);
 
 // functions.c
 void goBack();
-void stopGame(GameState* game);
 void goToXY(const unsigned short x, const unsigned short y);
 
 #endif
