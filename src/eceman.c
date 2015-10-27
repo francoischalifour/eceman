@@ -137,12 +137,14 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
  * @return 1 si le Eceman est encerclé, 0 sinon
  */
 int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
+    if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR)
+        return 0;
+
     if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
         && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
         && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
-        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR)) {
+        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR))
         return 1;
-    }
 
     return 0;
 }
