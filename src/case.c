@@ -9,9 +9,6 @@
  */
 char convertCase(char elem) {
     switch (elem) {
-        case WALL_CHAR:
-            elem = 254;
-            break;
         case THIN_CHAR:
             elem = 176;
             break;
@@ -24,11 +21,20 @@ char convertCase(char elem) {
         case OUTSIDE_CHAR:
             elem = 178;
             break;
+        case WALL_CHAR:
+            elem = 254;
+            break;
         case DOOR_CHAR:
             elem = 233;
             break;
-        case LIGHT_POTION:
-            elem = 80;
+        case LIGHTNESS_POTION_CHAR:
+            elem = 236;
+            break;
+        case TUNNEL_CHAR:
+            elem = 220;
+            break;
+        case TUNNEL_EXIT_CHAR:
+            elem = 220;
             break;
     }
 
@@ -50,17 +56,26 @@ int getCaseColor(char elem) {
         case THICK_CHAR:
             color = THICK_CHAR_COLOR;
             break;
-        case DOOR_CHAR:
-            color = DOOR_CHAR_COLOR;
-            break;
-        case WALL_CHAR:
-            color = WALL_CHAR_COLOR;
-            break;
         case MELT_CHAR:
             color = MELT_CHAR_COLOR;
             break;
         case OUTSIDE_CHAR:
             color = OUTSIDE_CHAR_COLOR;
+            break;
+        case WALL_CHAR:
+            color = WALL_CHAR_COLOR;
+            break;
+        case DOOR_CHAR:
+            color = DOOR_CHAR_COLOR;
+            break;
+        case LIGHTNESS_POTION_CHAR:
+            color = LIGHTNESS_POTION_CHAR_COLOR;
+            break;
+        case TUNNEL_CHAR:
+            color = TUNNEL_CHAR_COLOR;
+            break;
+        case TUNNEL_EXIT_CHAR:
+            color = TUNNEL_CHAR_COLOR;
             break;
         default:
             color = 8;
@@ -106,9 +121,14 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
             }
             break;
 
-        case LIGHT_POTION:
+        case LIGHTNESS_POTION_CHAR:
             elem = THIN_CHAR;
             color = THIN_CHAR_COLOR;
+            break;
+
+        case TUNNEL_EXIT_CHAR:
+            elem = TUNNEL_EXIT_CHAR;
+            color = TUNNEL_CHAR_COLOR;
             break;
 
         default:
@@ -145,8 +165,12 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
                 gameOver(game);
             break;
 
-        case LIGHT_POTION:
+        case LIGHTNESS_POTION_CHAR:
             hero->state = LIGHTNESS;
+            break;
+
+        case TUNNEL_CHAR:
+            goToCase(board, hero, TUNNEL_EXIT_CHAR);
             break;
     }
 }

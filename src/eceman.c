@@ -32,17 +32,17 @@ void destroyEceman(Eceman* hero) {
 }
 
 /**
- * Place le héro à l'endroit de spawn de la map.
+ * Place le héro au nom de la case passé en paramètre.
  * @param board Le plateau du niveau
  * @param hero Le Eceman à placer
- * @return 0 si l'endroit du spawn a été trouvé, -1 sinon
+ * @return 0 si la case a été trouvée, -1 sinon
  */
-int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
+int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem) {
     unsigned short x, y;
 
     for (x = 0; x < ROWS; x++) {
         for (y = 0; y < COLS; y++) {
-            if (board[x][y] == SPAWN_CHAR) {
+            if (board[x][y] == elem) {
                 hero->pos->x = x;
                 hero->pos->y = y;
 
@@ -61,7 +61,7 @@ int goToSpawn(char board[ROWS][COLS], Eceman* hero) {
  * @return 1 si le Eceman est encerclé, 0 sinon
  */
 static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
-    if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR)
+    if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR || board[hero->pos->x][hero->pos->y] == TUNNEL_CHAR)
         return 0;
 
     if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)

@@ -33,6 +33,10 @@ static void drawPanel() {
     printf("%c %s\n", convertCase(THICK_CHAR), "Glace epaisse");
     goToXY(26, 9);
     printf("%c %s\n", convertCase(MELT_CHAR), "Eau");
+    goToXY(26, 10);
+    printf("%c %s\n", convertCase(LIGHTNESS_POTION_CHAR), "Potion de legerete");
+    goToXY(26, 11);
+    printf("%c %s\n", convertCase(TUNNEL_CHAR), "Tunnel");
 
     SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
 }

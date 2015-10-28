@@ -49,7 +49,7 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
 // eceman.c
 Eceman* newEceman();
 void destroyEceman(Eceman* hero);
-int goToSpawn(char board[ROWS][COLS], Eceman* hero);
+int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem);
 void drawEceman(char board[ROWS][COLS], Eceman* hero);
 Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
 

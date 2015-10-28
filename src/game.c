@@ -122,7 +122,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     drawBoard(map, game, board);
 
-    goToSpawn(board, hero);
+    goToCase(board, hero, SPAWN_CHAR);
 
     drawEceman(board, hero);
 
