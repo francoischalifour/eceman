@@ -13,13 +13,6 @@ char getChoice() {
 }
 
 /**
- * Affiche un message d'erreur suite à un mauvais choix.
- */
-static void wrongChoice() {
-    printf("\aVous avez saisi un mauvais choix.\n\n");
-}
-
-/**
  * Quitte le programme.
  */
 static void exitGame() {
@@ -33,18 +26,17 @@ static void exitGame() {
 void launchAction(const char choice) {
     switch (choice) {
         case '1':
-            initGame();
-            break;
+            initGame(1);
         case '2':
+            initGame(0);
+        case 'o':
             displaySettings();
             break;
-        case '3':
+        case 'r':
             displayRules();
             break;
-        case QUIT_CHOICE:
+        case 'q':
             exitGame();
             break;
-        default:
-            wrongChoice();
     }
 }

@@ -169,13 +169,14 @@ void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 /**
  * Initialise une partie de jeu.
  */
-void initGame() {
+void initGame(const int isNew) {
     GameState* game = newGameState();
     Eceman* hero = newEceman();
     FILE* saving = NULL;
     char board[ROWS][COLS];
 
-    if ((saving = loadSaving())) {
+    if (!isNew) {
+        saving = loadSaving();
         setGameState(game, getScore(saving), 0, getLevel(saving), 1);
         closeSaving(saving);
     }

@@ -9,8 +9,6 @@
 #include "tool.h"
 #include "game.h"
 
-#define QUIT_CHOICE '4'
-
 /*
  * Prototypes
  */
@@ -58,7 +56,7 @@ void drawToolbar(GameState* game);
 void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 
 // game.c
-void initGame();
+void initGame(const int isNew);
 void loadNextLevel();
 void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void stopGame(GameState* game);

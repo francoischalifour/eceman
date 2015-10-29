@@ -1,7 +1,7 @@
 #include "../lib/setup.h"
 #include "../lib/eceman.h"
-#include <assert.h>
 #include <windows.h>
+#include <conio.h>
 
 /**
  * Créé un nouveau Eceman.
@@ -145,8 +145,17 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
         drawToolbar(game);
     }
 
-    if (isSurrounded(board, hero))
+    if (isSurrounded(board, hero)) {
+        goToXY(1, 17);
+        printf("Vous etes encercle\n");
+
+        getch();
+
+        goToXY(1, 17);
+        printf("                    \n");
+
         reloadLevel(game, board, hero);
+    }
 
     return hero;
 }
