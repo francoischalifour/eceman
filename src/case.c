@@ -93,7 +93,7 @@ int getCaseColor(char elem) {
  * @return Le contenu de la case effective avant son déplacement
  */
 void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
-    const unsigned char currentCase = board[hero->pos->x][hero->pos->y];
+    const unsigned char currentCase = hero->caseBelow;
     unsigned char elem;
     unsigned short int color;
     HANDLE  hConsole;

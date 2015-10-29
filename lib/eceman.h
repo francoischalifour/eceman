@@ -23,6 +23,7 @@ typedef struct Position {
 typedef struct Eceman {
    enum EcemanState state;
    Position* pos;
+   unsigned char caseBelow;
 } Eceman;
 
 #endif // ECEMAN_ECEMAN_H

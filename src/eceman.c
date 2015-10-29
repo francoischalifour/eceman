@@ -82,7 +82,8 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
     HANDLE  hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    board[hero->pos->y][hero->pos->x] = HERO_CHAR;
+    hero->caseBelow = board[hero->pos->x][hero->pos->y];
+    board[hero->pos->x][hero->pos->y] = HERO_CHAR;
     goToXY(hero->pos->y, hero->pos->x);
 
     SetConsoleTextAttribute(hConsole, HERO_CHAR_COLOR);
