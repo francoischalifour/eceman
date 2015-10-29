@@ -61,13 +61,13 @@ void backToMenu(GameState* game) {
  */
 void stopGame(GameState* game) {
     game->pause = 1;
-    goToXY(22, 0);
+    goToXY(7, 17);
     printf("Pause\n");
 
     getch();
 
     game->pause = 0;
-    goToXY(22, 0);
+    goToXY(7, 17);
     printf("     \n");
 }
 
