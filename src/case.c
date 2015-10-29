@@ -155,9 +155,9 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  * @param hero Le Eceman
  */
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
-    const unsigned char actualCase = board[hero->pos->x][hero->pos->y];
+    const unsigned char currentCase = board[hero->pos->x][hero->pos->y];
 
-    switch (actualCase) {
+    switch (currentCase) {
         case DOOR_CHAR:
             if (game->level < getNbLevels())
                 loadNextLevel(game, board, hero);

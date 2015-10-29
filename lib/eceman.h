@@ -21,8 +21,8 @@ typedef struct Position {
  * Structure du personnage principal Eceman.
  */
 typedef struct Eceman {
-   enum EcemanState state;
    Position* pos;
+   enum EcemanState state;
    unsigned char caseBelow;
 } Eceman;
 

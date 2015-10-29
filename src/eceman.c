@@ -15,8 +15,9 @@ Eceman* newEceman() {
     pos->x = 0;
     pos->y = 0;
 
-    hero->state = NORMAL;
     hero->pos = pos;
+    hero->state = NORMAL;
+    hero->caseBelow = SPAWN_CHAR;
 
     return hero;
 }
@@ -45,6 +46,7 @@ int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem) {
             if (board[x][y] == elem) {
                 hero->pos->x = x;
                 hero->pos->y = y;
+                hero->caseBelow = board[x][y];
 
                 return 0;
             }
@@ -82,7 +84,6 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
     HANDLE  hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    hero->caseBelow = board[hero->pos->x][hero->pos->y];
     board[hero->pos->x][hero->pos->y] = HERO_CHAR;
     goToXY(hero->pos->y, hero->pos->x);
 
@@ -136,6 +137,8 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
             hero->pos->y += 1;
             break;
     }
+
+    hero->caseBelow = board[hero->pos->x][hero->pos->y];
 
     if (prevPosX != hero->pos->x || prevPosY != hero->pos->y) {
         runCaseAction(game, board, hero);
