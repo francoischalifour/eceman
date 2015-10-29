@@ -37,6 +37,12 @@ void launchAction(const char choice) {
         case 'r':
             displayRules();
             break;
+        case 'c':
+            displayRanking();
+            break;
+        case 'a':
+            displayAbout();
+            break;
         case 'q':
             exitGame();
             break;

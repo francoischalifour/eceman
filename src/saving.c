@@ -22,9 +22,13 @@ void save(const int level, const int score) {
  */
 void saveRanking(const int score) {
     FILE* scoreFile = NULL;
+    char name[15];
+
+    printf("Entrez votre prenom, puis validez avec ENTRER :\n");
+    gets(name);
 
     scoreFile = fopen("../data/saving/scores.sav", "a");
-    fprintf(scoreFile, "%d\n", score);
+    fprintf(scoreFile, "%d    %s\n", score, name);
 
     fclose(scoreFile);
 

@@ -19,6 +19,8 @@ void displayMenu();
 void displaySettings();
 void displayRules();
 void displayGameOver();
+void displayRanking();
+void displayAbout();
 
 // menu.c
 void displayMenu();
@@ -31,6 +33,7 @@ void closeMap(FILE* map);
 
 // saving.c
 void save(int level, int score);
+void saveRanking(int score);
 void clearSaving();
 FILE* loadSaving();
 void closeSaving(FILE* saving);

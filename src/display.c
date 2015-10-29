@@ -44,6 +44,11 @@ void displayMenu() {
     goToXY(2, 21);
     printf("(r) Regles");
 
+    goToXY(20, 20);
+    printf("(c) Classement");
+    goToXY(20, 21);
+    printf("(a) A propos");
+
     goToXY(50, 21);
     printf("(q) Quitter");
 
@@ -78,6 +83,7 @@ void displayRules() {
         putchar(c);
     }
 
+    fclose(rules);
     printf("\n");
 
     goBack();
@@ -91,4 +97,49 @@ void displayGameOver() {
                        |     __|.---.-.--------.-----.    |       |.--.--.-----.----. \n\
                        |    |  ||  _  |        |  -__|    |   -   ||  |  |  -__|   _| \n\
                        |_______||___._|__|__|__|_____|    |_______| \\___/|_____|__|\n\n");
+}
+
+/**
+ * Affiche le classement des scores de scores.sav
+ */
+void displayRanking(){
+    FILE* scores = NULL;
+
+    scores = fopen("../data/scores.sav", "r");
+
+    displayTitle();
+
+    printf("\tClassement\n\n");
+
+    /* TODO AFFICHER CLASSEMENT DANS LORDRE */
+
+    fclose(scores);
+    printf("\n");
+
+    goBack();
+
+
+}
+
+/**
+ * Affiche les crédits du jeu
+ */
+void displayAbout() {
+    FILE* about = NULL;
+    char c;
+
+    about = fopen("../data/about.txt", "r");
+
+    displayTitle();
+
+    printf("\tA propos\n\n");
+
+    while ((c = fgetc(about)) != EOF) {
+        putchar(c);
+    }
+
+    fclose(about);
+    printf("\n");
+
+    goBack();
 }
