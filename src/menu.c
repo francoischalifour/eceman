@@ -27,8 +27,10 @@ void launchAction(const char choice) {
     switch (choice) {
         case '1':
             initGame(1);
+            break;
         case '2':
             initGame(0);
+            break;
         case 'o':
             displaySettings();
             break;

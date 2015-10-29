@@ -55,6 +55,15 @@ void backToMenu(GameState* game) {
 }
 
 /**
+ * Ferme complètement la partie en cours
+ * @param game Partie en cours
+ */
+void closeGame(GameState* game, Eceman* hero){
+    hero->state = END;
+    displayMenu();
+}
+
+/**
  * Met le jeu en pause.
  * Bloque le timer et toutes les interactions.
  * @param game L'état du jeu
@@ -101,7 +110,8 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
 
         case 'q':
             save(game->level, game->score);
-            backToMenu(game);
+            closeGame(game, hero);
+            // backToMenu(game);
             break;
     }
 }
@@ -126,7 +136,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     drawEceman(board, hero);
 
-    while (!(game->pause)) {
+    while (hero->state != END) {
         launchGameAction(getch(), game, board, hero);
 
         #ifdef _WIN32
@@ -135,7 +145,6 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
         usleep(DELAY * 1000);
         #endif
     }
-
     destroyEceman(hero);
 }
 
@@ -151,6 +160,7 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     hero->state = NORMAL;
 
     playGame(game, board, hero);
+
 }
 
 /**
@@ -180,8 +190,6 @@ void initGame(const int isNew) {
         setGameState(game, getScore(saving), 0, getLevel(saving), 1);
         closeSaving(saving);
     }
-
     playGame(game, board, hero);
-
     destroyGameState(game);
 }

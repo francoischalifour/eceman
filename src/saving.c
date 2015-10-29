@@ -9,16 +9,25 @@
  */
 void save(const int level, const int score) {
     FILE* saveFile = NULL;
-    FILE* scoreFile = NULL;
 
-    saveFile = fopen("../data/saving/game.sav", "w");
+    saveFile = fopen("../data/saving/game.sav", "w+");
     fprintf(saveFile, "%d\n%d", level, score);
 
-    saveFile = fopen("../data/saving/scores.sav", "a");
+    fclose(saveFile);
+}
+
+/**
+ * Sauvegarde du score pour le fichier classement
+ * @param score score final du joueur
+ */
+void saveRanking(const int score) {
+    FILE* scoreFile = NULL;
+
+    scoreFile = fopen("../data/saving/scores.sav", "a");
     fprintf(scoreFile, "%d\n", score);
 
-    fclose(saveFile);
     fclose(scoreFile);
+
 }
 
 /**
