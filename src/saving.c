@@ -1,6 +1,5 @@
 #include "../lib/setup.h"
 #include <string.h>
-#include <dirent.h>
 
 /**
  * Sauvegarde la partie.
@@ -22,14 +21,30 @@ void save(const int level, const int score) {
  */
 void saveRanking(const int score) {
     FILE* scoreFile = NULL;
-    char name[35];
+    char name[NAME_LENGTH];
+    //unsigned int minHighScore;
 
-    scoreFile = fopen("../data/saving/scores.sav", "a");
 
     printf("\tEntrez votre nom : ");
     gets(name);
 
-    // TODO : enregistrer seulement s'il fait partie des 10 premiers
+    // TODO : enregistrer le nom seulement si mérité.
+/*    // Si le joueur a battu un meilleur score, et qu'il y en a moins de 10
+    if (getNbScores(scoreFile) < RANKING_MAX) {
+        printf("\tEntrez votre nom : ");
+        gets(name);
+    } else {
+        minHighScore = getMinHighScore(scoreFile);
+
+        // Si le joueur a battu le moins bon des meilleurs scores.
+        if (score > minHighScore) {
+            printf("\tEntrez votre nom : ");
+            gets(name);
+            //deleteScore(scoreFile, minHighScore);
+        }
+    }*/
+
+    scoreFile = fopen("../data/saving/scores.sav", "a");
 
     fprintf(scoreFile, "%d %s\n", score, name);
 
@@ -66,61 +81,4 @@ FILE* loadSaving() {
  */
 void closeSaving(FILE* saving) {
     fclose(saving);
-}
-
-/**
- * Récupère le nombre de niveaux.
- * Compte le nombre de fichiers
- * dans le répertoire des maps.
- * @return Le nombre de niveaux
- */
-int getNbLevels() {
-    unsigned int count = 0;
-    DIR *dir;
-    struct dirent *file;
-
-    if ((dir = opendir("../data/map/")) != NULL) {
-        while ((file = readdir(dir)) != NULL) {
-            if (!strcmp(file->d_name, ".") || !strcmp(file->d_name, ".."))
-                continue;
-
-            count++;
-        }
-
-        closedir(dir);
-    }
-
-    return count;
-}
-
-/**
- * Récupère le niveau de la dernière partie.
- * @param saving La dernière sauvegarde
- * @return Le niveau de la dernière sauvegarde
- */
-int getLevel(FILE* saving) {
-    unsigned int level;
-
-    fscanf(saving, "%d", &level);
-
-    if (level < 0 || level > getNbLevels())
-        level = 1;
-
-    return level;
-}
-
-/**
- * Récupère le score de la dernière partie.
- * @param saving La dernière sauvegarde
- * @return Le score de la dernière sauvegarde
- */
-int getScore(FILE* saving) {
-    unsigned int score;
-
-    fscanf(saving, "\n%d", &score);
-
-    if (score < 0 || score > SCORE_MAX)
-        score = 0;
-
-    return score;
 }

@@ -18,7 +18,7 @@ void displayTitle();
 void displayMenu();
 void displaySettings();
 void displayRules();
-void displayGameOver();
+void displayGameOver(const int score);
 void displayRanking();
 void displayAbout();
 
@@ -31,6 +31,16 @@ void launchAction(const char choice);
 FILE* loadMap(const short level);
 void closeMap(FILE* map);
 
+// score.c
+int getLastScore(FILE* scoreFile);
+int getMinHighScore(FILE* scoreFile);
+int getNbScores(FILE* scoreFile);
+int deleteScore(FILE* scoreFile, const int score);
+
+// leve.c
+int getLastLevel();
+void getRanking();
+
 // saving.c
 void save(int level, int score);
 void saveRanking(const int score);
@@ -38,8 +48,6 @@ void clearSaving();
 FILE* loadSaving();
 void closeSaving(FILE* saving);
 int getNbLevels();
-int getLevel();
-int getScore();
 
 // case.c
 char convertCase(char elem);

@@ -1,6 +1,7 @@
+#include "../lib/setup.h"
 #include <conio.h>
 #include <windows.h>
-#include "../lib/setup.h"
+#include <string.h>
 
 /**
  * Attend l'appui d'une touche pour revenir au menu.

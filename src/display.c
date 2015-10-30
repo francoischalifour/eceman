@@ -1,5 +1,6 @@
 #include "../lib/setup.h"
 #include <windows.h>
+#include <string.h>
 
 /**
  * Affiche le titre du jeu.
@@ -33,9 +34,9 @@ void displayMenu() {
 
         SetConsoleTextAttribute(hConsole, 8);
         goToXY(20, 14);
-        printf("Niveau %2d", getLevel(saving));
+        printf("Niveau %2d", getLastLevel(saving));
         goToXY(20, 15);
-        printf("Score %3d\n\n", getScore(saving));
+        printf("Score %3d\n\n", getLastScore(saving));
         SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
     }
 
@@ -91,20 +92,33 @@ void displayRules() {
 
 /**
  * Affiche le message de fin de jeu.
+ * @param score Le score final
  */
-void displayGameOver() {
+void displayGameOver(const int score) {
+    FILE* scoreFile = NULL;
+
+    scoreFile = fopen("../data/saving/scores.sav", "r");
+
     displayTitle();
 
     printf("\tGame Over\n\n");
+    printf("\tScore %4d\n", score);
+
+    // Si le joueur n'a battu aucun des meilleurs scores.
+    if (score < getMinHighScore(scoreFile)) {
+        printf("\tVous n'avez pas battu les meilleurs scores.\n");
+    }  else {
+        printf("\tFelicitations ! Vous avez fait un nouveau meilleur score.\n");
+    }
+
+    printf("\n");
 }
 
 /**
  * Affiche le classement des scores du fichier scores.sav.
  */
-void displayRanking(){
+void displayRanking() {
     FILE* scoreFile = NULL;
-    unsigned int score;
-    char name[35];
 
     scoreFile = fopen("../data/saving/scores.sav", "r");
 
@@ -112,22 +126,7 @@ void displayRanking(){
 
     printf("\tClassement des meilleurs scores\n\n");
 
-    // TODO : afficher le classement dans l'ordre
-
-    if (scoreFile == NULL) {
-        printf("\tAucun score n'a ete enregistre jusqu'a present.\n");
-    } else {
-        fscanf(scoreFile, "%d %s\n", &score, name);
-
-        while (!feof(scoreFile)) {
-            printf("\t%d\t%s\n", score, name);
-            fscanf(scoreFile, "%d %s\n", &score, name);
-        }
-
-        fclose(scoreFile);
-    }
-
-    printf("\n");
+    getRanking(scoreFile);
 
     goBack();
 }

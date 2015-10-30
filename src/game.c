@@ -91,7 +91,7 @@ void gameOver(GameState* game) {
     game->score += game->levelScore;
 
     clearSaving();
-    displayGameOver();
+    displayGameOver(game->score);
     saveRanking(game->score);
 }
 
@@ -193,7 +193,7 @@ void initGame(const int isNew) {
 
     if (!isNew) {
         saving = loadSaving();
-        setGameState(game, getScore(saving), 0, getLevel(saving), 1);
+        setGameState(game, getLastScore(saving), 0, getLastLevel(saving), 1);
         closeSaving(saving);
     }
 
