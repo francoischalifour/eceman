@@ -25,6 +25,7 @@ typedef struct GameState {
     unsigned short levelScore;
     unsigned short level;
     unsigned short pause;
+    unsigned short playing;
 } GameState;
 
 #endif // ECEMAN_GAME_H

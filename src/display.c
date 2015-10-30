@@ -73,7 +73,7 @@ void displayRules() {
     FILE* rules = NULL;
     char c;
 
-    rules = fopen("../data/rules.txt", "r");
+    rules = fopen("../data/info/rules.txt", "r");
 
     displayTitle();
 
@@ -93,42 +93,52 @@ void displayRules() {
  * Affiche le message de fin de jeu.
  */
 void displayGameOver() {
-    printf("                        _______                            _______                    \n\
-                       |     __|.---.-.--------.-----.    |       |.--.--.-----.----. \n\
-                       |    |  ||  _  |        |  -__|    |   -   ||  |  |  -__|   _| \n\
-                       |_______||___._|__|__|__|_____|    |_______| \\___/|_____|__|\n\n");
+    system("cls");
+    printf("\tGame Over");
 }
 
 /**
- * Affiche le classement des scores de scores.sav
+ * Affiche le classement des scores du fichier scores.sav.
  */
 void displayRanking(){
-    FILE* scores = NULL;
+    FILE* scoreFile = NULL;
+    unsigned int score;
+    char name[35];
 
-    scores = fopen("../data/scores.sav", "r");
+    scoreFile = fopen("../data/saving/scores.sav", "r");
 
     displayTitle();
 
-    printf("\tClassement\n\n");
+    printf("\tClassement des meilleurs scores\n\n");
 
-    /* TODO AFFICHER CLASSEMENT DANS LORDRE */
+    // TODO : afficher le classement dans l'ordre
 
-    fclose(scores);
+    if (scoreFile == NULL) {
+        printf("\tAucun score n'a ete enregistre jusqu'a present.\n");
+    } else {
+        fscanf(scoreFile, "%d %s\n", &score, name);
+
+        while (!feof(scoreFile)) {
+            printf("\t%d\t%s\n", score, name);
+            fscanf(scoreFile, "%d %s\n", &score, name);
+        }
+
+        fclose(scoreFile);
+    }
+
     printf("\n");
 
     goBack();
-
-
 }
 
 /**
- * Affiche les crédits du jeu
+ * Affiche les crédits du jeu.
  */
 void displayAbout() {
     FILE* about = NULL;
     char c;
 
-    about = fopen("../data/about.txt", "r");
+    about = fopen("../data/info/about.txt", "r");
 
     displayTitle();
 
@@ -139,6 +149,7 @@ void displayAbout() {
     }
 
     fclose(about);
+
     printf("\n");
 
     goBack();

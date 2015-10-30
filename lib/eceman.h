@@ -6,8 +6,7 @@
  */
 enum EcemanState {
     NORMAL,
-    LIGHTNESS,
-    END
+    LIGHTNESS
 };
 
 /**

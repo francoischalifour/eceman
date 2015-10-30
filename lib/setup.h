@@ -33,7 +33,7 @@ void closeMap(FILE* map);
 
 // saving.c
 void save(int level, int score);
-void saveRanking(int score);
+void saveRanking(const int score);
 void clearSaving();
 FILE* loadSaving();
 void closeSaving(FILE* saving);
@@ -62,7 +62,7 @@ void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 void initGame(const int isNew);
 void loadNextLevel();
 void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
-void stopGame(GameState* game);
+void pauseGame(GameState* game);
 void gameOver(GameState* game);
 void backToMenu(GameState* game);
 

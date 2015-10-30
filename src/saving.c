@@ -17,21 +17,21 @@ void save(const int level, const int score) {
 }
 
 /**
- * Sauvegarde du score pour le fichier classement
- * @param score score final du joueur
+ * Sauvegarde le score dans le fichier classement.
+ * @param score Le score final du joueur
  */
 void saveRanking(const int score) {
     FILE* scoreFile = NULL;
-    char name[15];
-
-    printf("Entrez votre prenom, puis validez avec ENTRER :\n");
-    gets(name);
+    char name[35];
 
     scoreFile = fopen("../data/saving/scores.sav", "a");
-    fprintf(scoreFile, "%d    %s\n", score, name);
+
+    printf("Entrez votre nom : ");
+    gets(name);
+
+    fprintf(scoreFile, "%d %s\n", score, name);
 
     fclose(scoreFile);
-
 }
 
 /**

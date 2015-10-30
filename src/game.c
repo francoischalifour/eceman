@@ -18,6 +18,7 @@ static GameState* newGameState() {
     game->levelScore = 0;
     game->level = 1;
     game->pause = 1;
+    game->playing = 0;
 
     return game;
 }
@@ -34,6 +35,7 @@ void setGameState(GameState* game, const unsigned short score, const unsigned sh
     game->levelScore = levelScore;
     game->level = level;
     game->pause = pause;
+    game->playing = 0;
 }
 
 /**
@@ -55,11 +57,11 @@ void backToMenu(GameState* game) {
 }
 
 /**
- * Ferme complètement la partie en cours
- * @param game Partie en cours
+ * Ferme la partie en cours.
+ * @param game L'état du jeu à stopper
  */
-void closeGame(GameState* game, Eceman* hero){
-    hero->state = END;
+static void closeGame(GameState* game) {
+    game->playing = 0;
     displayMenu();
 }
 
@@ -68,7 +70,7 @@ void closeGame(GameState* game, Eceman* hero){
  * Bloque le timer et toutes les interactions.
  * @param game L'état du jeu
  */
-void stopGame(GameState* game) {
+void pauseGame(GameState* game) {
     game->pause = 1;
     goToXY(7, 17);
     printf("Pause\n");
@@ -105,13 +107,12 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
 
     switch (key) {
         case 'p':
-            stopGame(game);
+            pauseGame(game);
             break;
 
         case 'q':
             save(game->level, game->score);
-            closeGame(game, hero);
-            // backToMenu(game);
+            closeGame(game);
             break;
     }
 }
@@ -128,6 +129,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     system("cls");
 
+    game->playing = 1;
     game->pause = 0;
 
     drawBoard(map, game, board);
@@ -136,7 +138,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     drawEceman(board, hero);
 
-    while (hero->state != END) {
+    while (game->playing != 0) {
         launchGameAction(getch(), game, board, hero);
 
         #ifdef _WIN32
@@ -145,6 +147,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
         usleep(DELAY * 1000);
         #endif
     }
+
     destroyEceman(hero);
 }
 
@@ -190,6 +193,7 @@ void initGame(const int isNew) {
         setGameState(game, getScore(saving), 0, getLevel(saving), 1);
         closeSaving(saving);
     }
+
     playGame(game, board, hero);
     destroyGameState(game);
 }
