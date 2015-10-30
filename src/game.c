@@ -87,9 +87,12 @@ void pauseGame(GameState* game) {
  * @param game L'état du jeu
  */
 void gameOver(GameState* game) {
-    game->pause = 1;
+    game->playing = 0;
+    game->score += game->levelScore;
+
     clearSaving();
     displayGameOver();
+    saveRanking(game->score);
 }
 
 /**

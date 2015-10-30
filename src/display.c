@@ -93,8 +93,9 @@ void displayRules() {
  * Affiche le message de fin de jeu.
  */
 void displayGameOver() {
-    system("cls");
-    printf("\tGame Over");
+    displayTitle();
+
+    printf("\tGame Over\n\n");
 }
 
 /**

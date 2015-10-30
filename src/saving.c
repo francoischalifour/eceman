@@ -26,8 +26,10 @@ void saveRanking(const int score) {
 
     scoreFile = fopen("../data/saving/scores.sav", "a");
 
-    printf("Entrez votre nom : ");
+    printf("\tEntrez votre nom : ");
     gets(name);
+
+    // TODO : enregistrer seulement s'il fait partie des 10 premiers
 
     fprintf(scoreFile, "%d %s\n", score, name);
 
