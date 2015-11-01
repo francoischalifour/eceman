@@ -96,12 +96,14 @@ void gameOver(GameState* game) {
 }
 
 /**
- * Lance une action liée à l'appui d'une touche.
+ * Lance une action liée à l'appui d'une touche
+ * de la par de l'utilisateur.
  * @param key La touche
+ * @param game L'état du jeu
  * @param board Le plateau de jeu
  * @param hero Le Eceman
  */
-static void launchGameAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
+static void launchUserAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
     if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
         changeCaseType(game, board, hero);
         moveEceman(key, game, board, hero);
@@ -121,6 +123,23 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
 }
 
 /**
+ * Lance une action externe à l'utilisateur.
+ * @param game L'état du jeu
+ * @param board Le plateau de jeu
+ * @param hero Le Eceman
+ * @param enemyList La liste des ennemis
+ */
+static void launchGameAction(GameState* game, char board[ROWS][COLS], Eceman* hero, EnemyList* enemyList) {
+    if (enemyList) {
+        ENEMY_FOREACH(enemyList, first, next, curr) {
+            clearEnemy(board, curr);
+            moveEnemy(game, board, curr, hero);
+            drawEnemy(board, curr);
+        }
+    }
+}
+
+/**
  * Commence une partie.
  *
  * @param game L'état du jeu
@@ -128,21 +147,37 @@ static void launchGameAction(const char key, GameState* game, char board[ROWS][C
  * @param board Le plateau de jeu
  */
 static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    unsigned short i, nbEnemies;
     FILE* map = loadMap(game->level);
-
-    system("cls");
+    EnemyList* enemyList = NULL;
 
     game->playing = 1;
     game->pause = 0;
+
+    system("cls");
 
     drawBoard(map, game, board);
 
     goToCase(board, hero, SPAWN_CHAR);
 
+    nbEnemies = hasEnnemies(board);
+
+    if (nbEnemies > 0) {
+        enemyList = newEnemyList();
+
+        for (i = 0; i < nbEnemies; i++) {
+            // TODO : prendre en compte la position de plusieurs ennemis.
+            addEnemy(enemyList, newEnemy(getEnemyCase(board), UP));
+        }
+    }
+
     drawEceman(board, hero);
 
     while (game->playing != 0) {
-        launchGameAction(getch(), game, board, hero);
+        if (kbhit())
+            launchUserAction(getch(), game, board, hero);
+
+        launchGameAction(game, board, hero, enemyList);
 
         #ifdef _WIN32
         Sleep(DELAY);
@@ -150,6 +185,9 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
         usleep(DELAY * 1000);
         #endif
     }
+
+    if (nbEnemies > 0)
+        destroyEnemyList(enemyList);
 
     destroyEceman(hero);
 }
@@ -166,7 +204,6 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     hero->state = NORMAL;
 
     playGame(game, board, hero);
-
 }
 
 /**

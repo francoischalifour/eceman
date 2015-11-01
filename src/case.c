@@ -36,6 +36,9 @@ char convertCase(char elem) {
         case TUNNEL_EXIT_CHAR:
             elem = 220;
             break;
+        case ENEMY_CHAR:
+            elem = '&';
+            break;
     }
 
     return elem;
@@ -82,6 +85,29 @@ int getCaseColor(char elem) {
     }
 
     return color;
+}
+
+/**
+ * Récupère la position de l'ennemi sur la map.
+ * @param board Le plateau de jeu
+ * @return La position de l'ennemi
+ */
+Position* getEnemyCase(char board[ROWS][COLS]) {
+    Position* pos = malloc(sizeof(Position));
+    unsigned short x, y;
+
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            if (board[x][y] == ENEMY_CHAR) {
+                pos->x = x;
+                pos->y = y;
+
+                return pos;
+            }
+        }
+    }
+
+    return NULL;
 }
 
 /**

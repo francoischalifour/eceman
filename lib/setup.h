@@ -6,7 +6,7 @@
 #include "setup.h"
 #include "case.h"
 #include "eceman.h"
-#include "tool.h"
+#include "enemy.h"
 #include "game.h"
 
 /*
@@ -37,8 +37,9 @@ int getMinHighScore(FILE* scoreFile);
 int getNbScores(FILE* scoreFile);
 int deleteScore(FILE* scoreFile, const int score);
 
-// leve.c
+// level.c
 int getLastLevel();
+int getNbLevels();
 void getRanking();
 
 // saving.c
@@ -47,22 +48,33 @@ void saveRanking(const int score);
 void clearSaving();
 FILE* loadSaving();
 void closeSaving(FILE* saving);
-int getNbLevels();
 
 // case.c
 char convertCase(char elem);
 int getCaseColor(char elem);
 void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
+Position* getEnemyCase(char board[ROWS][COLS]);
 
 // eceman.c
 Eceman* newEceman();
 void destroyEceman(Eceman* hero);
 int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem);
-void drawEceman(char board[ROWS][COLS], Eceman* hero);
 Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
+void drawEceman(char board[ROWS][COLS], Eceman* hero);
+
+// enemy.c
+EnemyList* newEnemyList();
+void destroyEnemyList(EnemyList* enemyList);
+Enemy* newEnemy(Position* caseEnemy, enum Direction direction);
+void destroyEnemy(Enemy* enemy);
+Enemy* addEnemy(EnemyList* enemyList, Enemy* enemy);
+Enemy* moveEnemy(GameState* game, char board[ROWS][COLS], Enemy* enemy, Eceman* hero);
+void clearEnemy(char board[ROWS][COLS], Enemy* enemy);
+void drawEnemy(char board[ROWS][COLS], Enemy* enemy);
 
 // board.c
+int hasEnnemies(char board[ROWS][COLS]);
 void drawToolbar(GameState* game);
 void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 

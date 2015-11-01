@@ -24,7 +24,6 @@ void saveRanking(const int score) {
     char name[NAME_LENGTH];
     //unsigned int minHighScore;
 
-
     printf("\tEntrez votre nom : ");
     gets(name);
 

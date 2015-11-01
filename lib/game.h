@@ -9,7 +9,7 @@
 #define ROWS 15
 #define COLS 19
 
-#define DELAY 50
+#define DELAY 200
 
 #define SCORE_MAX 9999
 #define RANKING_MAX 10

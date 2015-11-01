@@ -76,23 +76,6 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
 }
 
 /**
- * Dessine le Eceman sur le plateau de jeu.
- * @param board Le plateau sur lequel le Eceman est ajouté
- * @param hero Le Eceman à ajouter
- */
-void drawEceman(char board[ROWS][COLS], Eceman* hero) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    board[hero->pos->x][hero->pos->y] = HERO_CHAR;
-    goToXY(hero->pos->y, hero->pos->x);
-
-    SetConsoleTextAttribute(hConsole, HERO_CHAR_COLOR);
-    putchar(HERO_CHAR);
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
-}
-
-/**
  * Déplace le Eceman sur le plateau de jeu.
  * Cette fonction augmente le score si le héro a avancé,
  * lance l'action de la case actuelle,
@@ -158,4 +141,21 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
     }
 
     return hero;
+}
+
+/**
+ * Dessine le Eceman sur le plateau de jeu.
+ * @param board Le plateau sur lequel le Eceman est ajouté
+ * @param hero Le Eceman à ajouter
+ */
+void drawEceman(char board[ROWS][COLS], Eceman* hero) {
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    board[hero->pos->x][hero->pos->y] = HERO_CHAR;
+    goToXY(hero->pos->y, hero->pos->x);
+
+    SetConsoleTextAttribute(hConsole, HERO_CHAR_COLOR);
+    putchar(HERO_CHAR);
+    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
 }

@@ -3,6 +3,28 @@
 #include <windows.h>
 
 /**
+ * Compte le nombre d'ennemis sur le plateau
+ * passé en paramètre.
+ * @param board Le plateau de jeu
+ * @return Le nombre d'ennmis sur le plateau
+ */
+int hasEnnemies(char board[ROWS][COLS]) {
+    unsigned short x, y;
+    unsigned short nbEnemies;
+
+    nbEnemies = 0;
+
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            if (board[x][y] == ENEMY_CHAR)
+                nbEnemies++;
+        }
+    }
+
+    return nbEnemies;
+}
+
+/**
  * Affiche les informations du jeu.
  * @param game L'état actuel du jeu
  */
