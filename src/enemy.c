@@ -171,7 +171,7 @@ void drawEnemy(char board[ROWS][COLS], Enemy* enemy) {
 
 /**
  * Nettoie la case de l'ancienne position de l'ennemi.
- * @param board Le plteau de jeu
+ * @param board Le plateau de jeu
  * @param enemy L'ennemi à nettoyer
  */
 void clearEnemy(char board[ROWS][COLS], Enemy* enemy) {

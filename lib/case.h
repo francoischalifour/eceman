@@ -13,6 +13,7 @@
 #define TUNNEL_CHAR 'T'
 #define TUNNEL_EXIT_CHAR 'E'
 #define ENEMY_CHAR 'Y'
+#define MOWER_CHAR 'M'
 
 #define HERO_CHAR_COLOR 176
 #define THIN_CHAR_COLOR 191
@@ -24,6 +25,7 @@
 #define LIGHTNESS_POTION_CHAR_COLOR 191
 #define TUNNEL_CHAR_COLOR 8
 #define ENEMY_CHAR_COLOR 191
+#define MOWER_CHAR_COLOR 232
 #define DEFAULT_COLOR 15
 
 /**

@@ -7,6 +7,7 @@
 #include "case.h"
 #include "eceman.h"
 #include "enemy.h"
+#include "tool.h"
 #include "game.h"
 
 /*
@@ -54,7 +55,8 @@ char convertCase(char elem);
 int getCaseColor(char elem);
 void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
-Position* getEnemyCase(char board[ROWS][COLS]);
+Position* getEnemyPosition(char board[ROWS][COLS]);
+Position* getToolPosition(char board[ROWS][COLS], const char elem);
 
 // eceman.c
 Eceman* newEceman();
@@ -74,8 +76,14 @@ Enemy* moveEnemy(GameState* game, char board[ROWS][COLS], Enemy* enemy, Eceman* 
 void clearEnemy(char board[ROWS][COLS], Enemy* enemy);
 void drawEnemy(char board[ROWS][COLS], Enemy* enemy);
 
+// tool.c
+Tool* newTool(Position* caseTool, enum ToolType type, enum Direction direction);
+void destroyTool(Tool* tool);
+void runToolAction(GameState* game, char board[ROWS][COLS], Eceman* hero, enum ToolType toolType);
+
 // board.c
 int hasEnnemies(char board[ROWS][COLS]);
+int hasMowers(char board[ROWS][COLS]);
 void drawToolbar(GameState* game);
 void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]);
 

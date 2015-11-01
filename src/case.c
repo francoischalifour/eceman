@@ -88,29 +88,6 @@ int getCaseColor(char elem) {
 }
 
 /**
- * Récupère la position de l'ennemi sur la map.
- * @param board Le plateau de jeu
- * @return La position de l'ennemi
- */
-Position* getEnemyCase(char board[ROWS][COLS]) {
-    Position* pos = malloc(sizeof(Position));
-    unsigned short x, y;
-
-    for (x = 0; x < ROWS; x++) {
-        for (y = 0; y < COLS; y++) {
-            if (board[x][y] == ENEMY_CHAR) {
-                pos->x = x;
-                pos->y = y;
-
-                return pos;
-            }
-        }
-    }
-
-    return NULL;
-}
-
-/**
  * Change le type de la case de Eceman avant son déplacement.
  * Cette fonction est appelée avant le déplacement du joueur.
  * @param game L'état du jeu pour incrémenter le score
@@ -197,6 +174,10 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
         case TUNNEL_CHAR:
             goToCase(board, hero, TUNNEL_EXIT_CHAR);
+            break;
+
+        case MOWER_CHAR:
+            runToolAction(game, board, hero, MOWER);
             break;
 
         case ENEMY_CHAR:

@@ -167,7 +167,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
         for (i = 0; i < nbEnemies; i++) {
             // TODO : prendre en compte la position de plusieurs ennemis.
-            addEnemy(enemyList, newEnemy(getEnemyCase(board), UP));
+            addEnemy(enemyList, newEnemy(getEnemyPosition(board), UP));
         }
     }
 

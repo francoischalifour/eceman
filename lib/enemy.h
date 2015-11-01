@@ -1,18 +1,12 @@
 #ifndef ECEMAN_ENEMY_H
 #define ECEMAN_ENEMY_H
 
+#include "game.h"
 #include "position.h"
 
 #define ENEMY_FOREACH(enemyList, nbEnemies, next, curr) Enemy* enemy = NULL;\
     Enemy* curr = NULL;\
     for(curr = enemy = enemyList->nbEnemies; enemy != NULL; curr = enemy = enemy->next)
-
-enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
 
 /**
  * Structure d'un ennemi.

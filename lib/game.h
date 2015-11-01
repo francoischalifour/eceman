@@ -17,6 +17,16 @@
 #define NAME_LENGTH 35
 
 /**
+ * Enumération des directions.
+ */
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
+/**
  * Structure de l'état du jeu.
  *     score : score total du jeu
  *     levelScore : score du niveau courant

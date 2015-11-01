@@ -6,7 +6,7 @@
  * Compte le nombre d'ennemis sur le plateau
  * passé en paramètre.
  * @param board Le plateau de jeu
- * @return Le nombre d'ennmis sur le plateau
+ * @return Le nombre d'ennemis sur le plateau
  */
 int hasEnnemies(char board[ROWS][COLS]) {
     unsigned short x, y;
@@ -22,6 +22,74 @@ int hasEnnemies(char board[ROWS][COLS]) {
     }
 
     return nbEnemies;
+}
+
+/**
+ * Compte le nombre tondeuses sur le plateau
+ * passé en paramètre.
+ * @param board Le plateau de jeu
+ * @return Le nombre de tondeuse sur le plateau
+ */
+int hasMowers(char board[ROWS][COLS]) {
+    unsigned short x, y;
+    unsigned short nbMowers;
+
+    nbMowers = 0;
+
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            if (board[x][y] == MOWER_CHAR)
+                nbMowers++;
+        }
+    }
+
+    return nbMowers;
+}
+
+/**
+ * Récupère la position de l'ennemi sur la map.
+ * @param board Le plateau de jeu
+ * @return La position de l'ennemi
+ */
+Position* getEnemyPosition(char board[ROWS][COLS]) {
+    Position* pos = malloc(sizeof(Position));
+    unsigned short x, y;
+
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            if (board[x][y] == ENEMY_CHAR) {
+                pos->x = x;
+                pos->y = y;
+
+                return pos;
+            }
+        }
+    }
+
+    return NULL;
+}
+
+/**
+ * Récupère la position de l'outil passé en paramètre sur la map.
+ * @param board Le plateau de jeu
+ * @return La position de l'outil
+ */
+Position* getToolPosition(char board[ROWS][COLS], const char elem) {
+    Position* pos = malloc(sizeof(Position));
+    unsigned short x, y;
+
+    for (x = 0; x < ROWS; x++) {
+        for (y = 0; y < COLS; y++) {
+            if (board[x][y] == elem) {
+                pos->x = x;
+                pos->y = y;
+
+                return pos;
+            }
+        }
+    }
+
+    return NULL;
 }
 
 /**
