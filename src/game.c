@@ -129,7 +129,7 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
  * @param hero Le Eceman
  * @param enemyList La liste des ennemis
  */
-static void launchGameAction(GameState* game, char board[ROWS][COLS], Eceman* hero, EnemyList* enemyList) {
+static void launchToolAction(GameState* game, char board[ROWS][COLS], Eceman* hero, EnemyList* enemyList) {
     if (enemyList) {
         ENEMY_FOREACH(enemyList, first, next, curr) {
             clearEnemy(board, curr);
@@ -173,11 +173,16 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     drawEceman(board, hero);
 
+    i = 0;
+
     while (game->playing != 0) {
         if (kbhit())
             launchUserAction(getch(), game, board, hero);
 
-        launchGameAction(game, board, hero, enemyList);
+        if (i % 10 == 0)
+            launchToolAction(game, board, hero, enemyList);
+
+        i++;
 
         #ifdef _WIN32
         Sleep(DELAY);

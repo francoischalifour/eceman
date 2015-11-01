@@ -198,5 +198,9 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
         case TUNNEL_CHAR:
             goToCase(board, hero, TUNNEL_EXIT_CHAR);
             break;
+
+        case ENEMY_CHAR:
+            gotAttacked(game, board, hero);
+            break;
     }
 }

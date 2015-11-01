@@ -146,15 +146,7 @@ Enemy* moveEnemy(GameState* game, char board[ROWS][COLS], Enemy* enemy, Eceman* 
 
     // Si l'ennemi percute le héros.
     if (enemy->caseBelow == HERO_CHAR) {
-        goToXY(1, 17);
-        printf("Un ennemi vous  a attaque\n");
-
-        getch();
-
-        goToXY(1, 17);
-        printf("                           \n");
-
-        reloadLevel(game, board, hero);
+        gotAttacked(game, board, hero);
     }
 
     return enemy;

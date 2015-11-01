@@ -76,6 +76,24 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
 }
 
 /**
+ * Affiche le message d'attaque et relance le jeu.
+ * @param game L'état du jeu
+ * @param board Le plateau de jeu
+ * @param hero Le Eceman attaqué
+ */
+void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    goToXY(1, 17);
+    printf("Un ennemi vous  a attaque\n");
+
+    getch();
+
+    goToXY(1, 17);
+    printf("                           \n");
+
+    reloadLevel(game, board, hero);
+}
+
+/**
  * Déplace le Eceman sur le plateau de jeu.
  * Cette fonction augmente le score si le héro a avancé,
  * lance l'action de la case actuelle,

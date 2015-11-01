@@ -60,6 +60,7 @@ Position* getEnemyCase(char board[ROWS][COLS]);
 Eceman* newEceman();
 void destroyEceman(Eceman* hero);
 int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem);
+void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero);
 Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
 void drawEceman(char board[ROWS][COLS], Eceman* hero);
 
