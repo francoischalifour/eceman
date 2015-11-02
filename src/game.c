@@ -48,21 +48,11 @@ static void destroyGameState(GameState* game) {
 }
 
 /**
- * Retourne au menu et stop le jeu.
- * @param game L'état du jeu
- */
-void backToMenu(GameState* game) {
-    game->pause = 1;
-    displayMenu();
-}
-
-/**
  * Ferme la partie en cours.
  * @param game L'état du jeu à stopper
  */
 static void closeGame(GameState* game) {
     game->playing = 0;
-    displayMenu();
 }
 
 /**
@@ -93,6 +83,7 @@ void gameOver(GameState* game) {
     clearSaving();
     displayGameOver(game->score);
     saveRanking(game->score);
+    closeGame(game);
 }
 
 /**

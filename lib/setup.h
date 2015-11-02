@@ -93,7 +93,6 @@ void loadNextLevel();
 void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void pauseGame(GameState* game);
 void gameOver(GameState* game);
-void backToMenu(GameState* game);
 
 // functions.c
 void goBack();

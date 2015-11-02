@@ -85,7 +85,6 @@ void displayRules() {
     }
 
     fclose(rules);
-    printf("\n");
 
     goBack();
 }
@@ -112,6 +111,8 @@ void displayGameOver(const int score) {
     }
 
     printf("\n");
+
+    fclose(scoreFile);
 }
 
 /**
@@ -127,6 +128,8 @@ void displayRanking() {
     printf("\tClassement des meilleurs scores\n\n");
 
     getRanking(scoreFile);
+
+    fclose(scoreFile);
 
     goBack();
 }

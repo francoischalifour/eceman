@@ -99,7 +99,7 @@ static void sortScores(const int nbScores, int arrayScores[nbScores], char array
     int tmpScore;
     char tmpName[NAME_LENGTH];
 
-    for (i = nbScores- 1; i > 1; i--) {
+    for (i = nbScores - 1; i >= 1; i--) {
         for (j = 0; j < i; j++) {
             if (arrayScores[j] < arrayScores[j+1]) {
                 tmpScore = arrayScores[j];
