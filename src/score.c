@@ -18,6 +18,21 @@ int getLastScore(FILE* saving) {
 }
 
 /**
+ * Récupère le temps enregistré.
+ * @param saving Le fichier de sauvegarde
+ * @return Le temps enregistré
+ */
+float getLastTime(FILE* saving) {
+    float timeTotal;
+
+    rewind(saving);
+
+    fscanf(saving, "\n\n%f", &timeTotal);
+
+    return timeTotal;
+}
+
+/**
  * Récupère le nombre de scores enregistrés.
  * @param scoreFile Le fichier contenant les scores
  * @return Le nombre de scores enregistrés

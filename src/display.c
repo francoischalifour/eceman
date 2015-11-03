@@ -91,7 +91,7 @@ void displayRules() {
  * Affiche le message de fin de jeu.
  * @param score Le score final
  */
-void displayGameOver(const int score) {
+void displayGameOver(const int scoreFinal) {
     FILE* scoreFile = NULL;
 
     scoreFile = fopen("../data/saving/scores.sav", "r");
@@ -99,10 +99,10 @@ void displayGameOver(const int score) {
     displayTitle();
 
     printf("\tGame Over\n\n");
-    printf("\tScore %4d\n", score);
+    printf("\tScore %4d\n", scoreFinal);
 
-    // Si le joueur n'a battu aucun des meilleurs scores.
-    if (score < getMinHighScore(scoreFile)) {
+    // Si le joueur n'a battu aucun des meilleurs score.
+    if (scoreFinal < getMinHighScore(scoreFile)) {
         printf("\tVous n'avez pas battu les meilleurs scores.\n");
     }  else {
         printf("\tFelicitations ! Vous avez fait un nouveau meilleur score.\n");

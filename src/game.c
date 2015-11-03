@@ -1,11 +1,8 @@
 #include "../lib/setup.h"
 #include <conio.h>
 #include <assert.h>
-#ifdef _WIN32
 #include <Windows.h>
-#else
-#include <unistd.h>
-#endif
+#include <time.h>
 
 /**
  * Initialise l'état du jeu.
@@ -19,21 +16,27 @@ static GameState* newGameState() {
     game->level = 1;
     game->pause = 1;
     game->playing = 0;
+    game->timeStart = 0;
+    game->timeTotal = 0;
 
     return game;
 }
 
 /**
  * Met à jour l'état du jeu.
+ * @param game L'état du jeu
+ * @param level Le niveau actuel
  * @param score Le score total
  * @param levelScore Le score du niveau
- * @param level Le niveau actuel
+ * @param time Le temps de jeu
+ * @param pause Etat de pause
  * @return Le nouvel état du jeu
  */
-void setGameState(GameState* game, const unsigned short score, const unsigned short levelScore, const unsigned short level, const unsigned short pause) {
+void setGameState(GameState* game, const unsigned short level, const unsigned short score, const unsigned short levelScore, const float timeTotal, const unsigned short pause) {
+    game->level = level;
     game->score = score;
     game->levelScore = levelScore;
-    game->level = level;
+    game->timeTotal = timeTotal;
     game->pause = pause;
     game->playing = 0;
 }
@@ -62,12 +65,14 @@ static void closeGame(GameState* game) {
  */
 void pauseGame(GameState* game) {
     game->pause = 1;
+    game->timeTotal = game->timeTotal + (clock() - game->timeStart);
     goToXY(7, 17);
     printf("Pause\n");
 
     getch();
 
     game->pause = 0;
+    game->timeStart = clock();
     goToXY(7, 17);
     printf("     \n");
 }
@@ -79,9 +84,11 @@ void pauseGame(GameState* game) {
 void gameOver(GameState* game) {
     game->playing = 0;
     game->score += game->levelScore;
+    game->timeTotal = game->timeTotal + (clock() - game->timeStart);
+    game->timeTotal = game->timeTotal / 10000.0;
 
     clearSaving();
-    displayGameOver(game->score);
+    displayGameOver( (int)((float) (game->score / game->timeTotal) * 100));
     saveRanking(game->score);
     closeGame(game);
 }
@@ -111,7 +118,8 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
             break;
 
         case 'q':
-            save(game->level, game->score);
+            game->timeTotal = game->timeTotal + (clock() - game->timeStart);
+            save(game);
             closeGame(game);
             break;
     }
@@ -179,11 +187,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
         i++;
 
-        #ifdef _WIN32
         Sleep(DELAY);
-        #else
-        usleep(DELAY * 1000);
-        #endif
     }
 
     if (nbEnemies > 0)
@@ -227,10 +231,11 @@ void initGame(const int isNew) {
     Eceman* hero = newEceman();
     FILE* saving = NULL;
     char board[ROWS][COLS];
+    game->timeStart = clock();
 
     if (!isNew) {
         saving = loadSaving();
-        setGameState(game, getLastScore(saving), 0, getLastLevel(saving), 1);
+        setGameState(game, getLastLevel(saving), getLastScore(saving), 0, getLastTime(saving), 1);
         closeSaving(saving);
     }
 

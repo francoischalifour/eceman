@@ -36,6 +36,8 @@ enum Direction {
 typedef struct GameState {
     unsigned short score;
     unsigned short levelScore;
+    float timeTotal;
+    float timeStart;
     unsigned short level;
     unsigned short pause;
     unsigned short playing;

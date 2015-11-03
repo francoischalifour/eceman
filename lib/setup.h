@@ -19,7 +19,7 @@ void displayTitle();
 void displayMenu();
 void displaySettings();
 void displayRules();
-void displayGameOver(const int score);
+void displayGameOver(const int scoreFinal);
 void displayRanking();
 void displayAbout();
 
@@ -37,14 +37,15 @@ int getLastScore(FILE* scoreFile);
 int getMinHighScore(FILE* scoreFile);
 int getNbScores(FILE* scoreFile);
 int deleteScore(FILE* scoreFile, const int score);
+float getLastTime(FILE* saving);
 
 // level.c
-int getLastLevel();
+int getLastLevel(FILE* saving);
 int getNbLevels();
 void getRanking();
 
 // saving.c
-void save(int level, int score);
+void save(GameState* game);
 void saveRanking(const int score);
 void clearSaving();
 FILE* loadSaving();

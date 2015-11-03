@@ -6,11 +6,14 @@
  * @param level Le numéro du niveau à sauvegarder
  * @param score Le score à sauvegarder
  */
-void save(const int level, const int score) {
+void save(GameState* game) {
+    const unsigned short level = game->level;
+    const unsigned short score = game->score;
+    const float timeTotal = game->timeTotal;
     FILE* saveFile = NULL;
 
     saveFile = fopen("../data/saving/game.sav", "w+");
-    fprintf(saveFile, "%d\n%d", level, score);
+    fprintf(saveFile, "%d\n%d\n%f", level, score,timeTotal);
 
     fclose(saveFile);
 }
