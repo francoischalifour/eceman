@@ -1,7 +1,7 @@
 #ifndef ECEMAN_CASE_H
 #define ECEMAN_CASE_H
 
-#define HERO_CHAR '*'
+#define HERO_CHAR 1
 #define SPAWN_CHAR '$'
 #define THIN_CHAR 'o'
 #define THICK_CHAR 'O'
@@ -24,7 +24,7 @@
 #define DOOR_CHAR_COLOR 232
 #define LIGHTNESS_POTION_CHAR_COLOR 191
 #define TUNNEL_CHAR_COLOR 8
-#define ENEMY_CHAR_COLOR 191
+#define ENEMY_CHAR_COLOR 178
 #define MOWER_CHAR_COLOR 232
 #define DEFAULT_COLOR 15
 
