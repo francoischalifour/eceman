@@ -107,24 +107,55 @@ void drawToolbar(GameState* game) {
  * Affiche la légende du jeu.
  */
 static void drawPanel() {
-    setColor(8);
+    setColor(GRAY_COLOR);
 
     goToXY(26, 4);
-    printf("%c %s\n", convertCase(HERO_CHAR), "Personnage");
+    setColor(getCaseColor(HERO_CHAR));
+    printf("%c", convertCase(HERO_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Personnage");
+
     goToXY(26, 5);
-    printf("%c %s\n", convertCase(WALL_CHAR), "Mur");
+    setColor(getCaseColor(WALL_CHAR));
+    printf("%c", convertCase(WALL_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Mur");
+
     goToXY(26, 6);
-    printf("%c %s\n", convertCase(DOOR_CHAR), "Porte de sortie");
+    setColor(getCaseColor(DOOR_CHAR));
+    printf("%c", convertCase(DOOR_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Porte de sortie");
+
     goToXY(26, 7);
-    printf("%c %s\n", convertCase(THIN_CHAR), "Glace fine");
+    setColor(getCaseColor(THIN_CHAR));
+    printf("%c", convertCase(THIN_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Glace fine");
+
     goToXY(26, 8);
-    printf("%c %s\n", convertCase(THICK_CHAR), "Glace epaisse");
+    setColor(getCaseColor(THICK_CHAR));
+    printf("%c", convertCase(THICK_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Glace epaisse");
+
     goToXY(26, 9);
-    printf("%c %s\n", convertCase(MELT_CHAR), "Eau");
+    setColor(getCaseColor(MELT_CHAR));
+    printf("%c", convertCase(MELT_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Eau");
+
     goToXY(26, 10);
-    printf("%c %s\n", convertCase(LIGHTNESS_POTION_CHAR), "Potion de legerete");
+    setColor(getCaseColor(LIGHTNESS_POTION_CHAR));
+    printf("%c", convertCase(LIGHTNESS_POTION_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Potion de legerete");
+
     goToXY(26, 11);
-    printf("%c %s\n", convertCase(TUNNEL_CHAR), "Tunnel");
+    setColor(getCaseColor(TUNNEL_CHAR));
+    printf("%c", convertCase(TUNNEL_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Tunnel");
 
     goToXY(26, 15);
     printf("%s %4s\n", "Pause", "(p)");

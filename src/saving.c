@@ -3,14 +3,14 @@
 
 /**
  * Sauvegarde la partie.
- * @param level Le numéro du niveau à sauvegarder
- * @param score Le score à sauvegarder
+ * @param game L'état du jeu à sauvegarder (score, level, temps)
  */
-void save(const int level, const int score) {
+void save(GameState* game) {
     FILE* saveFile = NULL;
 
     saveFile = fopen(SAVE_FILE, "w+");
-    fprintf(saveFile, "%d\n%d", level, score);
+
+    fprintf(saveFile, "%d\n%d\n%f", game->level, game->score, game->timeTotal);
 
     fclose(saveFile);
 }

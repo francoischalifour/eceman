@@ -30,7 +30,7 @@ void displayMenu() {
         goToXY(10, 12);
         printf("(2) Continuer la partie precedente\n");
 
-        setColor(8);
+        setColor(GRAY_COLOR);
         goToXY(20, 14);
         printf("Niveau %2d", getLastLevel(saving));
         goToXY(20, 15);
@@ -93,7 +93,7 @@ void displayRules() {
  * Affiche le message de fin de jeu.
  * @param score Le score final
  */
-void displayGameOver(const int score) {
+void displayGameOver(const int scoreFinal) {
     FILE* scoreFile = NULL;
 
     scoreFile = fopen(SCORE_FILE, "r");
@@ -101,10 +101,10 @@ void displayGameOver(const int score) {
     displayTitle();
 
     printf("\tGame Over\n\n");
-    printf("\tScore %4d\n", score);
+    printf("\tScore %4d\n", scoreFinal);
 
-    // Si le joueur n'a battu aucun des meilleurs scores.
-    if (score < getMinHighScore(scoreFile)) {
+    // Si le joueur n'a battu aucun des meilleurs score.
+    if (scoreFinal < getMinHighScore(scoreFile)) {
         printf("\tVous n'avez pas battu les meilleurs scores.\n");
     }  else {
         printf("\tFelicitations ! Vous avez fait un nouveau meilleur score.\n");

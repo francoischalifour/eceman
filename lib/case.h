@@ -26,6 +26,7 @@
 #define TUNNEL_CHAR_COLOR 8
 #define ENEMY_CHAR_COLOR 178
 #define MOWER_CHAR_COLOR 232
+#define GRAY_COLOR 8
 #define DEFAULT_COLOR 15
 
 /**

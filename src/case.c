@@ -56,6 +56,9 @@ int getCaseColor(char elem) {
     unsigned short color;
 
     switch (elem) {
+        case HERO_CHAR:
+            color = HERO_CHAR_COLOR;
+            break;
         case THIN_CHAR:
             color = THIN_CHAR_COLOR;
             break;

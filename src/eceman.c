@@ -83,12 +83,12 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
  */
 void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     goToXY(1, 17);
-    printf("Vous etes mort\n");
+    printf("Vous etes mort.\n");
 
     getch();
 
     goToXY(1, 17);
-    printf("                           \n");
+    printf("               \n");
 
     reloadLevel(game, board, hero);
 }
