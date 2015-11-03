@@ -1,6 +1,9 @@
 #ifndef ECEMAN_GAME_H
 #define ECEMAN_GAME_H
 
+#define SAVE_FILE "../data/saving/game.sav"
+#define SCORE_FILE "../data/saving/scores.sav"
+
 #define UP_KEY 72
 #define DOWN_KEY 80
 #define LEFT_KEY 75

@@ -94,7 +94,7 @@ void displayRules() {
 void displayGameOver(const int score) {
     FILE* scoreFile = NULL;
 
-    scoreFile = fopen("../data/saving/scores.sav", "r");
+    scoreFile = fopen(SCORE_FILE, "r");
 
     displayTitle();
 
@@ -114,12 +114,12 @@ void displayGameOver(const int score) {
 }
 
 /**
- * Affiche le classement des scores du fichier scores.sav.
+ * Affiche le classement des scores du fichier des scores.
  */
 void displayRanking() {
     FILE* scoreFile = NULL;
 
-    scoreFile = fopen("../data/saving/scores.sav", "r");
+    scoreFile = fopen(SCORE_FILE, "r");
 
     displayTitle();
 

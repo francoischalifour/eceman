@@ -9,7 +9,7 @@
 void save(const int level, const int score) {
     FILE* saveFile = NULL;
 
-    saveFile = fopen("../data/saving/game.sav", "w+");
+    saveFile = fopen(SAVE_FILE, "w+");
     fprintf(saveFile, "%d\n%d", level, score);
 
     fclose(saveFile);
@@ -43,7 +43,7 @@ void saveRanking(const int score) {
         }
     }*/
 
-    scoreFile = fopen("../data/saving/scores.sav", "a");
+    scoreFile = fopen(SCORE_FILE, "a");
 
     fprintf(scoreFile, "%d %s\n", score, name);
 
@@ -56,7 +56,7 @@ void saveRanking(const int score) {
 void clearSaving() {
     FILE* saveFile = NULL;
 
-    saveFile = fopen("../data/saving/game.sav", "w");
+    saveFile = fopen(SAVE_FILE, "w");
 
     fclose(saveFile);
 }
@@ -68,7 +68,7 @@ void clearSaving() {
 FILE* loadSaving() {
     FILE* saving = NULL;
 
-    saving = fopen("../data/saving/game.sav", "r");
+    saving = fopen(SAVE_FILE, "r");
 
     return saving;
 }
