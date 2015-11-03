@@ -106,6 +106,10 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
             pauseGame(game);
             break;
 
+        case 'r':
+            reloadLevel(game, board, hero);
+            break;
+
         case 'q':
             save(game->level, game->score);
             closeGame(game);

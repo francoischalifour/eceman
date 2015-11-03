@@ -128,10 +128,12 @@ static void drawPanel() {
     goToXY(26, 11);
     printf("%c %s\n", convertCase(TUNNEL_CHAR), "Tunnel");
 
-    goToXY(26, 13);
-    printf("%s %4c\n", "Pause", 'p');
-    goToXY(26, 14);
-    printf("%s %2c\n", "Quitter", 'q');
+    goToXY(26, 15);
+    printf("%s %4s\n", "Pause", "(p)");
+    goToXY(26, 16);
+    printf("%s %4s\n", "Recommencer le niveau", "(r)");
+    goToXY(26, 17);
+    printf("%s %2s\n", "Quitter", "(q)");
 
     SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
 }
