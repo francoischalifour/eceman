@@ -36,6 +36,8 @@ void displayMenu() {
         goToXY(20, 15);
         printf("Score %3d\n\n", getLastScore(saving));
         resetColor();
+
+        closeSaving(saving);
     }
 
     goToXY(2, 20);

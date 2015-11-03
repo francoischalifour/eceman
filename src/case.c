@@ -9,6 +9,9 @@
  */
 char convertCase(char elem) {
     switch (elem) {
+        case HERO_CHAR:
+            elem = 1;
+            break;
         case THIN_CHAR:
             elem = 176;
             break;
@@ -37,7 +40,7 @@ char convertCase(char elem) {
             elem = 220;
             break;
         case ENEMY_CHAR:
-            elem = '&';
+            elem = 2;
             break;
     }
 

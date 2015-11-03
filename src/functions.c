@@ -10,7 +10,6 @@ void goBack() {
     printf("\n\n\tAppuyez sur une touche pour continuer...\n");
 
     getch();
-    displayMenu();
 }
 
 /**

@@ -83,7 +83,7 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
  */
 void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     goToXY(1, 17);
-    printf("Un ennemi vous  a attaque\n");
+    printf("Vous etes mort\n");
 
     getch();
 
@@ -171,6 +171,6 @@ void drawEceman(char board[ROWS][COLS], Eceman* hero) {
     goToXY(hero->pos->y, hero->pos->x);
 
     setColor(HERO_CHAR_COLOR);
-    putchar(HERO_CHAR);
+    putchar(convertCase(HERO_CHAR));
     resetColor();
 }

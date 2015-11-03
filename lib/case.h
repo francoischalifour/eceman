@@ -1,7 +1,7 @@
 #ifndef ECEMAN_CASE_H
 #define ECEMAN_CASE_H
 
-#define HERO_CHAR 1
+#define HERO_CHAR '*'
 #define SPAWN_CHAR '$'
 #define THIN_CHAR 'o'
 #define THICK_CHAR 'O'

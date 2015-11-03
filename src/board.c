@@ -110,7 +110,7 @@ static void drawPanel() {
     setColor(8);
 
     goToXY(26, 4);
-    printf("%c %s\n", HERO_CHAR, "Personnage");
+    printf("%c %s\n", convertCase(HERO_CHAR), "Personnage");
     goToXY(26, 5);
     printf("%c %s\n", convertCase(WALL_CHAR), "Mur");
     goToXY(26, 6);
