@@ -20,8 +20,6 @@ void displayTitle() {
  */
 void displayMenu() {
     FILE* saving = NULL;
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     displayTitle();
 
@@ -32,12 +30,12 @@ void displayMenu() {
         goToXY(10, 12);
         printf("(2) Continuer la partie precedente\n");
 
-        SetConsoleTextAttribute(hConsole, 8);
+        setColor(8);
         goToXY(20, 14);
         printf("Niveau %2d", getLastLevel(saving));
         goToXY(20, 15);
         printf("Score %3d\n\n", getLastScore(saving));
-        SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+        resetColor();
     }
 
     goToXY(2, 20);

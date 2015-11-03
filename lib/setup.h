@@ -97,5 +97,7 @@ void gameOver(GameState* game);
 // functions.c
 void goBack();
 void goToXY(const unsigned short x, const unsigned short y);
+void setColor(const int color);
+void resetColor();
 
 #endif // ECEMAN_SETUP_H

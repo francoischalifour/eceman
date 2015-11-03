@@ -99,9 +99,6 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     const unsigned char currentCase = hero->caseBelow;
     unsigned char elem;
     unsigned short int color;
-    HANDLE  hConsole;
-
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     switch (currentCase) {
         case THIN_CHAR:
@@ -145,9 +142,9 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     goToXY(hero->pos->y, hero->pos->x);
     board[hero->pos->x][hero->pos->y] = elem;
-    SetConsoleTextAttribute(hConsole, color);
+    setColor(color);
     putchar(convertCase(elem));
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }
 
 /**

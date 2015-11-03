@@ -158,15 +158,12 @@ Enemy* moveEnemy(GameState* game, char board[ROWS][COLS], Enemy* enemy, Eceman* 
  * @param enemy L'ennemi à ajouter
  */
 void drawEnemy(char board[ROWS][COLS], Enemy* enemy) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     board[enemy->pos->x][enemy->pos->y] = ENEMY_CHAR;
     goToXY(enemy->pos->y, enemy->pos->x);
 
-    SetConsoleTextAttribute(hConsole, ENEMY_CHAR_COLOR);
+    setColor(ENEMY_CHAR_COLOR);
     putchar(convertCase(ENEMY_CHAR));
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }
 
 /**
@@ -175,13 +172,10 @@ void drawEnemy(char board[ROWS][COLS], Enemy* enemy) {
  * @param enemy L'ennemi à nettoyer
  */
 void clearEnemy(char board[ROWS][COLS], Enemy* enemy) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     board[enemy->pos->x][enemy->pos->y] = enemy->caseBelow;
     goToXY(enemy->pos->y, enemy->pos->x);
 
-    SetConsoleTextAttribute(hConsole, THIN_CHAR_COLOR);
+    setColor(THIN_CHAR_COLOR);
     putchar(convertCase(enemy->caseBelow));
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }

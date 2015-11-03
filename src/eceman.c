@@ -167,13 +167,10 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
  * @param hero Le Eceman à ajouter
  */
 void drawEceman(char board[ROWS][COLS], Eceman* hero) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     board[hero->pos->x][hero->pos->y] = HERO_CHAR;
     goToXY(hero->pos->y, hero->pos->x);
 
-    SetConsoleTextAttribute(hConsole, HERO_CHAR_COLOR);
+    setColor(HERO_CHAR_COLOR);
     putchar(HERO_CHAR);
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }

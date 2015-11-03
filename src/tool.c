@@ -88,15 +88,12 @@ static Tool* moveTool(GameState* game, char board[ROWS][COLS], Tool* tool, Ecema
  * @param tool L'outil à ajouter
  */
 static void drawTool(char board[ROWS][COLS], Tool* tool) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     board[tool->pos->x][tool->pos->y] = MOWER_CHAR;
     goToXY(tool->pos->y, tool->pos->x);
 
-    SetConsoleTextAttribute(hConsole, MOWER_CHAR_COLOR);
+    setColor(MOWER_CHAR_COLOR);
     putchar(convertCase(MOWER_CHAR));
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }
 
 /**
@@ -105,15 +102,12 @@ static void drawTool(char board[ROWS][COLS], Tool* tool) {
  * @param tool L'outil à nettoyer
  */
 static void clearTool(char board[ROWS][COLS], Tool* tool) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     board[tool->pos->x][tool->pos->y] = MELT_CHAR;
     goToXY(tool->pos->y, tool->pos->x);
 
-    SetConsoleTextAttribute(hConsole, MELT_CHAR_COLOR);
+    setColor(MELT_CHAR_COLOR);
     putchar(convertCase(MELT_CHAR));
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }
 
 /**

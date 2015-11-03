@@ -26,3 +26,22 @@ void goToXY(const unsigned short x, const unsigned short y) {
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
+
+/**
+ * Initialise une couleur à afficher à l'écran.
+ * @param color La couleur
+ */
+void setColor(const int color) {
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+/**
+ * Réinitialise la couleur à afficher.
+ */
+void resetColor() {
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+}

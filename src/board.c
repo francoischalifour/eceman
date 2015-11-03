@@ -107,9 +107,7 @@ void drawToolbar(GameState* game) {
  * Affiche la légende du jeu.
  */
 static void drawPanel() {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 8);
+    setColor(8);
 
     goToXY(26, 4);
     printf("%c %s\n", HERO_CHAR, "Personnage");
@@ -135,7 +133,7 @@ static void drawPanel() {
     goToXY(26, 17);
     printf("%s %2s\n", "Quitter", "(q)");
 
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 }
 
 /**
@@ -146,20 +144,17 @@ static void drawPanel() {
  */
 void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]) {
     unsigned short x, y;
-    HANDLE  hConsole;
-
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     for (x = 0; x < ROWS; x++) {
         for (y = 0; y <= COLS; y++) {
             board[x][y] = fgetc(map);
 
-            SetConsoleTextAttribute(hConsole, getCaseColor(board[x][y]));
+            setColor(getCaseColor(board[x][y]));
             putchar(convertCase(board[x][y]));
         }
     }
 
-    SetConsoleTextAttribute(hConsole, DEFAULT_COLOR);
+    resetColor();
 
     drawToolbar(game);
     drawPanel();
