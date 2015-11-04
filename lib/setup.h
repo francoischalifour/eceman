@@ -29,7 +29,7 @@ char getChoice();
 void launchAction(const char choice);
 
 // map.c
-FILE* loadMap(const short level);
+FILE* loadMap(short level);
 void closeMap(FILE* map);
 
 // score.c

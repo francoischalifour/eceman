@@ -7,9 +7,13 @@
  * @param level Le niveau correspondant à la map
  * @return La map
  */
-FILE* loadMap(const short level) {
+FILE* loadMap(short level) {
     char filepath[18];
     FILE* map = NULL;
+
+    if (level < 1 || level > getNbLevels()) {
+        level = 1;
+    }
 
     sprintf(filepath, "../data/map/%d.map", level);
 

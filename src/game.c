@@ -65,7 +65,8 @@ static void closeGame(GameState* game) {
  */
 void pauseGame(GameState* game) {
     game->pause = 1;
-    game->timeTotal = game->timeTotal + (clock() - game->timeStart);
+    game->timeTotal += (clock() - game->timeStart);
+
     goToXY(7, 17);
     printf("Pause\n");
 
@@ -73,6 +74,7 @@ void pauseGame(GameState* game) {
 
     game->pause = 0;
     game->timeStart = clock();
+
     goToXY(7, 17);
     printf("     \n");
 }
@@ -83,12 +85,13 @@ void pauseGame(GameState* game) {
  */
 void gameOver(GameState* game) {
     game->playing = 0;
+    game->timeTotal += (clock() - game->timeStart);
+    game->timeTotal /= 10000.0;
     game->score += game->levelScore;
-    game->timeTotal = game->timeTotal + (clock() - game->timeStart);
-    game->timeTotal = game->timeTotal / 10000.0;
+    game->score = (int) ((float) (game->score / game->timeTotal) * 100);
 
     clearSaving();
-    displayGameOver( (int)((float) (game->score / game->timeTotal) * 100));
+    displayGameOver(game->score);
     saveRanking(game->score);
     closeGame(game);
 }
