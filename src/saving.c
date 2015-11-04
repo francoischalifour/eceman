@@ -54,11 +54,7 @@ void saveRanking(const int score) {
  * Nettoie le fichier de sauvegarde de partie.
  */
 void clearSaving() {
-    FILE* saveFile = NULL;
-
-    saveFile = fopen(SAVE_FILE, "w");
-
-    fclose(saveFile);
+    remove(SAVE_FILE);
 }
 
 /**
