@@ -88,7 +88,7 @@ void gameOver(GameState* game) {
     game->timeTotal = game->timeTotal / 10000.0;
 
     clearSaving();
-    displayGameOver( (int)((float) (game->score / game->timeTotal) * 100));
+    displayGameOver((int)((float) (game->score / game->timeTotal) * 100));
     saveRanking(game->score);
     closeGame(game);
 }
