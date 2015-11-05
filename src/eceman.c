@@ -111,29 +111,42 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
 
     switch (key) {
         case UP_KEY:
-            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
+            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR){
+                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR)
+                    runToolAction(game, board, hero, MOWER);
                 return NULL;
+            }
 
             hero->pos->x -= 1;
             break;
 
         case DOWN_KEY:
-            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR)
+            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR){
+                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR)
+                    runToolAction(game, board, hero, MOWER);
                 return NULL;
+            }
 
             hero->pos->x += 1;
             break;
 
         case LEFT_KEY:
-            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
+            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR){
+                if (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR)
+                    runToolAction(game, board, hero, MOWER);
                 return NULL;
+            }
 
             hero->pos->y -= 1;
             break;
 
         case RIGHT_KEY:
-            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
+            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR){
+                if (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR)
+                    runToolAction(game, board, hero, MOWER);
+
                 return NULL;
+            }
 
             hero->pos->y += 1;
             break;

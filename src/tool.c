@@ -37,52 +37,6 @@ void destroyTool(Tool* tool) {
 }
 
 /**
- * Déplace l'outil sur le plateau de jeu.
- * @param game L'état du jeu
- * @param board La plateau de jeu
- * @param tool L'outil à déplacer
- * @param hero Le Eceman à vérifier pour la collision
- * @return L'outil avec sa nouvelle position
- */
-static Tool* moveTool(GameState* game, char board[ROWS][COLS], Tool* tool, Eceman* hero) {
-    switch (tool->direction) {
-        case UP:
-            if (board[tool->pos->x-1][tool->pos->y] == WALL_CHAR)
-                tool->state = FINAL;
-
-            tool->pos->x -= 1;
-            break;
-
-        case DOWN:
-            if (board[tool->pos->x+1][tool->pos->y] == WALL_CHAR)
-                tool->state = FINAL;
-
-            tool->pos->x += 1;
-            break;
-
-        case LEFT:
-            if (board[tool->pos->x][tool->pos->y-1] == WALL_CHAR)
-                tool->state = FINAL;
-
-            tool->pos->y -= 1;
-            break;
-
-        case RIGHT:
-            if (board[tool->pos->x][tool->pos->y+1] == WALL_CHAR)
-                tool->state = FINAL;
-
-            tool->pos->y += 1;
-            break;
-    }
-
-    tool->caseBelow = board[tool->pos->x][tool->pos->y];
-
-    game->levelScore++;
-
-    return tool;
-}
-
-/**
  * Dessine l'outil passé en paramètre sur le plateau de jeu.
  * @param board Le plateau sur lequel l'outil est ajouté
  * @param tool L'outil à ajouter
@@ -111,6 +65,55 @@ static void clearTool(char board[ROWS][COLS], Tool* tool) {
 }
 
 /**
+ * Déplace l'outil sur le plateau de jeu.
+ * @param game L'état du jeu
+ * @param board La plateau de jeu
+ * @param tool L'outil à déplacer
+ * @param hero Le Eceman à vérifier pour la collision
+ * @return L'outil avec sa nouvelle position
+ */
+static Tool* moveTool(GameState* game, char board[ROWS][COLS], Tool* tool, Eceman* hero) {
+    switch (tool->direction) {
+        case UP:
+            if (board[tool->pos->x-2][tool->pos->y] == WALL_CHAR)
+                tool->state = FINAL;
+
+            tool->pos->x -= 1;
+            break;
+
+        case DOWN:
+            if (board[tool->pos->x+2][tool->pos->y] == WALL_CHAR)
+                tool->state = FINAL;
+
+            tool->pos->x += 1;
+            break;
+
+        case LEFT:
+            if (board[tool->pos->x][tool->pos->y-2] == WALL_CHAR)
+                tool->state = FINAL;
+
+            tool->pos->y -= 1;
+            break;
+
+        case RIGHT:
+            if (board[tool->pos->x][tool->pos->y+2] == WALL_CHAR)
+                tool->state = FINAL;
+
+            tool->pos->y += 1;
+            break;
+    }
+
+    tool->caseBelow = board[tool->pos->x][tool->pos->y];
+
+    game->levelScore++;
+
+    drawTool(board, tool);
+    drawToolbar(game);
+
+    return tool;
+}
+
+/**
  * Lance l'action liée à l'objet
  * @param game L'état du jeu
  * @param board Le plateau de jeu
@@ -128,12 +131,8 @@ void runToolAction(GameState* game, char board[ROWS][COLS], Eceman* hero, enum T
             i = 0;
 
             while (tool->state != FINAL) {
-                if (i % 50 == 0) {
-                    clearTool(board, tool);
-                    moveTool(game, board, tool, hero);
-                    drawTool(board, tool);
-                }
-
+                clearTool(board, tool);
+                moveTool(game, board, tool, hero);
                 i++;
             }
 
