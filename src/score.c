@@ -1,15 +1,19 @@
 #include "../lib/setup.h"
 #include <string.h>
+#include <assert.h>
 
 /**
  * Récupère le score de la dernière partie.
- * @param saving La dernière sauvegarde
- * @return Le score de la dernière sauvegarde
+ * @param savingFile La dernière sauvegarde
+ * @return Le score de la dernière sauvegarde (0 si fichier non trouvé)
  */
-int getLastScore(FILE* saving) {
+int getLastScore(FILE* savingFile) {
     unsigned int score;
 
-    fscanf(saving, "\n%d", &score);
+    if (savingFile == NULL)
+        return 0;
+
+    fscanf(savingFile, "\n%u", &score);
 
     if (score < 0 || score > SCORE_MAX)
         score = 0;
@@ -19,27 +23,35 @@ int getLastScore(FILE* saving) {
 
 /**
  * Récupère le temps enregistré.
- * @param saving Le fichier de sauvegarde
- * @return Le temps enregistré
+ * @param savingFile Le fichier de sauvegarde
+ * @return Le temps enregistré (0 si fichier non trouvé)
  */
-float getLastTime(FILE* saving) {
+float getLastTime(FILE* savingFile) {
     float timeTotal;
 
-    rewind(saving);
+    if (savingFile == NULL)
+        return 0;
 
-    fscanf(saving, "\n\n%f", &timeTotal);
+    rewind(savingFile);
+
+    fscanf(savingFile, "\n\n%f", &timeTotal);
 
     return timeTotal;
 }
 
 /**
  * Récupère le nombre de scores enregistrés.
- * @param scoreFile Le fichier contenant les scores
- * @return Le nombre de scores enregistrés
+ * @return Le nombre de scores enregistrés (0 si fichier non trouvé)
  */
-int getNbScores(FILE* scoreFile) {
+int getNbScores() {
     unsigned short nbLines = 0;
     unsigned char c;
+    FILE* scoreFile = NULL;
+
+    scoreFile = fopen(SCORE_FILE, "r");
+
+    if (scoreFile == 0)
+        return 0;
 
     while (!feof(scoreFile)) {
         c = fgetc(scoreFile);
@@ -55,37 +67,57 @@ int getNbScores(FILE* scoreFile) {
 
 /**
  * Supprimer la ligne correspondant au score passé en paramètres.
- * @param scoreFile Le fichier contenant les scores
  * @param score Le score à supprimer
- * @return Le score supprimé (-1 sinon)
+ * @return Le score supprimé
  */
-int deleteScore(FILE* scoreFile, const int score) {
-    unsigned int currentScore;
-    char name[NAME_LENGTH];
+int deleteScore(const int score) {
+    FILE* scoreFile = NULL;
+    FILE* scoreFileTmp = NULL;
+    char c;
+    unsigned countLines;
 
-    if (scoreFile == NULL)
-        return -1;
+    scoreFile = fopen(SCORE_FILE, "r");
+    assert(scoreFile != NULL);
 
-    while (!feof(scoreFile)) {
-        fscanf(scoreFile, "%d %s\n", &currentScore, name);
+    // Créer un fichier des scores temporaires.
+    scoreFileTmp = fopen(SCORE_FILE_TMP, "w+");
+    assert(scoreFileTmp != NULL);
 
-        if (currentScore == score) {
-            break;
-            // TODO : supprimer la ligne
+    countLines = 0;
+
+    while ((c = fgetc(scoreFile)) != EOF) {
+        if (c == '\n') {
+            countLines++;
+
+            if (countLines == getScoreLine(scoreFile, score)) {
+                putc(c, scoreFileTmp);
+            }
         }
     }
+
+    fclose(scoreFile);
+    fclose(scoreFileTmp);
+
+    // Supprimer l'ancien fichier des scores
+    remove(SCORE_FILE);
+
+    // Renommer le fichier temporaire avec le nom original
+    rename(SCORE_FILE_TMP, SCORE_FILE);
 
     return score;
 }
 
 /**
- * Récupère le minimum des meilleurs scores.
- * @param scoreFile Le fichier contenant les scores
- * @return Le meilleur score le plus faible (-1 si fichier non trouvé)
+ * Récupère le minimum des scores enregistrés.
+ * Fonction appelée seulement si au moins 10 scores enregistrés.
+ * @return Le score minimum enregistré (-1 si fichier non trouvé)
  */
-int getMinHighScore(FILE* scoreFile) {
+int getMinHighScore() {
     unsigned int score, minScore;
     char name[NAME_LENGTH];
+    FILE* scoreFile = NULL;
+
+    scoreFile = fopen(SCORE_FILE, "r");
 
     if (scoreFile == NULL)
         return -1;
@@ -93,15 +125,44 @@ int getMinHighScore(FILE* scoreFile) {
     minScore = SCORE_MAX;
 
     while (!feof(scoreFile)) {
-        fscanf(scoreFile, "%d %s\n", &score, name);
+        fscanf(scoreFile, "%u %s", &score, name);
 
         if (score < minScore)
             minScore = score;
     }
 
-    // TODO : retourner la ligne pour la supprimer ensuite dans deleteScore()
+    fclose(scoreFile);
 
     return minScore;
+}
+
+/**
+ * Récupère la ligne du score enregistré.
+ * Fonction appelée seulement si au moins 10 scores enregistrés.
+ * @param scoreFile Le fichier contenant les scores
+ * @param score Le score dont on veut la ligne
+ * @return La ligne du score souhaité (-1 si non trouvé)
+ */
+int getScoreLine(FILE* scoreFile, const int score) {
+    unsigned int currentScore;
+    char name[NAME_LENGTH];
+    int countLines;
+    char c;
+
+    assert(scoreFile != NULL);
+
+    countLines = 1;
+
+    while ((c = fgetc(scoreFile)) != EOF) {
+        fscanf(scoreFile, "%u %s", &currentScore, name);
+
+        countLines++;
+
+        if (currentScore == score)
+            return countLines;
+    }
+
+    return -1;
 }
 
 /**
@@ -116,7 +177,7 @@ static void sortScores(const int nbScores, int arrayScores[nbScores], char array
 
     for (i = nbScores - 1; i >= 1; i--) {
         for (j = 0; j < i; j++) {
-            if (arrayScores[j] < arrayScores[j+1]) {
+            if (arrayScores[j] <= arrayScores[j+1]) {
                 tmpScore = arrayScores[j];
                 arrayScores[j] = arrayScores[j+1];
                 arrayScores[j+1] = tmpScore;
@@ -148,7 +209,7 @@ void getRanking(FILE* scoreFile) {
     count = getNbScores(scoreFile);
 
     for (i = 0; i < count; i++) {
-        fscanf(scoreFile, "%d %s\n", &score, name);
+        fscanf(scoreFile, "%u %s\n", &score, name);
         arrayScores[i] = score;
         strcpy(arrayNames[i], name);
     }

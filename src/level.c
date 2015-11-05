@@ -12,7 +12,7 @@ int getLastLevel(FILE* saving) {
 
     rewind(saving);
 
-    fscanf(saving, "%d", &level);
+    fscanf(saving, "%u", &level);
 
     if (level < 1 || level > getNbLevels())
         level = 1;

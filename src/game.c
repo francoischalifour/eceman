@@ -90,7 +90,9 @@ void gameOver(GameState* game) {
     game->score += game->levelScore;
     game->score = (int) ((float) (game->score / game->timeTotal) * 100);
 
-    clearSaving();
+    if (game->score > SCORE_MAX)
+        game->score = SCORE_MAX;
+
     displayGameOver(game->score);
     saveRanking(game->score);
     closeGame(game);

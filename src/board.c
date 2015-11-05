@@ -98,9 +98,9 @@ Position* getToolPosition(char board[ROWS][COLS], const char elem) {
  */
 void drawToolbar(GameState* game) {
     goToXY(26, 0);
-    printf("Niveau %2d", game->level);
+    printf("Niveau %2u", game->level);
     goToXY(26, 1);
-    printf("Score %3d\n\n", game->score + game->levelScore);
+    printf("Score %3u\n\n", game->score + game->levelScore);
 }
 
 /**

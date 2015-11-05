@@ -1,5 +1,6 @@
 #include "../lib/setup.h"
 #include <string.h>
+#include <assert.h>
 
 /**
  * Sauvegarde la partie.
@@ -10,9 +11,18 @@ void save(GameState* game) {
 
     saveFile = fopen(SAVE_FILE, "w+");
 
-    fprintf(saveFile, "%d\n%d\n%f", game->level, game->score, game->timeTotal);
+    assert(saveFile != NULL);
+
+    fprintf(saveFile, "%u\n%u\n%f", game->level, game->score, game->timeTotal);
 
     fclose(saveFile);
+}
+
+/**
+ * Supprime le fichier de sauvegarde de partie.
+ */
+static void clearSaving() {
+    remove(SAVE_FILE);
 }
 
 /**
@@ -22,39 +32,32 @@ void save(GameState* game) {
 void saveRanking(const int score) {
     FILE* scoreFile = NULL;
     char name[NAME_LENGTH];
-    //unsigned int minHighScore;
-
-    printf("\tEntrez votre nom : ");
-    gets(name);
-
-    // TODO : enregistrer le nom seulement si mérité.
-/*    // Si le joueur a battu un meilleur score, et qu'il y en a moins de 10
-    if (getNbScores(scoreFile) < RANKING_MAX) {
-        printf("\tEntrez votre nom : ");
-        gets(name);
-    } else {
-        minHighScore = getMinHighScore(scoreFile);
-
-        // Si le joueur a battu le moins bon des meilleurs scores.
-        if (score > minHighScore) {
-            printf("\tEntrez votre nom : ");
-            gets(name);
-            //deleteScore(scoreFile, minHighScore);
-        }
-    }*/
+    unsigned int nbScores, minHighScore;
 
     scoreFile = fopen(SCORE_FILE, "a");
 
-    fprintf(scoreFile, "%d %s\n", score, name);
+    assert(scoreFile != NULL);
+
+    nbScores = getNbScores();
+    minHighScore = getMinHighScore();
+
+    if (nbScores < RANKING_MAX || score > minHighScore) {
+        printf("\tEntrez votre nom : ");
+        gets(name);
+
+        if (nbScores >= RANKING_MAX) {
+            deleteScore(minHighScore);
+        }
+
+        fprintf(scoreFile, "%d %s\n", score, name);
+    } else {
+        printf("\tDesole, vous n'avez battu aucun score.\n");
+        goBack();
+    }
+
+    clearSaving();
 
     fclose(scoreFile);
-}
-
-/**
- * Nettoie le fichier de sauvegarde de partie.
- */
-void clearSaving() {
-    remove(SAVE_FILE);
 }
 
 /**
@@ -62,18 +65,23 @@ void clearSaving() {
  * @return La dernière sauvegarde (NULL si aucune)
  */
 FILE* loadSaving() {
-    FILE* saving = NULL;
+    FILE* savingFile = NULL;
 
-    saving = fopen(SAVE_FILE, "r");
+    savingFile = fopen(SAVE_FILE, "r");
 
-    return saving;
+    if (savingFile == NULL)
+        savingFile = fopen(SAVE_FILE, "w");
+
+    assert(savingFile != NULL);
+
+    return savingFile;
 }
 
 /**
  * Ferme le fichier correspondant à la sauvegarde
  * passée en paramètre.
- * @param saving Le fichier à fermer
+ * @param savingFile Le fichier à fermer
  */
-void closeSaving(FILE* saving) {
-    fclose(saving);
+void closeSaving(FILE* savingFile) {
+    fclose(savingFile);
 }

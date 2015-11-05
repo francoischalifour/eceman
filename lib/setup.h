@@ -34,9 +34,10 @@ void closeMap(FILE* map);
 
 // score.c
 int getLastScore(FILE* scoreFile);
-int getMinHighScore(FILE* scoreFile);
-int getNbScores(FILE* scoreFile);
-int deleteScore(FILE* scoreFile, const int score);
+int getMinHighScore();
+int getScoreLine(FILE* scoreFile, const int score);
+int getNbScores();
+int deleteScore(const int score);
 float getLastTime(FILE* saving);
 
 // level.c
@@ -47,7 +48,6 @@ void getRanking();
 // saving.c
 void save(GameState* game);
 void saveRanking(const int score);
-void clearSaving();
 FILE* loadSaving();
 void closeSaving(FILE* saving);
 

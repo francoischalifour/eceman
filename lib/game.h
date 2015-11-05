@@ -3,6 +3,7 @@
 
 #define SAVE_FILE "../data/saving/game.sav"
 #define SCORE_FILE "../data/saving/scores.sav"
+#define SCORE_FILE_TMP "../data/saving/scores.tmp"
 
 #define UP_KEY 72
 #define DOWN_KEY 80
