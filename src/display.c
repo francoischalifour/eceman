@@ -1,6 +1,7 @@
 #include "../lib/setup.h"
 #include <windows.h>
 #include <string.h>
+#include <conio.h>
 
 /**
  * Affiche le titre du jeu.
@@ -41,15 +42,17 @@ void displayMenu() {
     }
 
     goToXY(2, 20);
-    printf("(o) Options");
+    printf("(l) Niveaux\n");
     goToXY(2, 21);
-    printf("(r) Regles");
+    printf("(c) Classement");
 
     goToXY(20, 20);
-    printf("(c) Classement");
+    printf("(r) Regles");
     goToXY(20, 21);
     printf("(a) A propos");
 
+    goToXY(50, 20);
+    printf("(o) Options");
     goToXY(50, 21);
     printf("(q) Quitter");
 
@@ -65,6 +68,29 @@ void displaySettings() {
     printf("\tOptions\n\n");
 
     goBack();
+}
+
+/**
+ * Affiche les niveaux.
+ */
+void displayLevels() {
+    unsigned short i;
+    char key;
+
+    displayTitle();
+
+    printf("\tChoisir un niveau\n\n");
+
+    for (i = 0; i < getNbLevels(); i++) {
+        printf("\t(%d) Niveau %d\n", i + 1, i + 1);
+    }
+
+    printf("\n\t(r) Retour\n");
+
+    key = getch();
+
+    if (key != 'r')
+        launchLevel(key);
 }
 
 /**

@@ -44,3 +44,16 @@ int getNbLevels() {
 
     return count;
 }
+
+/**
+ * Lance le niveau passé en paramètre.
+ * @param level Le niveau
+ */
+void launchLevel(char level) {
+    level = convertToInt(level);
+
+    if (level < 1 || level > getNbLevels())
+        return;
+
+    initGame(level);
+}

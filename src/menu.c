@@ -31,6 +31,9 @@ void launchAction(const char choice) {
         case '2':
             initGame(0);
             break;
+        case 'l':
+            displayLevels();
+            break;
         case 'o':
             displaySettings();
             break;

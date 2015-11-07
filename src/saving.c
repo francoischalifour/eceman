@@ -52,7 +52,6 @@ void saveRanking(const int score) {
         fprintf(scoreFile, "%d %s\n", score, name);
     } else {
         printf("\tDesole, vous n'avez battu aucun score.\n");
-        goBack();
     }
 
     clearSaving();

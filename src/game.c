@@ -236,11 +236,20 @@ void initGame(const int isNew) {
     Eceman* hero = newEceman();
     FILE* saving = NULL;
     char board[ROWS][COLS];
+    unsigned int level;
+
     game->timeStart = clock();
 
-    if (!isNew) {
+
+    if (isNew != 0) {
         saving = loadSaving();
-        setGameState(game, getLastLevel(saving), getLastScore(saving), 0, getLastTime(saving), 1);
+
+        if (isNew == 1)
+            level = getLastLevel(saving);
+        else
+            level = isNew;
+
+        setGameState(game, level, getLastScore(saving), 0, getLastTime(saving), 1);
         closeSaving(saving);
     }
 

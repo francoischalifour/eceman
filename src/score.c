@@ -76,32 +76,34 @@ int deleteScore(const int score) {
     char c;
     unsigned countLines;
 
-    scoreFile = fopen(SCORE_FILE, "r");
-    assert(scoreFile != NULL);
+    scoreFileTmp = fopen(SCORE_FILE, "r");
+    assert(scoreFileTmp != NULL);
 
     // Créer un fichier des scores temporaires.
-    scoreFileTmp = fopen(SCORE_FILE_TMP, "w+");
+    scoreFileTmp = fopen(SCORE_FILE_TMP, "w");
     assert(scoreFileTmp != NULL);
+
+    c = getc(scoreFile);
 
     countLines = 0;
 
-    while ((c = fgetc(scoreFile)) != EOF) {
+    while ((c = getc(scoreFile)) != EOF) {
         if (c == '\n') {
             countLines++;
+        }
 
-            if (countLines == getScoreLine(scoreFile, score)) {
-                putc(c, scoreFileTmp);
-            }
+        if (countLines != getScoreLine(scoreFile, getMinHighScore())) {
+            putc(c, scoreFileTmp);
         }
     }
 
     fclose(scoreFile);
     fclose(scoreFileTmp);
 
-    // Supprimer l'ancien fichier des scores
+    // Supprimer l'ancien fichier des scores.
     remove(SCORE_FILE);
 
-    // Renommer le fichier temporaire avec le nom original
+    // Renommer le fichier temporaire avec le nom original.
     rename(SCORE_FILE_TMP, SCORE_FILE);
 
     return score;
