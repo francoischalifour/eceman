@@ -6,7 +6,7 @@
 /**
  * Créé un nouveau Eceman.
  * Initialise son état et sa position.
- * @return Le Eceman initialisé
+ * @return Le héros initialisé
  */
 Eceman* newEceman() {
     Position* pos = malloc(sizeof(Position));
@@ -23,9 +23,9 @@ Eceman* newEceman() {
 }
 
 /**
- * Détruit le Eceman passé en paramètre.
- * Libère la mémoire du Eceman.
- * @param hero Le Eceman à détruire
+ * Détruit le héros passé en paramètre.
+ * Libère la mémoire du héros.
+ * @param hero Le héros à détruire
  */
 void destroyEceman(Eceman* hero) {
     free(hero->pos);
@@ -33,9 +33,9 @@ void destroyEceman(Eceman* hero) {
 }
 
 /**
- * Place le héro au nom de la case passé en paramètre.
+ * Place le héros à la case passée en paramètre.
  * @param board Le plateau du niveau
- * @param hero Le Eceman à placer
+ * @param hero Le héros à placer
  * @return 0 si la case a été trouvée, -1 sinon
  */
 int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem) {
@@ -57,10 +57,10 @@ int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem) {
 }
 
 /**
- * Vérifie si le Eceman est entouré de murs ou d'eau.
+ * Vérifie si le héros est entouré de murs ou d'eau.
  * @param board Le plateau sur lequel le joueur joue
- * @param hero Le Eceman à tester
- * @return 1 si le Eceman est encerclé, 0 sinon
+ * @param hero Le héros à tester
+ * @return 1 si le héros est encerclé, 0 sinon
  */
 static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
     if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR || board[hero->pos->x][hero->pos->y] == TUNNEL_CHAR)
@@ -102,50 +102,70 @@ void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  * @param key La touche appuyée
  * @param game L'état du jeu
  * @param board Le plateau de jeu
- * @param hero Le Eceman à déplacer
- * @return Le Eceman avec sa nouvelle position
+ * @param hero Le héros à déplacer
+ * @param entityList La liste des entités
  */
-Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
+void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
     unsigned short prevPosX = hero->pos->x;
     unsigned short prevPosY = hero->pos->y;
+    unsigned short i;
 
     switch (key) {
         case UP_KEY:
-            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR){
-                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR)
-                    runToolAction(game, board, hero, MOWER);
-                return NULL;
+            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR) {
+                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
+                    for (i = 0; i < ENTITY_MAX; i++) {
+                        if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y)
+                            moveEntity(game, hero, entityList[i], board);
+                    }
+                }
+
+                return;
             }
 
             hero->pos->x -= 1;
             break;
 
         case DOWN_KEY:
-            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR){
-                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR)
-                    runToolAction(game, board, hero, MOWER);
-                return NULL;
+            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
+                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
+                    for (i = 0; i < ENTITY_MAX; i++) {
+                        if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y)
+                            moveEntity(game, hero, entityList[i], board);
+                    }
+                }
+
+                return;
             }
 
             hero->pos->x += 1;
             break;
 
         case LEFT_KEY:
-            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR){
-                if (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR)
-                    runToolAction(game, board, hero, MOWER);
-                return NULL;
+            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR) {
+                if (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR) {
+                    for (i = 0; i < ENTITY_MAX; i++) {
+                        if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y)
+                            moveEntity(game, hero, entityList[i], board);
+                    }
+                }
+
+                return;
             }
 
             hero->pos->y -= 1;
             break;
 
         case RIGHT_KEY:
-            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR){
-                if (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR)
-                    runToolAction(game, board, hero, MOWER);
+            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR) {
+                if (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR) {
+                    for (i = 0; i < ENTITY_MAX; i++) {
+                        if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y)
+                            moveEntity(game, hero, entityList[i], board);
+                    }
+                }
 
-                return NULL;
+                return;
             }
 
             hero->pos->y += 1;
@@ -155,7 +175,7 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
     hero->caseBelow = board[hero->pos->x][hero->pos->y];
 
     if (prevPosX != hero->pos->x || prevPosY != hero->pos->y) {
-        runCaseAction(game, board, hero);
+        runCaseAction(game, board, hero, entityList);
         drawToolbar(game);
     }
 
@@ -170,8 +190,6 @@ Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Ecem
 
         reloadLevel(game, board, hero);
     }
-
-    return hero;
 }
 
 /**

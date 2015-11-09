@@ -3,93 +3,36 @@
 #include <windows.h>
 
 /**
- * Compte le nombre d'ennemis sur le plateau
- * passé en paramètre.
+ * Extrait les entités de la map.
  * @param board Le plateau de jeu
- * @return Le nombre d'ennemis sur le plateau
+ * @param entityList La liste des entités
  */
-int hasEnnemies(char board[ROWS][COLS]) {
+void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]) {
     unsigned short x, y;
-    unsigned short nbEnemies;
+    int count;
+    Entity* entity;
 
-    nbEnemies = 0;
+    count = -1;
 
     for (x = 0; x < ROWS; x++) {
         for (y = 0; y < COLS; y++) {
-            if (board[x][y] == ENEMY_CHAR)
-                nbEnemies++;
-        }
-    }
+            entity = NULL;
 
-    return nbEnemies;
-}
-
-/**
- * Compte le nombre tondeuses sur le plateau
- * passé en paramètre.
- * @param board Le plateau de jeu
- * @return Le nombre de tondeuse sur le plateau
- */
-int hasMowers(char board[ROWS][COLS]) {
-    unsigned short x, y;
-    unsigned short nbMowers;
-
-    nbMowers = 0;
-
-    for (x = 0; x < ROWS; x++) {
-        for (y = 0; y < COLS; y++) {
-            if (board[x][y] == MOWER_CHAR)
-                nbMowers++;
-        }
-    }
-
-    return nbMowers;
-}
-
-/**
- * Récupère la position de l'ennemi sur la map.
- * @param board Le plateau de jeu
- * @return La position de l'ennemi
- */
-Position* getEnemyPosition(char board[ROWS][COLS]) {
-    Position* pos = malloc(sizeof(Position));
-    unsigned short x, y;
-
-    for (x = 0; x < ROWS; x++) {
-        for (y = 0; y < COLS; y++) {
-            if (board[x][y] == ENEMY_CHAR) {
-                pos->x = x;
-                pos->y = y;
-
-                return pos;
+            switch (board[x][y]) {
+                case ENEMY_CHAR:
+                    entity = createEnemy(x, y, UP);
+                    count++;
+                    break;
+                case MOWER_CHAR:
+                    entity = createMower(x, y, RIGHT);
+                    count++;
+                    break;
             }
+
+            if (entity != NULL)
+                entityList[count] = entity;
         }
     }
-
-    return NULL;
-}
-
-/**
- * Récupère la position de l'outil passé en paramètre sur la map.
- * @param board Le plateau de jeu
- * @return La position de l'outil
- */
-Position* getToolPosition(char board[ROWS][COLS], const char elem) {
-    Position* pos = malloc(sizeof(Position));
-    unsigned short x, y;
-
-    for (x = 0; x < ROWS; x++) {
-        for (y = 0; y < COLS; y++) {
-            if (board[x][y] == elem) {
-                pos->x = x;
-                pos->y = y;
-
-                return pos;
-            }
-        }
-    }
-
-    return NULL;
 }
 
 /**

@@ -159,9 +159,11 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  * @param game L'état du jeu
  * @param board Le plateau de jeu
  * @param hero Le Eceman
+ * @param entityList La liste des entités
  */
-void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
     const unsigned char currentCase = board[hero->pos->x][hero->pos->y];
+    unsigned int i;
 
     switch (currentCase) {
         case DOOR_CHAR:
@@ -180,7 +182,13 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero) {
             break;
 
         case MOWER_CHAR:
-            runToolAction(game, board, hero, MOWER);
+            for (i = 0; i < ENTITY_MAX; i++) {
+                if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y) {
+                    moveEntity(game, hero, entityList[i], board);
+                    return;
+                }
+            }
+
             break;
 
         case ENEMY_CHAR:

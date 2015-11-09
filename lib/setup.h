@@ -6,8 +6,7 @@
 #include "setup.h"
 #include "case.h"
 #include "eceman.h"
-#include "enemy.h"
-#include "tool.h"
+#include "entity.h"
 #include "game.h"
 
 /*
@@ -57,7 +56,7 @@ void closeSaving(FILE* saving);
 char convertCase(char elem);
 int getCaseColor(char elem);
 void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero);
-void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero);
+void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]);
 Position* getEnemyPosition(char board[ROWS][COLS]);
 Position* getToolPosition(char board[ROWS][COLS], const char elem);
 
@@ -66,25 +65,11 @@ Eceman* newEceman();
 void destroyEceman(Eceman* hero);
 int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem);
 void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero);
-Eceman* moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero);
+void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]);
 void drawEceman(char board[ROWS][COLS], Eceman* hero);
 
-// enemy.c
-EnemyList* newEnemyList();
-void destroyEnemyList(EnemyList* enemyList);
-Enemy* newEnemy(Position* caseEnemy, enum Direction direction);
-void destroyEnemy(Enemy* enemy);
-Enemy* addEnemy(EnemyList* enemyList, Enemy* enemy);
-Enemy* moveEnemy(GameState* game, char board[ROWS][COLS], Enemy* enemy, Eceman* hero);
-void clearEnemy(char board[ROWS][COLS], Enemy* enemy);
-void drawEnemy(char board[ROWS][COLS], Enemy* enemy);
-
-// tool.c
-Tool* newTool(Position* caseTool, enum ToolType type, enum Direction direction);
-void destroyTool(Tool* tool);
-void runToolAction(GameState* game, char board[ROWS][COLS], Eceman* hero, enum ToolType toolType);
-
 // board.c
+void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]);
 int hasEnnemies(char board[ROWS][COLS]);
 int hasMowers(char board[ROWS][COLS]);
 void drawToolbar(GameState* game);

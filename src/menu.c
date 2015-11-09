@@ -26,10 +26,10 @@ static void exitGame() {
 void launchAction(const char choice) {
     switch (choice) {
         case '1':
-            initGame(1);
+            initGame(0);
             break;
         case '2':
-            initGame(0);
+            initGame(1);
             break;
         case 'l':
             displayLevels();

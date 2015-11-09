@@ -106,10 +106,10 @@ void gameOver(GameState* game) {
  * @param board Le plateau de jeu
  * @param hero Le Eceman
  */
-static void launchUserAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero) {
+static void launchUserAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
     if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
         changeCaseType(game, board, hero);
-        moveEceman(key, game, board, hero);
+        moveEceman(key, game, board, hero, entityList);
         drawEceman(board, hero);
     }
 
@@ -137,13 +137,19 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
  * @param hero Le Eceman
  * @param enemyList La liste des ennemis
  */
-static void launchToolAction(GameState* game, char board[ROWS][COLS], Eceman* hero, EnemyList* enemyList) {
-    if (enemyList) {
-        ENEMY_FOREACH(enemyList, first, next, curr) {
-            clearEnemy(board, curr);
-            moveEnemy(game, board, curr, hero);
-            drawEnemy(board, curr);
+static void launchEntityAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
+    unsigned int i;
+
+    i = 0;
+
+    while (entityList[i] != NULL) {
+        if (entityList[i]->symbol == ENEMY_CHAR) {
+            clearEntity(board, entityList[i]);
+            moveEntity(game, hero, entityList[i], board);
+            drawEntity(board, entityList[i]);
         }
+
+        i++;
     }
 }
 
@@ -155,9 +161,9 @@ static void launchToolAction(GameState* game, char board[ROWS][COLS], Eceman* he
  * @param board Le plateau de jeu
  */
 static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
-    unsigned short i, nbEnemies;
+    unsigned short i;
     FILE* map = loadMap(game->level);
-    EnemyList* enemyList = NULL;
+    Entity* entityList[ENTITY_MAX] = {NULL};
 
     game->playing = 1;
     game->pause = 0;
@@ -168,16 +174,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     goToCase(board, hero, SPAWN_CHAR);
 
-    nbEnemies = hasEnnemies(board);
-
-    if (nbEnemies > 0) {
-        enemyList = newEnemyList();
-
-        for (i = 0; i < nbEnemies; i++) {
-            // TODO : prendre en compte la position de plusieurs ennemis.
-            addEnemy(enemyList, newEnemy(getEnemyPosition(board), UP));
-        }
-    }
+    extractEntities(board, entityList);
 
     drawEceman(board, hero);
 
@@ -185,18 +182,22 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     while (game->playing != 0) {
         if (kbhit())
-            launchUserAction(getch(), game, board, hero);
+            launchUserAction(getch(), game, board, hero, entityList);
 
         if (i % 10 == 0)
-            launchToolAction(game, board, hero, enemyList);
+            launchEntityAction(game, board, hero, entityList);
 
         i++;
 
         Sleep(DELAY);
     }
 
-    if (nbEnemies > 0)
-        destroyEnemyList(enemyList);
+    i = 0;
+
+    while (entityList[i] != NULL) {
+        destroyEntity(entityList[i]);
+        i++;
+    }
 
     destroyEceman(hero);
 }
@@ -239,7 +240,6 @@ void initGame(const int isNew) {
     unsigned int level;
 
     game->timeStart = clock();
-
 
     if (isNew != 0) {
         saving = loadSaving();

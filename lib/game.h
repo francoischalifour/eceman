@@ -17,6 +17,7 @@
 
 #define SCORE_MAX 9999
 #define RANKING_MAX 10
+#define ENTITY_MAX 10
 
 #define NAME_LENGTH 35
 
