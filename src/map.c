@@ -1,4 +1,5 @@
 #include "../lib/setup.h"
+#include <string.h>
 #include <assert.h>
 
 /**
@@ -9,13 +10,18 @@
  */
 FILE* loadMap(short level) {
     char filepath[18];
+    char filedir[18];
     FILE* map = NULL;
 
     if (level < 1 || level > getNbLevels()) {
         level = 1;
     }
 
-    sprintf(filepath, "../data/map/%d.map", level);
+    strcpy(filedir, MAP_DIR);
+    sprintf(filepath, "%d.map", level);
+    strcat(filedir, filepath);
+
+    strcpy(filepath, filedir);
 
     map = fopen(filepath, "r");
 

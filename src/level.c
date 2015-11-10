@@ -31,7 +31,7 @@ int getNbLevels() {
     DIR *dir;
     struct dirent *file;
 
-    if ((dir = opendir("../data/map/")) != NULL) {
+    if ((dir = opendir(MAP_DIR)) != NULL) {
         while ((file = readdir(dir)) != NULL) {
             if (!strcmp(file->d_name, ".") || !strcmp(file->d_name, ".."))
                 continue;
