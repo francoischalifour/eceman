@@ -231,6 +231,8 @@ void editMap(const int level) {
 
     posx = posy = 0;
 
+    goToXY(posx, posy);
+
     while (1) {
         if (kbhit()) {
             // Nettoyer éventuellement la ligne des erreurs
@@ -300,10 +302,12 @@ void editMap(const int level) {
                     break;
             }
 
-            if (posx % COLS == 0) {
+            if (posx != 0 && posx % COLS == 0) {
                 posx = 0;
                 posy++;
             }
+
+            goToXY(posx, posy);
         }
     }
 }
