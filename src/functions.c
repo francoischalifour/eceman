@@ -27,20 +27,6 @@ void goToXY(const unsigned short x, const unsigned short y) {
 }
 
 /**
- * Convertit un caractère en entier.
- * @param c Caractère à convertir
- * @return Le caractère converti en entier
- */
-int convertToInt(const char c) {
- char string[2];
-
- string[0] = c;
- string[1] = '\0';
-
- return (int) strtol(string, NULL, 10);
-}
-
-/**
  * Initialise une couleur à afficher à l'écran.
  * @param color La couleur
  */

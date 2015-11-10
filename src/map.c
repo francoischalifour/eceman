@@ -84,6 +84,9 @@ static void drawLegend() {
     printf("%s %s\n", "(s)", "Enregistrer le niveau");
 
     goToXY(26, 15);
+    printf("%s %s\n", "(q)", "Quitter l'editeur");
+
+    goToXY(26, 16);
     printf("%s %s\n", "Backspace", "Effacer");
 }
 

@@ -45,7 +45,7 @@ float getLastTime(FILE* saving);
 int getLastLevel(FILE* saving);
 int getNbLevels();
 void getRanking();
-void launchLevel(char level);
+void launchLevel(int level);
 
 // saving.c
 void save(GameState* game);
@@ -86,7 +86,6 @@ void gameOver(GameState* game);
 // functions.c
 void goBack();
 void goToXY(const unsigned short x, const unsigned short y);
-int convertToInt(const char c);
 void setColor(const int color);
 void resetColor();
 

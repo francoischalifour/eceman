@@ -41,20 +41,20 @@ void displayMenu() {
         closeSaving(saving);
     }
 
-    goToXY(2, 20);
+    goToXY(2, 19);
     printf("(l) Niveaux\n");
+    goToXY(2, 20);
+    printf("(e) Editeur");
     goToXY(2, 21);
     printf("(c) Classement");
 
-    goToXY(20, 20);
+    goToXY(20, 19);
     printf("(r) Regles");
-    goToXY(20, 21);
+    goToXY(20, 20);
     printf("(a) A propos");
-
-    goToXY(50, 19);
-    printf("(m) Creer un niveau");
-    goToXY(50, 20);
+    goToXY(20, 21);
     printf("(o) Options");
+
     goToXY(50, 21);
     printf("(q) Quitter");
 
@@ -76,7 +76,8 @@ void displaySettings() {
  * Affiche les niveaux.
  */
 void displayLevels() {
-    unsigned short i;
+    unsigned short i, choixPos;
+    unsigned short level;
     char key;
 
     displayTitle();
@@ -84,15 +85,51 @@ void displayLevels() {
     printf("\tChoisir un niveau\n\n");
 
     for (i = 0; i < getNbLevels(); i++) {
-        printf("\t(%d) Niveau %d\n", i + 1, i + 1);
+        printf("\tNiveau %d\n", i + 1);
     }
 
     printf("\n\t(r) Retour\n");
 
-    key = getch();
+    // Position initiale de la flèche.
+    choixPos = 9;
+    level = 1;
 
-    if (key != 'r')
-        launchLevel(key);
+    goToXY(5, choixPos);
+    printf("->");
+
+    key = '0';
+
+    while (key != '\r') {
+        key = getch();
+
+        switch (key) {
+            case UP_KEY:
+                if (level > 1) {
+                    level--;
+                    goToXY(5, choixPos);
+                    printf("  ");
+                    choixPos--;
+                    goToXY(5, choixPos);
+                    printf("->");
+                }
+                break;
+            case DOWN_KEY:
+                if (level < getNbLevels()) {
+                    level++;
+                    goToXY(5, choixPos);
+                    printf("  ");
+                    choixPos++;
+                    goToXY(5, choixPos);
+                    printf("->");
+                }
+                break;
+            case '\r':
+                launchLevel(level);
+                break;
+            case 'r':
+                return;
+        }
+    }
 }
 
 /**

@@ -46,7 +46,7 @@ void launchAction(const char choice) {
         case 'a':
             displayAbout();
             break;
-        case 'm':
+        case 'e':
             createMap();
             break;
         case 'q':
