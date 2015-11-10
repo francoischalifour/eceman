@@ -5,7 +5,7 @@
 #include <assert.h>
 
 /**
- * Créé une nouvelle entité
+ * Créé une nouvelle entité.
  * @param x L'abscisse
  * @param y L'ordonnée
  * @param direction La direction
@@ -19,7 +19,7 @@
  * @param finalActionStrategy L'action après le déplacement
  * @return L'entité initialisée
  */
-static Entity* createEntity(unsigned int x, unsigned int y, enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, NextCaseStrategy nextCaseStrategy, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
+static Entity* createEntity(const unsigned int x, const unsigned int y, enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, NextCaseStrategy nextCaseStrategy, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
     Position* pos = malloc(sizeof(Position));
     Entity* entity = malloc(sizeof(Entity));
 

@@ -1,5 +1,4 @@
 #include "../lib/setup.h"
-#include "../lib/eceman.h"
 #include <windows.h>
 
 /**
@@ -52,7 +51,7 @@ void drawToolbar(GameState* game) {
 static void drawPanel() {
     setColor(GRAY_COLOR);
 
-    goToXY(26, 4);
+    goToXY(26, 3);
     setColor(getCaseColor(HERO_CHAR));
     printf("%c", convertCase(HERO_CHAR));
     setColor(GRAY_COLOR);

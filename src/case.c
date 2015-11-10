@@ -1,5 +1,4 @@
 #include "../lib/setup.h"
-#include "../lib/case.h"
 #include <windows.h>
 
 /**
@@ -89,6 +88,12 @@ int getCaseColor(char elem) {
         case TUNNEL_EXIT_CHAR:
             color = TUNNEL_CHAR_COLOR;
             break;
+        case MOWER_CHAR:
+            color = MOWER_CHAR_COLOR;
+            break;
+        case ENEMY_CHAR:
+            color = ENEMY_CHAR_COLOR;
+            break;
         default:
             color = 8;
     }
@@ -106,7 +111,7 @@ int getCaseColor(char elem) {
  */
 void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     const unsigned char currentCase = hero->caseBelow;
-    unsigned char elem;
+    char elem;
     unsigned short int color;
 
     switch (currentCase) {
@@ -145,9 +150,8 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
             color = MELT_CHAR_COLOR;
     }
 
-    if (hero->state != LIGHTNESS) {
+    if (hero->state != LIGHTNESS)
         game->levelScore++;
-    }
 
     goToXY(hero->pos->y, hero->pos->x);
     board[hero->pos->x][hero->pos->y] = elem;

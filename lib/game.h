@@ -1,6 +1,9 @@
 #ifndef ECEMAN_GAME_H
 #define ECEMAN_GAME_H
 
+#include "game.h"
+#include "eceman.h"
+
 #define SAVE_FILE "../data/saving/game.sav"
 #define SCORE_FILE "../data/saving/scores.sav"
 #define SCORE_FILE_TMP "../data/saving/scores.tmp"
@@ -48,5 +51,15 @@ typedef struct GameState {
     unsigned short pause;
     unsigned short playing;
 } GameState;
+
+/*
+ * Prototypes
+ */
+
+void initGame(const int isNew);
+void loadNextLevel();
+void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
+void pauseGame(GameState* game);
+void gameOver(GameState* game);
 
 #endif // ECEMAN_GAME_H
