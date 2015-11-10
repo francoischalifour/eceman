@@ -200,8 +200,6 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
         destroyEntity(entityList[i]);
         i++;
     }
-
-    destroyEceman(hero);
 }
 
 /**
@@ -256,5 +254,7 @@ void initGame(const int isNew) {
     }
 
     playGame(game, board, hero);
+
+    destroyEceman(hero);
     destroyGameState(game);
 }
