@@ -127,7 +127,7 @@ static void drawMap(char board[ROWS][COLS]) {
             resetColor();
         }
 
-        goToXY(0, x);
+        printf("\n");
     }
 }
 
@@ -189,19 +189,16 @@ static int hasCase(char board[ROWS][COLS], const char elem) {
  * @param board Le plateau de jeu à vérifier
  * @return  -1 si pas de point d'apparition,
  *                    -2 si pas de porte de sortie
+ *                    -3 s'il y a un tunnel sans sortie
  *                    0 sinon
  */
 static int checkBoard(char board[ROWS][COLS]) {
-    unsigned int i, j;
-
-    for (i = 0; i < ROWS; i++) {
-        for (j = 0; j < COLS; j++) {
-            if (hasCase(board, SPAWN_CHAR) != 0)
-                return -1;
-            else if (hasCase(board, DOOR_CHAR) != 0)
-                return -2;
-        }
-    }
+    if (hasCase(board, SPAWN_CHAR) != 0)
+        return -1;
+    else if (hasCase(board, DOOR_CHAR) != 0)
+        return -2;
+    else if (hasCase(board, TUNNEL_CHAR) == 0 && hasCase(board, TUNNEL_EXIT_CHAR) != 0)
+        return -3;
 
     return 0;
 }
@@ -268,6 +265,9 @@ void editMap(const int level) {
                                 break;
                             case -2:
                                 printf("Le niveau de contient pas de porte de sortie.\n");
+                                break;
+                            case -3:
+                                printf("Le tunnel n'est pas lie a une sortie.\n");
                                 break;
                             default:
                                 printf("Le niveau contient des erreurs.\n");
