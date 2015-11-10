@@ -32,7 +32,7 @@ void launchAction(const char choice) {
             initGame(1);
             break;
         case 'l':
-            displayLevels();
+            displayLevels(0);
             break;
         case 'o':
             displaySettings();
@@ -47,7 +47,7 @@ void launchAction(const char choice) {
             displayAbout();
             break;
         case 'e':
-            createMap();
+            displayEditor();
             break;
         case 'q':
             exitGame();

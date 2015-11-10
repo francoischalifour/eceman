@@ -74,8 +74,9 @@ void displaySettings() {
 
 /**
  * Affiche les niveaux.
+ * @param mode 0 pour jeu, 1 pour éditeur
  */
-void displayLevels() {
+void displayLevels(const int mode) {
     unsigned short i, choixPos;
     unsigned short level;
     char key;
@@ -124,12 +125,36 @@ void displayLevels() {
                 }
                 break;
             case '\r':
-                launchLevel(level);
+                if (mode != 0)
+                    editMap(level);
+                else
+                    launchLevel(level);
                 break;
             case 'r':
                 return;
         }
     }
+}
+
+/**
+ * Affiche l'éditeur de niveaux.
+ */
+void displayEditor() {
+    displayTitle();
+
+    printf("\tEditeur de niveau\n\n");
+
+    printf("\t(1) Modifier un niveau existant\n");
+    printf("\t(2) Creer un nouveau niveau\n");
+
+        switch (getch()) {
+            case '1':
+                displayLevels(1);
+                break;
+            case '2':
+                editMap(0);
+                break;
+        }
 }
 
 /**

@@ -16,22 +16,22 @@
 // display.c
 void displayTitle();
 void displayMenu();
-void displayLevels();
+void displayLevels(const int mode);
 void displaySettings();
+void displayEditor();
 void displayRules();
 void displayGameOver(const int scoreFinal);
 void displayRanking();
 void displayAbout();
 
 // menu.c
-void displayMenu();
 char getChoice();
 void launchAction(const char choice);
 
 // map.c
 FILE* loadMap(short level);
 void closeMap(FILE* map);
-void createMap();
+void editMap(const int level);
 
 // score.c
 int getLastScore(FILE* scoreFile);

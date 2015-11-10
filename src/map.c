@@ -44,6 +44,8 @@ void closeMap(FILE* map) {
  * Dessine la légende des maps.
  */
 static void drawLegend() {
+    setColor(GRAY_COLOR);
+
     goToXY(26, 1);
     printf("%c %s\n", OUTSIDE_CHAR, "Exterieur");
 
@@ -80,26 +82,46 @@ static void drawLegend() {
     goToXY(26, 12);
     printf("%c %s\n", DOOR_CHAR, "Porte de sortie");
 
+    resetColor();
+
     goToXY(26, 14);
     printf("%s %s\n", "(s)", "Enregistrer le niveau");
 
     goToXY(26, 15);
     printf("%s %s\n", "(q)", "Quitter l'editeur");
-
-    goToXY(26, 16);
-    printf("%s %s\n", "Backspace", "Effacer");
 }
 
 /**
- * Dessine la map créée par le joueur.
+ * Initialise la map.
  * @param board Le plateau
  */
-static void drawInitMap(char board[ROWS][COLS]) {
+static void initMap(FILE* map, char board[ROWS][COLS]) {
+    unsigned short x, y;
+
+    if (!map) {
+        for (x = 0; x < ROWS; x++) {
+            for (y = 0; y <= COLS; y++) {
+                board[x][y] = OUTSIDE_CHAR;
+            }
+        }
+    } else {
+        for (x = 0; x < ROWS; x++) {
+            for (y = 0; y <= COLS; y++) {
+                board[x][y] = fgetc(map);
+            }
+        }
+    }
+}
+
+/**
+ * Dessine la map passée en paramètre.
+ * @param board Le plateau
+ */
+static void drawMap(char board[ROWS][COLS]) {
     unsigned short x, y;
 
     for (x = 0; x < ROWS; x++) {
         for (y = 0; y < COLS; y++) {
-            board[x][y] = OUTSIDE_CHAR;
             setColor(getCaseColor(board[x][y]));
             putchar(convertCase(board[x][y]));
             resetColor();
@@ -112,15 +134,21 @@ static void drawInitMap(char board[ROWS][COLS]) {
 /**
  * Enregistre le tableau de map dans un fichier.
  * @param board Le plateau fraîchement créé
+ * @param level Le niveau de la map (0 pour nouveau)
  */
-static void saveMap(char board[ROWS][COLS]) {
+static void saveMap(char board[ROWS][COLS], const int level) {
     unsigned int i, j;
     char filepath[18];
     char filename[18];
     FILE* mapFile = NULL;
 
     strcpy(filepath, MAP_DIR);
-    sprintf(filename, "%d.map", getNbLevels() + 1);
+
+    if (level != 0)
+        sprintf(filename, "%d.map", level);
+    else
+        sprintf(filename, "%d.map", getNbLevels() + 1);
+
     strcat(filepath, filename);
 
     mapFile = fopen(filepath, "w");
@@ -179,20 +207,29 @@ static int checkBoard(char board[ROWS][COLS]) {
 }
 
 /**
- * Créer une map dynamiquement.
+ * Edite une map dynamiquement.
+ * @param level Le niveau à modifier (0 si nouveau niveau)
  */
-void createMap() {
+void editMap(const int level) {
     unsigned int posx, posy;
     unsigned char elem;
+    FILE* map = NULL;
     char board[ROWS][COLS];
     int checkStatus;
 
     system("cls");
 
-    posx = posy = 0;
+    if (level != 0) {
+        map = loadMap(level);
+        initMap(map, board);
+    } else {
+        initMap(NULL, board);
+    }
 
-    drawInitMap(board);
+    drawMap(board);
     drawLegend();
+
+    posx = posy = 0;
 
     while (1) {
         if (kbhit()) {
@@ -204,16 +241,16 @@ void createMap() {
 
             switch (elem) {
                 case UP_KEY:
-                    goToXY(posx - 1, posy);
+                    posy--;
                     break;
                 case DOWN_KEY:
-                    goToXY(posx + 1, posy);
+                    posy++;
                     break;
                 case LEFT_KEY:
-                    goToXY(posx, posy - 1);
+                    posx--;
                     break;
                 case RIGHT_KEY:
-                    goToXY(posx, posy + 1);
+                    posx++;
                     break;
                 case 'q':
                     return;
@@ -225,16 +262,16 @@ void createMap() {
                         goToXY(1, 17);
                         switch (checkStatus) {
                             case -1:
-                                printf("Votre niveau de contient pas de point d'apparition.\n");
+                                printf("Le niveau de contient pas de point d'apparition.\n");
                                 break;
                             case -2:
-                                printf("Votre niveau de contient pas de porte de sortie.\n");
+                                printf("Le niveau de contient pas de porte de sortie.\n");
                                 break;
                             default:
-                                printf("Votre niveau contient des erreurs.\n");
+                                printf("Le niveau contient des erreurs.\n");
                         }
                     } else {
-                        saveMap(board);
+                        saveMap(board, level);
                         return;
                     }
                     break;
