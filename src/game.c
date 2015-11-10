@@ -107,12 +107,6 @@ void gameOver(GameState* game) {
  * @param hero Le Eceman
  */
 static void launchUserAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
-    if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
-        changeCaseType(game, board, hero);
-        moveEceman(key, game, board, hero, entityList);
-        drawEceman(board, hero);
-    }
-
     switch (key) {
         case 'p':
             pauseGame(game);
@@ -126,6 +120,15 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
             game->timeTotal = game->timeTotal + (clock() - game->timeStart);
             save(game);
             closeGame(game);
+            break;
+
+        case UP_KEY:
+        case DOWN_KEY:
+        case LEFT_KEY:
+        case RIGHT_KEY:
+            changeCaseType(game, board, hero);
+            moveEceman(key, game, board, hero, entityList);
+            drawEceman(board, hero);
             break;
     }
 }
@@ -155,7 +158,6 @@ static void launchEntityAction(GameState* game, char board[ROWS][COLS], Eceman* 
 
 /**
  * Commence une partie.
- *
  * @param game L'état du jeu
  * @param hero Le Eceman
  * @param board Le plateau de jeu

@@ -46,6 +46,9 @@ void launchAction(const char choice) {
         case 'a':
             displayAbout();
             break;
+        case 'm':
+            createMap();
+            break;
         case 'q':
             exitGame();
             break;

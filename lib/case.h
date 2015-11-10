@@ -5,17 +5,18 @@
 #define SPAWN_CHAR '$'
 #define THIN_CHAR 'o'
 #define THICK_CHAR 'O'
-#define MELT_CHAR '~'
+#define MELT_CHAR 'w'
 #define OUTSIDE_CHAR '#'
 #define WALL_CHAR 'W'
 #define DOOR_CHAR 'D'
-#define LIGHTNESS_POTION_CHAR 'P'
+#define LIGHTNESS_POTION_CHAR 'L'
 #define TUNNEL_CHAR 'T'
 #define TUNNEL_EXIT_CHAR 'E'
-#define ENEMY_CHAR 'Y'
-#define MOWER_CHAR 'M'
+#define ENEMY_CHAR 'N'
+#define MOWER_CHAR 'R'
 
 #define HERO_CHAR_COLOR 176
+#define SPAWN_CHAR_COLOR 232
 #define THIN_CHAR_COLOR 191
 #define THICK_CHAR_COLOR 176
 #define MELT_CHAR_COLOR 151

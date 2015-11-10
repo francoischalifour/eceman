@@ -51,6 +51,8 @@ void displayMenu() {
     goToXY(20, 21);
     printf("(a) A propos");
 
+    goToXY(50, 19);
+    printf("(m) Creer un niveau");
     goToXY(50, 20);
     printf("(o) Options");
     goToXY(50, 21);

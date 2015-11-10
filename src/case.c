@@ -59,6 +59,9 @@ int getCaseColor(char elem) {
         case HERO_CHAR:
             color = HERO_CHAR_COLOR;
             break;
+        case SPAWN_CHAR:
+            color = SPAWN_CHAR_COLOR;
+            break;
         case THIN_CHAR:
             color = THIN_CHAR_COLOR;
             break;

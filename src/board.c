@@ -58,6 +58,12 @@ static void drawPanel() {
     setColor(GRAY_COLOR);
     printf(" %s\n", "Personnage");
 
+    goToXY(26, 4);
+    setColor(getCaseColor(ENEMY_CHAR));
+    printf("%c", convertCase(ENEMY_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Ennemi");
+
     goToXY(26, 5);
     setColor(getCaseColor(WALL_CHAR));
     printf("%c", convertCase(WALL_CHAR));

@@ -31,6 +31,7 @@ void launchAction(const char choice);
 // map.c
 FILE* loadMap(short level);
 void closeMap(FILE* map);
+void createMap();
 
 // score.c
 int getLastScore(FILE* scoreFile);
