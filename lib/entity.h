@@ -8,14 +8,6 @@
 typedef struct Entity Entity;
 
 /**
- * Détermine la case suivante à percuter en fonction de l'entité.
- * @param pos La position de l'entité
- * @param direction La direction de l'entité
- * @return L'élément du plateau à percuter
- */
-typedef char (*NextCaseStrategy) (const Position* pos, const enum Direction direction, char board[ROWS][COLS]);
-
-/**
  * Détermine la condition de collision de l'entité avec un autre objet.
  * @param symbol La case du plateau à tester
  * @param La position de l'entité
@@ -59,7 +51,6 @@ struct Entity {
     unsigned char symbolColor;
     unsigned char nextSymbol;
     unsigned char nextSymbolColor;
-    NextCaseStrategy nextCaseStrategy;
     CollidePropertyStrategy collidePropertyStrategy;
     CollideStrategy collideStrategy;
     FinalActionStrategy finalActionStrategy;
@@ -83,5 +74,6 @@ void mowerFinalActionStrategy(GameState* game, Eceman* hero, Entity* mower, char
 void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]);
 void drawEntity(char board[ROWS][COLS], const Entity* entity);
 void clearEntity(char board[ROWS][COLS], const Entity* entity);
+void throwEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]);
 
 #endif // ECEMAN_ENTITY_H

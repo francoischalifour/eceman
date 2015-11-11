@@ -185,7 +185,6 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero)
  */
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
     const unsigned char currentCase = board[hero->pos->x][hero->pos->y];
-    unsigned int i;
 
     switch (currentCase) {
         case DOOR_CHAR:
@@ -201,16 +200,6 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
 
         case TUNNEL_CHAR:
             goToCase(board, hero, TUNNEL_EXIT_CHAR);
-            break;
-
-        case MOWER_CHAR:
-            for (i = 0; i < ENTITY_MAX; i++) {
-                if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y) {
-                    moveEntity(game, hero, entityList[i], board);
-                    return;
-                }
-            }
-
             break;
 
         case ENEMY_CHAR:

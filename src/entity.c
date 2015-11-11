@@ -32,13 +32,12 @@
  * @param symbolColor La couleur du symbol
  * @param nextSymbol Le symbol après passage
  * @param nextSymbolColor La couleur du symbol après passage
- * @param nextCaseStrategy Le comportement de collision avec la case suivante
  * @param collidePropertyStrategy La condition de collision
  * @param collideStrategy L'action après collision
  * @param finalActionStrategy L'action après le déplacement
  * @return L'entité initialisée
  */
-static Entity* createEntity(const unsigned int x, const unsigned int y, const enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, NextCaseStrategy nextCaseStrategy, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
+static Entity* createEntity(const unsigned int x, const unsigned int y, const enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
     Position* pos = malloc(sizeof(Position));
     Entity* entity = malloc(sizeof(Entity));
 
@@ -57,7 +56,6 @@ static Entity* createEntity(const unsigned int x, const unsigned int y, const en
     entity->nextSymbol = nextSymbol;
     entity->nextSymbolColor = nextSymbolColor;
 
-    entity->nextCaseStrategy = nextCaseStrategy;
     entity->collidePropertyStrategy = collidePropertyStrategy;
     entity->collideStrategy = collideStrategy;
     entity->finalActionStrategy = finalActionStrategy;
@@ -83,7 +81,7 @@ void destroyEntity(Entity* entity) {
  * @return Un nouvel ennemi
  */
 Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direction direction) {
-    return createEntity(x, y, direction, ENEMY_CHAR, ENEMY_CHAR_COLOR, THIN_CHAR, THIN_CHAR_COLOR, enemyNextCaseStrategy, enemyCollidePropertyStrategy, enemyCollideStrategy, enemyFinalActionStrategy);
+    return createEntity(x, y, direction, ENEMY_CHAR, ENEMY_CHAR_COLOR, THIN_CHAR, THIN_CHAR_COLOR, enemyCollidePropertyStrategy, enemyCollideStrategy, enemyFinalActionStrategy);
 }
 
 /**
@@ -94,58 +92,7 @@ Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direc
  * @return Une nouvelle tondeuse
  */
 Entity* createMower(const unsigned int x, const unsigned int y, const enum Direction direction) {
-    return createEntity(x, y, direction, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerNextCaseStrategy, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
-}
-
-/**
- * Renvoie la case suivante à percuter en tant qu'ennemi.
- * @param pos La position de l'ennemi
- * @param board Le plateau de jeu
- * @return Le case à percuter
- */
-char enemyNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]) {
-    switch (direction) {
-        case UP:
-            return (board[pos->x-1][pos->y]);
-            break;
-        case DOWN:
-            return (board[pos->x+1][pos->y]);
-            break;
-        case LEFT:
-            return (board[pos->x][pos->y-1]);
-            break;
-        case RIGHT:
-            return (board[pos->x][pos->y+1]);
-            break;
-        default:
-            return WALL_CHAR;
-    }
-}
-
-/**
- * Renvoie la case suivante à percuter en tant que tondeuse.
- * @param pos La position de la tondeuse
- * @param board Le plateau de jeu
- * @return Le case à percuter
- */
-// TODO : supprimer les fonctions nextCaseStrategy si elles ne changent pas en fonction de l'entité
-char mowerNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]) {
-    switch (direction) {
-        case UP:
-            return (board[pos->x-1][pos->y]);
-            break;
-        case DOWN:
-            return (board[pos->x+1][pos->y]);
-            break;
-        case LEFT:
-            return (board[pos->x][pos->y-1]);
-            break;
-        case RIGHT:
-            return (board[pos->x][pos->y+1]);
-            break;
-        default:
-            return WALL_CHAR;
-    }
+    return createEntity(x, y, direction, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
 }
 
 /**
@@ -222,7 +169,7 @@ void mowerFinalActionStrategy(GameState* game, Eceman* hero, Entity* mower, char
 void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]) {
     switch (entity->direction) {
         case UP:
-            if (entity->collidePropertyStrategy(entity->nextCaseStrategy(entity->pos, UP, board), entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x-1][entity->pos->y], entity->pos)) {
                 entity->collideStrategy(entity, DOWN);
                 return;
             }
@@ -231,7 +178,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
             break;
 
         case DOWN:
-            if (entity->collidePropertyStrategy(entity->nextCaseStrategy(entity->pos, DOWN, board), entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x+1][entity->pos->y], entity->pos)) {
                 entity->collideStrategy(entity, UP);
                 return;
             }
@@ -240,7 +187,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
             break;
 
         case LEFT:
-            if (entity->collidePropertyStrategy(entity->nextCaseStrategy(entity->pos, LEFT, board), entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x][entity->pos->y-1], entity->pos)) {
                 entity->collideStrategy(entity, RIGHT);
                 return;
             }
@@ -249,7 +196,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
             break;
 
         case RIGHT:
-            if (entity->collidePropertyStrategy(entity->nextCaseStrategy(entity->pos, RIGHT, board), entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x][entity->pos->y+1], entity->pos)) {
                 entity->collideStrategy(entity, LEFT);
                 return;
             }
@@ -289,4 +236,19 @@ void clearEntity(char board[ROWS][COLS], const Entity* entity) {
     setColor(entity->nextSymbolColor);
     putchar(convertCase(entity->nextSymbol));
     resetColor();
+}
+
+/**
+ * Envoie une entité jusqu'à ce qu'elle rencontre sa propriété de collision.
+ * @param game L'état du jeu
+ * @param hero Le héros
+ * @param entity L'entité à envoyer
+ * @param board Le plateau de jeu
+ */
+void throwEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]) {
+    while (entity->state != FINAL) {
+        clearEntity(board, entity);
+        moveEntity(game, hero, entity, board);
+        drawEntity(board, entity);
+    }
 }
