@@ -181,7 +181,7 @@ void displayRules() {
     FILE* rules = NULL;
     char c;
 
-    rules = fopen("../data/info/rules.txt", "r");
+    rules = fopen(RULES_FILE, "r");
 
     displayTitle();
 
@@ -233,7 +233,7 @@ void displayAbout() {
     FILE* about = NULL;
     char c;
 
-    about = fopen("../data/info/about.txt", "r");
+    about = fopen(ABOUT_FILE, "r");
 
     displayTitle();
 

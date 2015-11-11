@@ -8,6 +8,8 @@
 #define SCORE_FILE "../data/saving/scores.sav"
 #define SCORE_FILE_TMP "../data/saving/scores.tmp"
 #define MAP_DIR "../data/map/"
+#define RULES_FILE "../data/info/rules.txt"
+#define ABOUT_FILE "../data/info/about.txt"
 
 #define UP_KEY 72
 #define DOWN_KEY 80

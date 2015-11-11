@@ -239,7 +239,7 @@ void clearEntity(char board[ROWS][COLS], const Entity* entity) {
 }
 
 /**
- * Envoie une entité jusqu'à ce qu'elle rencontre sa propriété de collision.
+ * Envoie une entité tant que sont état n'est pas final.
  * @param game L'état du jeu
  * @param hero Le héros
  * @param entity L'entité à envoyer
