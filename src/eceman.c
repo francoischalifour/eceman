@@ -84,10 +84,10 @@ static int isSurrounded(char board[ROWS][COLS], const Eceman* hero) {
     if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR || board[hero->pos->x][hero->pos->y] == TUNNEL_CHAR)
         return 0;
 
-    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)
-        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR)
-        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR)
-        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR))
+    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR)
+        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR)
+        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR)
+        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR))
         return 1;
 
     return 0;
@@ -140,7 +140,6 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
                         }
                     }
                 }
-
                 return;
             }
 
@@ -158,7 +157,6 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
                         }
                     }
                 }
-
                 return;
             }
 
@@ -176,7 +174,6 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
                         }
                     }
                 }
-
                 return;
             }
 
@@ -194,7 +191,6 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
                         }
                     }
                 }
-
                 return;
             }
 
