@@ -16,6 +16,7 @@
 
 #include "../lib/setup.h"
 #include <string.h>
+#include <time.h>
 #include <assert.h>
 
 /**
@@ -23,13 +24,16 @@
  * @param game L'état du jeu à sauvegarder (score, level, temps)
  */
 void save(GameState* game) {
+    float timeStop;
     FILE* saveFile = NULL;
 
     saveFile = fopen(SAVE_FILE, "w+");
 
     assert(saveFile != NULL);
 
-    fprintf(saveFile, "%u\n%u\n%f", game->level, game->score, game->timeTotal);
+    timeStop = clock();
+
+    fprintf(saveFile, "%u\n%u\n%f\n%f", game->level, game->score, game->timePlayed, timeStop);
 
     fclose(saveFile);
 }

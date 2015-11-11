@@ -24,6 +24,7 @@
 #define SCORE_MAX 9999
 #define RANKING_MAX 10
 #define ENTITY_MAX 10
+#define BONUS_MAX 500
 
 #define NAME_LENGTH 35
 
@@ -47,8 +48,8 @@ enum Direction {
 typedef struct GameState {
     unsigned short score;
     unsigned short levelScore;
-    float timeTotal;
     float timeStart;
+    float timePlayed;
     unsigned short level;
     unsigned short pause;
     unsigned short playing;

@@ -30,7 +30,7 @@ int getLastScore(FILE* savingFile) {
     if (savingFile == NULL)
         return 0;
 
-    fscanf(savingFile, "\n%u", &score);
+    fscanf(savingFile, "%u\n", &score);
 
     if (score < 0 || score > SCORE_MAX)
         score = 0;
@@ -44,16 +44,30 @@ int getLastScore(FILE* savingFile) {
  * @return Le temps enregistré (0 si fichier non trouvé)
  */
 float getLastTime(FILE* savingFile) {
-    float timeTotal;
+    float timePlayed;
 
     if (savingFile == NULL)
         return 0;
 
-    rewind(savingFile);
+    fscanf(savingFile, "%f\n", &timePlayed);
 
-    fscanf(savingFile, "\n\n%f", &timeTotal);
+    return timePlayed;
+}
 
-    return timeTotal;
+/**
+ * Récupère le temps de fin de dernière partie.
+ * @param savingFile Le fichier de sauvegarde
+ * @return Le temps à la dernière partie enregistré (0 si fichier non trouvé)
+ */
+float getLastTimeStop(FILE* savingFile) {
+    float timeStop;
+
+    if (savingFile == NULL)
+        return 0;
+
+    fscanf(savingFile, "%f\n", &timeStop);
+
+    return timeStop;
 }
 
 /**
