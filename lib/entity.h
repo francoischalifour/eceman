@@ -62,7 +62,7 @@ struct Entity {
 
 void destroyEntity(Entity* entity);
 Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direction direction);
-Entity* createMower(const unsigned int x, const unsigned int y, const enum Direction direction);
+Entity* createMower(const unsigned int x, const unsigned int y);
 char enemyNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]);
 char mowerNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]);
 int enemyCollidePropertyStrategy(const char symbol, const Position* pos);

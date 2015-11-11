@@ -91,9 +91,29 @@ Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direc
  * @param direction La direction de la tondeuse
  * @return Une nouvelle tondeuse
  */
-Entity* createMower(const unsigned int x, const unsigned int y, const enum Direction direction) {
-    return createEntity(x, y, direction, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
+Entity* createMower(const unsigned int x, const unsigned int y) {
+    return createEntity(x, y, UP, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
 }
+
+/**
+ * Récupère l'entité présente à un endroit donné en paramètre.
+ * @param x L'abscisse
+ * @param y L'ordonnée
+ * @param entityList La liste des entités
+ * @return L'entité en coordonnées (x, y)
+ */
+/*static Entity* getEntity(const unsigned int x, const unsigned int y, Entity* entityList[ENTITY_MAX]) {
+    unsigned int i;
+
+    while (entityList[i] != NULL) {
+        if (entityList[i]->pos->x == x && entityList[i]->pos->y == y)
+            return entityList[i];
+
+        i++;
+    }
+
+    return NULL;
+}*/
 
 /**
  * Renvoie la condition de changement d'état pour un ennemi.

@@ -42,7 +42,7 @@ void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]) {
                     count++;
                     break;
                 case MOWER_CHAR:
-                    entity = createMower(x, y, RIGHT);
+                    entity = createMower(x, y);
                     count++;
                     break;
             }
