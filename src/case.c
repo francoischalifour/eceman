@@ -54,6 +54,9 @@ char convertCase(char elem) {
         case TUNNEL_EXIT_CHAR:
             elem = 220;
             break;
+        case MOWER_CHAR:
+            elem = 202;
+            break;
         case ENEMY_CHAR:
             elem = 2;
             break;

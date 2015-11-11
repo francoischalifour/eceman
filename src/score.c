@@ -77,7 +77,7 @@ int getNbScores() {
             nbLines++;
     }
 
-    rewind(scoreFile);
+    fclose(scoreFile);
 
     return nbLines;
 }
@@ -232,8 +232,6 @@ void getRanking(FILE* scoreFile) {
         arrayScores[i] = score;
         strcpy(arrayNames[i], name);
     }
-
-    fclose(scoreFile);
 
     sortScores(count, arrayScores, arrayNames);
 
