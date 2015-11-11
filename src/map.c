@@ -203,11 +203,33 @@ static int hasCase(char board[ROWS][COLS], const char elem) {
 }
 
 /**
+ * Compte le nombre d'entités sur le plateau.
+ * @param board Le plateau de jeu à vérifier
+ * @return Le nombre d'entités
+ */
+static int countEntities(char board[ROWS][COLS]) {
+    unsigned int i, j;
+    unsigned nbEntities;
+
+    nbEntities = 0;
+
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            if (board[i][j] == MOWER_CHAR || board[i][j] == ENEMY_CHAR)
+                nbEntities++;
+        }
+    }
+
+    return nbEntities;
+}
+
+/**
  * Vérifie si le plateau de jeu est jouable.
  * @param board Le plateau de jeu à vérifier
  * @return  -1 si pas de point d'apparition,
  *                    -2 si pas de porte de sortie
  *                    -3 s'il y a un tunnel sans sortie
+ *                    -4 s'il y a trop d'entités
  *                    0 sinon
  */
 static int checkBoard(char board[ROWS][COLS]) {
@@ -217,6 +239,8 @@ static int checkBoard(char board[ROWS][COLS]) {
         return -2;
     else if (hasCase(board, TUNNEL_CHAR) == 0 && hasCase(board, TUNNEL_EXIT_CHAR) != 0)
         return -3;
+    else if (countEntities(board) >= ENTITY_MAX)
+        return -4;
 
     return 0;
 }
@@ -286,6 +310,9 @@ void editMap(const int level) {
                                 break;
                             case -3:
                                 printf("Le tunnel n'est pas lie a une sortie.\n");
+                                break;
+                            case -4:
+                                printf("Le niveau contient plus de %d obstacles.\n", ENTITY_MAX);
                                 break;
                             default:
                                 printf("Le niveau contient des erreurs.\n");

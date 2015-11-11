@@ -59,7 +59,7 @@ void displayMenu() {
     }
 
     goToXY(2, 19);
-    printf("(l) Niveaux\n");
+    printf("(n) Niveaux\n");
     goToXY(2, 20);
     printf("(e) Editeur");
     goToXY(2, 21);

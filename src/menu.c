@@ -44,7 +44,7 @@ void launchAction(const char choice) {
         case '2':
             initGame(1);
             break;
-        case 'l':
+        case 'n':
             displayLevels(0);
             break;
         case 'o':

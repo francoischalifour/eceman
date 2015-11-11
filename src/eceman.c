@@ -133,7 +133,7 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR) {
                 if (board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
-                        if (entityList[i]->symbol == MOWER_CHAR && entityList[i]->state != FINAL) {
+                        if (entityList[i]->pos->x == hero->pos->x-1 && entityList[i]->pos->y == hero->pos->y && entityList[i]->state != FINAL) {
                             entityList[i]->direction = UP;
                             throwEntity(game, hero, entityList[i], board);
                             return;
@@ -150,7 +150,7 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
                 if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
-                        if (entityList[i]->symbol == MOWER_CHAR && entityList[i]->state != FINAL) {
+                        if (entityList[i]->pos->x == hero->pos->x+1 && entityList[i]->pos->y == hero->pos->y && entityList[i]->state != FINAL) {
                             entityList[i]->direction = DOWN;
                             throwEntity(game, hero, entityList[i], board);
                             return;
@@ -167,7 +167,7 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR) {
                 if (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
-                        if (entityList[i]->symbol == MOWER_CHAR && entityList[i]->state != FINAL) {
+                        if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y-1 && entityList[i]->state != FINAL) {
                             entityList[i]->direction = LEFT;
                             throwEntity(game, hero, entityList[i], board);
                             return;
@@ -184,7 +184,7 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR) {
                 if (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
-                        if (entityList[i]->symbol == MOWER_CHAR && entityList[i]->state != FINAL) {
+                        if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y+1 && entityList[i]->state != FINAL) {
                             entityList[i]->direction = RIGHT;
                             throwEntity(game, hero, entityList[i], board);
                             return;
