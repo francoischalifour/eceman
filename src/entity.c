@@ -112,7 +112,7 @@ int enemyCollidePropertyStrategy(const char symbol, const Position* pos) {
  * @return 1 si collision, 0 sinon
  */
 int mowerCollidePropertyStrategy(const char symbol, const Position* pos) {
-    return (symbol != THIN_CHAR);
+    return (symbol != THIN_CHAR && symbol != THICK_CHAR);
 }
 
 /**
@@ -230,11 +230,18 @@ void drawEntity(char board[ROWS][COLS], const Entity* entity) {
  * @param entity L'entité à nettoyer
  */
 void clearEntity(char board[ROWS][COLS], const Entity* entity) {
-    board[entity->pos->x][entity->pos->y] = entity->nextSymbol;
     goToXY(entity->pos->y, entity->pos->x);
 
-    setColor(entity->nextSymbolColor);
-    putchar(convertCase(entity->nextSymbol));
+    if (entity->caseBelow == THICK_CHAR) {
+        setColor(THIN_CHAR_COLOR);
+        board[entity->pos->x][entity->pos->y] = THIN_CHAR;
+        putchar(convertCase(THIN_CHAR));
+    } else {
+        setColor(entity->nextSymbolColor);
+        board[entity->pos->x][entity->pos->y] = entity->nextSymbol;
+        putchar(convertCase(entity->nextSymbol));
+    }
+
     resetColor();
 }
 
@@ -250,5 +257,7 @@ void throwEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS]
         clearEntity(board, entity);
         moveEntity(game, hero, entity, board);
         drawEntity(board, entity);
+
+        Sleep(100);
     }
 }
