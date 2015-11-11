@@ -1,3 +1,19 @@
+/*
+ * case.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent les cases du plateau de jeu.
+ *
+ * Tous les types de cases sont répertoriés dans le fichier case.h.
+ *
+ * Objectifs :
+ *     -    Convertir le symboles des cases en
+ *           éléments semi-graphiques
+ *     -    Récupérer la couleur d'une case en
+ *           fonction de son symbole
+ *     -    Changer le type d'une case
+ *     -    Lancer l'action d'une case
+ */
+
 #include "../lib/setup.h"
 #include <windows.h>
 
@@ -51,7 +67,7 @@ char convertCase(char elem) {
  * @param elem La case
  * @return La couleur de la case
  */
-int getCaseColor(char elem) {
+int getCaseColor(const char elem) {
     unsigned short color;
 
     switch (elem) {
@@ -102,14 +118,13 @@ int getCaseColor(char elem) {
 }
 
 /**
- * Change le type de la case de Eceman avant son déplacement.
+ * Change le type de la case du héros avant son déplacement.
  * Cette fonction est appelée avant le déplacement du joueur.
  * @param game L'état du jeu pour incrémenter le score
  * @param board Le plateau de jeu
- * @param hero Le Eceman pour verifier s'il a l'état de légèreté
- * @return Le contenu de la case effective avant son déplacement
+ * @param hero Le héros pour verifier s'il a l'état de légèreté
  */
-void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero) {
     const unsigned char currentCase = hero->caseBelow;
     char elem;
     unsigned short int color;
@@ -161,11 +176,11 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 }
 
 /**
- * Change le comportement du jeu en fonction de l'arrivée sur une case.
+ * Change le comportement du jeu en fonction de l'arrivée du héros sur une case.
  * Cette fonction est appelée après le déplacement du joueur.
  * @param game L'état du jeu
  * @param board Le plateau de jeu
- * @param hero Le Eceman
+ * @param hero Le héros
  * @param entityList La liste des entités
  */
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {

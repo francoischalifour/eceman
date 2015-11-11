@@ -1,3 +1,22 @@
+/*
+ * entity.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent les entités du jeu.
+ *
+ * Le concept de poymorphisme a été appliqué pour les entités.
+ * Chaque entité possède un comporte spécifique lié à l'appel
+ * d'une fonction en rapport avec son type. Les fichiers extérieurs
+ * n'ont pas à savoir de quel type est l'entité.
+ *
+ * Objectifs :
+ *     -    Créer et détruire une entité
+ *     -    Créer un type spécifique d'entité en fonction de cette première
+ *           fonction
+ *     -    Créer les stratégies en fonction du type de l'entité
+ *     -    Déplacer l'entité
+ *     -    Dessiner et nettoyer l'affichage de l'entité
+ */
+
 #include "../lib/setup.h"
 #include "../lib/game.h"
 #include "../lib/entity.h"
@@ -19,7 +38,7 @@
  * @param finalActionStrategy L'action après le déplacement
  * @return L'entité initialisée
  */
-static Entity* createEntity(const unsigned int x, const unsigned int y, enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, NextCaseStrategy nextCaseStrategy, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
+static Entity* createEntity(const unsigned int x, const unsigned int y, const enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, NextCaseStrategy nextCaseStrategy, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
     Position* pos = malloc(sizeof(Position));
     Entity* entity = malloc(sizeof(Entity));
 
@@ -63,7 +82,7 @@ void destroyEntity(Entity* entity) {
  * @param direction La direction de l'ennemi
  * @return Un nouvel ennemi
  */
-Entity* createEnemy(unsigned int x, unsigned int y, enum Direction direction) {
+Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direction direction) {
     return createEntity(x, y, direction, ENEMY_CHAR, ENEMY_CHAR_COLOR, THIN_CHAR, THIN_CHAR_COLOR, enemyNextCaseStrategy, enemyCollidePropertyStrategy, enemyCollideStrategy, enemyFinalActionStrategy);
 }
 
@@ -74,7 +93,7 @@ Entity* createEnemy(unsigned int x, unsigned int y, enum Direction direction) {
  * @param direction La direction de la tondeuse
  * @return Une nouvelle tondeuse
  */
-Entity* createMower(unsigned int x, unsigned int y, enum Direction direction) {
+Entity* createMower(const unsigned int x, const unsigned int y, const enum Direction direction) {
     return createEntity(x, y, direction, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerNextCaseStrategy, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
 }
 
@@ -84,7 +103,7 @@ Entity* createMower(unsigned int x, unsigned int y, enum Direction direction) {
  * @param board Le plateau de jeu
  * @return Le case à percuter
  */
-char enemyNextCaseStrategy(Position* pos, enum Direction direction, char board[ROWS][COLS]) {
+char enemyNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]) {
     switch (direction) {
         case UP:
             return (board[pos->x-1][pos->y]);
@@ -110,7 +129,7 @@ char enemyNextCaseStrategy(Position* pos, enum Direction direction, char board[R
  * @return Le case à percuter
  */
 // TODO : supprimer les fonctions nextCaseStrategy si elles ne changent pas en fonction de l'entité
-char mowerNextCaseStrategy(Position* pos, enum Direction direction, char board[ROWS][COLS]) {
+char mowerNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]) {
     switch (direction) {
         case UP:
             return (board[pos->x-1][pos->y]);
@@ -135,7 +154,7 @@ char mowerNextCaseStrategy(Position* pos, enum Direction direction, char board[R
  * @param pos La position de l'ennemi
  * @return 1 si collision, 0 sinon
  */
-int enemyCollidePropertyStrategy(char symbol, Position* pos) {
+int enemyCollidePropertyStrategy(const char symbol, const Position* pos) {
     return (symbol != THIN_CHAR && symbol != HERO_CHAR);
 }
 
@@ -145,7 +164,7 @@ int enemyCollidePropertyStrategy(char symbol, Position* pos) {
  * @param pos La position de la tondeuse
  * @return 1 si collision, 0 sinon
  */
-int mowerCollidePropertyStrategy(char symbol, Position* pos) {
+int mowerCollidePropertyStrategy(const char symbol, const Position* pos) {
     return (symbol != THIN_CHAR);
 }
 
@@ -154,7 +173,7 @@ int mowerCollidePropertyStrategy(char symbol, Position* pos) {
  * @param enemy L'ennemi à modifier
  * @param direction La direction dans laquelle l'ennemi doit aller
  */
-void enemyCollideStrategy(Entity* enemy, enum Direction direction) {
+void enemyCollideStrategy(Entity* enemy, const enum Direction direction) {
     enemy->direction = direction;
 }
 
@@ -163,7 +182,7 @@ void enemyCollideStrategy(Entity* enemy, enum Direction direction) {
  * @param mower La tondeuse à modifier
  * @param direction La direction dans laquelle la tondeuse doit aller
  */
-void mowerCollideStrategy(Entity* mower, enum Direction direction) {
+void mowerCollideStrategy(Entity* mower, const enum Direction direction) {
     mower->state = FINAL;
 }
 
@@ -249,7 +268,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
  * @param board Le plateau sur lequel l'entité est ajoutée
  * @param entity L'entité à ajouter
  */
-void drawEntity(char board[ROWS][COLS], Entity* entity) {
+void drawEntity(char board[ROWS][COLS], const Entity* entity) {
     board[entity->pos->x][entity->pos->y] = entity->symbol;
     goToXY(entity->pos->y, entity->pos->x);
 
@@ -263,7 +282,7 @@ void drawEntity(char board[ROWS][COLS], Entity* entity) {
  * @param board Le plateau de jeu sur lequel l'entité est retirée
  * @param entity L'entité à nettoyer
  */
-void clearEntity(char board[ROWS][COLS], Entity* entity) {
+void clearEntity(char board[ROWS][COLS], const Entity* entity) {
     board[entity->pos->x][entity->pos->y] = entity->nextSymbol;
     goToXY(entity->pos->y, entity->pos->x);
 

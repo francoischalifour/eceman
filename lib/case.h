@@ -74,8 +74,8 @@ typedef struct Case {
  */
 
 char convertCase(char elem);
-int getCaseColor(char elem);
-void changeCaseType(GameState* game, char board[ROWS][COLS], Eceman* hero);
+int getCaseColor(const char elem);
+void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero);
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]);
 Position* getEnemyPosition(char board[ROWS][COLS]);
 Position* getToolPosition(char board[ROWS][COLS], const char elem);

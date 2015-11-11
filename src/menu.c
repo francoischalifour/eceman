@@ -1,3 +1,16 @@
+/*
+ * menu.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent le menu du jeu.
+ *
+ * Le choix de l'utilisateur est lancé directement à sa saisie, il n'y a pas
+ * besoin de confirmation avec la touche 'entrée'.
+ *
+ * Objectifs :
+ *     -    Récupérer le choix de l'utilisateur
+ *     -    Lancer l'action de l'utilisateur
+ */
+
 #include <conio.h>
 #include "../lib/setup.h"
 

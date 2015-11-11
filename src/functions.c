@@ -1,3 +1,16 @@
+/*
+ * functions.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui utiles au jeu.
+ *
+ * Objectifs :
+ *     -    Attendre l'appui d'une touche pour continuer
+ *           une action
+ *     -    Changer l'emplacement du curseur pour afficher un caractère
+ *           à un endroit particulier
+ *     -    Changer la couleur d'un caractère
+ */
+
 #include "../lib/setup.h"
 #include <conio.h>
 #include <windows.h>

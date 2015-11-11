@@ -1,3 +1,22 @@
+/*
+ * map.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent les maps du jeu.
+ *
+ * Le chemin des maps est stocké dans la constante MAP_DIR du fichier game.h.
+ * Il existe un certain nombre de maps existantes, mais l'utilisateur peut les
+ * modifier ou en créer de nouvelles via l'éditeur de niveaux.
+ *
+ * Objectifs :
+ *     -    Charger et fermer une map existante
+ *     -    Dessiner la légende
+ *     -    Initialiser une map nouvelle map
+ *     -    Dessiner une map (par l'éditeur)
+ *     -    Editer une map existante (par l'éditeur)
+ *     -    Sauvegarder une map (par l'éditeur)
+ *     -    Vérifier si le plateau créé est jouable
+ */
+
 #include "../lib/setup.h"
 #include <string.h>
 #include <conio.h>
@@ -14,9 +33,8 @@ FILE* loadMap(short level) {
     char filedir[18];
     FILE* map = NULL;
 
-    if (level < 1 || level > getNbLevels()) {
+    if (level < 1 || level > getNbLevels())
         level = 1;
-    }
 
     strcpy(filedir, MAP_DIR);
     sprintf(filepath, "%d.map", level);

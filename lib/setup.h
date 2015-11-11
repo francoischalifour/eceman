@@ -26,6 +26,6 @@ void destroyEceman(Eceman* hero);
 int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem);
 void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]);
-void drawEceman(char board[ROWS][COLS], Eceman* hero);
+void drawEceman(char board[ROWS][COLS], const Eceman* hero);
 
 #endif // ECEMAN_SETUP_H

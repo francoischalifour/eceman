@@ -1,3 +1,20 @@
+/*
+ * display.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent l'affichage et l'interface.
+ *
+ * Objectifs :
+ *     -    Afficher le titre du jeu
+ *     -    Afficher le menu
+ *     -    Afficher les réglages
+ *     -    Afficher les niveaux
+ *     -    Afficher l'éditeur de niveaux
+ *     -    Afficher les règles
+ *     -    Afficher le game over
+ *     -    Afficher le classement
+ *     -    Afficher les informations à propos du jeu
+ */
+
 #include "../lib/setup.h"
 #include <windows.h>
 #include <string.h>

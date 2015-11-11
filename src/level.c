@@ -1,3 +1,18 @@
+/*
+ * level.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent les niveaux du jeu.
+ *
+ * Le chemin des niveaux est stocké dans la constante MAP_DIR du fichier game.h.
+ * Le nombre de niveaux est caractérisé par le nombre de fichiers dans le
+ * dossier des maps.
+ *
+ * Objectifs :
+ *     -    Récupérer le niveau de la dernière sauvegarde de l'utilisateur
+ *     -    Récupérer le nombre de niveaux
+ *     -    Lancer le niveau
+ */
+
 #include "../lib/setup.h"
 #include <string.h>
 #include <dirent.h>

@@ -1,15 +1,30 @@
+/*
+ * board.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent le plateau de jeu.
+ *
+ * Le plateau de jeu se présente comme une matrice de caractères de 15 lignes
+ * par 19 colonnes (constantes ROWS et COLS).
+ * Cette matrice est créée à partir d'un fichier map composé de caractères
+ * correspondant à un certain type de case.
+ *
+ * Objectifs :
+ *     -    Extraire les entités de la map
+ *     -    Afficher le panel et le plateau
+ */
+
 #include "../lib/setup.h"
 #include <windows.h>
 
 /**
  * Extrait les entités de la map.
  * @param board Le plateau de jeu
- * @param entityList La liste des entités
+ * @param entityList La liste des entités extraites
  */
 void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]) {
     unsigned short x, y;
     int count;
-    Entity* entity;
+    Entity* entity = NULL;
 
     count = -1;
 
@@ -38,7 +53,7 @@ void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]) {
  * Affiche les informations du jeu.
  * @param game L'état actuel du jeu
  */
-void drawToolbar(GameState* game) {
+void drawToolbar(const GameState* game) {
     goToXY(26, 0);
     printf("Niveau %2u", game->level);
     goToXY(26, 1);
@@ -121,7 +136,7 @@ static void drawPanel() {
  * @param game L'état du jeu
  * @param board Le plateau à afficher
  */
-void drawBoard(FILE* map, GameState* game, char board[ROWS][COLS]) {
+void drawBoard(FILE* map, const GameState* game, char board[ROWS][COLS]) {
     unsigned short x, y;
 
     for (x = 0; x < ROWS; x++) {

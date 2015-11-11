@@ -1,3 +1,19 @@
+/*
+ * game.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent le jeu et son état.
+ *
+ * Objectifs :
+ *     -    Créer, modifier et détruire un état de jeu
+ *     -    Mettre le jeu en pause
+ *     -    Quitter le jeu
+ *     -    Lancer l'action de l'utilisateur
+ *     -    Lancer l'action d'une entité
+ *     -    Charger le niveau suivant
+ *     -    Recharger le niveau actuel
+ *     -    Initialiser le jeu
+ */
+
 #include "../lib/setup.h"
 #include <conio.h>
 #include <assert.h>
@@ -233,11 +249,14 @@ void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  * Initialise une partie de jeu.
  */
 void initGame(const int isNew) {
-    GameState* game = newGameState();
-    Eceman* hero = newEceman();
+    GameState* game = NULL;
+    Eceman* hero = NULL;
     FILE* saving = NULL;
     char board[ROWS][COLS];
     unsigned int level;
+
+    game = newGameState();
+    hero = newEceman();
 
     game->timeStart = clock();
 

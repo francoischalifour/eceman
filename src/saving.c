@@ -1,3 +1,19 @@
+/*
+ * saving.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent la sauvegarde du jeu.
+ *
+ * Si le joueur fait un nouveau meilleur score, alors il est enregistré dans
+ * le fichier SCORE_FILE défini dans le fichier game.h.
+ * Ce score est enregistré seulement s'il n'y a pas encore 10 meilleurs
+ * scores, ou s'il bat le minimum des meilleurs scores.
+ *
+ * Objectifs :
+ *     -    Sauvegarder et nettoyer l'état du jeu
+ *     -    Charger le classement
+ *     -    Enregistrer le score dans le classement
+ */
+
 #include "../lib/setup.h"
 #include <string.h>
 #include <assert.h>

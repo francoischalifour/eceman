@@ -1,11 +1,29 @@
+/*
+ * eceman.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent le personnage principal.
+ *
+ * Le héros est le personnage que le joueur manipule, une seule instance doit
+ * être créée. Il se déplacera lors de l'appui des touches UP_KEY, DOWN_KEY,
+ * LEFT_KEY et RIGHT_KEY définies dans game.h.
+ *
+ * Objectifs :
+ *     -    Créer et détruire un personnage
+ *     -    Téléporter un personnage
+ *     -    Vérifier s'il est encerclé
+ *     -    Vérifier s'il est attaqué
+ *     -    Bouger un personnage
+ *     -    Dessiner et nettoyer l'affichage un personnage
+ */
+
 #include "../lib/setup.h"
 #include "../lib/eceman.h"
 #include <windows.h>
 #include <conio.h>
 
 /**
- * Créé un nouveau Eceman.
- * Initialise son état et sa position.
+ * Créé un nouveau héros.
+ * Initialise son état, sa position et la case sur laquelle il se situe.
  * @return Le héros initialisé
  */
 Eceman* newEceman() {
@@ -24,7 +42,7 @@ Eceman* newEceman() {
 
 /**
  * Détruit le héros passé en paramètre.
- * Libère la mémoire du héros.
+ * Libère la mémoire liée au héros.
  * @param hero Le héros à détruire
  */
 void destroyEceman(Eceman* hero) {
@@ -62,7 +80,7 @@ int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem) {
  * @param hero Le héros à tester
  * @return 1 si le héros est encerclé, 0 sinon
  */
-static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
+static int isSurrounded(char board[ROWS][COLS], const Eceman* hero) {
     if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR || board[hero->pos->x][hero->pos->y] == TUNNEL_CHAR)
         return 0;
 
@@ -197,10 +215,7 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
  * @param board Le plateau sur lequel le Eceman est ajouté
  * @param hero Le Eceman à ajouter
  */
-void drawEceman(char board[ROWS][COLS], Eceman* hero) {
-    goToXY(5, 22);
-    printf("(%d, %d)\n", hero->pos->y, hero->pos->x);
-
+void drawEceman(char board[ROWS][COLS], const Eceman* hero) {
     board[hero->pos->x][hero->pos->y] = HERO_CHAR;
     goToXY(hero->pos->y, hero->pos->x);
 

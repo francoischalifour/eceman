@@ -13,7 +13,7 @@ typedef struct Entity Entity;
  * @param direction La direction de l'entité
  * @return L'élément du plateau à percuter
  */
-typedef char (*NextCaseStrategy) (Position* pos, enum Direction direction, char board[ROWS][COLS]);
+typedef char (*NextCaseStrategy) (const Position* pos, const enum Direction direction, char board[ROWS][COLS]);
 
 /**
  * Détermine la condition de collision de l'entité avec un autre objet.
@@ -21,14 +21,14 @@ typedef char (*NextCaseStrategy) (Position* pos, enum Direction direction, char 
  * @param La position de l'entité
  * @return 1 si collision, 0 sinon
  */
-typedef int (*CollidePropertyStrategy) (char symbol, Position* pos);
+typedef int (*CollidePropertyStrategy) (const char symbol, const Position* pos);
 
 /**
  * Détermine la stratégie de l'entité lorsqu'il percute un objet de la map.
  * @param entity L'entité dont on veut modifier le comportement
  * @param direction La nouvelle direction de l'entité
  */
-typedef void (*CollideStrategy) (Entity* entity, enum Direction direction);
+typedef void (*CollideStrategy) (Entity* entity, const enum Direction direction);
 
 /**
  * Lance l'action de l'entité une fois déplacée.
@@ -70,18 +70,18 @@ struct Entity {
  */
 
 void destroyEntity(Entity* entity);
-Entity* createEnemy(unsigned int x, unsigned int y, enum Direction direction);
-Entity* createMower(unsigned int x, unsigned int y, enum Direction direction);
-char enemyNextCaseStrategy(Position* pos, enum Direction direction, char board[ROWS][COLS]);
-char mowerNextCaseStrategy(Position* pos, enum Direction direction, char board[ROWS][COLS]);
-int enemyCollidePropertyStrategy(char symbol, Position* pos);
-int mowerCollidePropertyStrategy(char symbol, Position* pos);
-void enemyCollideStrategy(Entity* enemy, enum Direction direction);
-void mowerCollideStrategy(Entity* mower, enum Direction direction);
+Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direction direction);
+Entity* createMower(const unsigned int x, const unsigned int y, const enum Direction direction);
+char enemyNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]);
+char mowerNextCaseStrategy(const Position* pos, const enum Direction direction, char board[ROWS][COLS]);
+int enemyCollidePropertyStrategy(const char symbol, const Position* pos);
+int mowerCollidePropertyStrategy(const char symbol, const Position* pos);
+void enemyCollideStrategy(Entity* enemy, const enum Direction direction);
+void mowerCollideStrategy(Entity* mower, const enum Direction direction);
 void enemyFinalActionStrategy(GameState* game, Eceman* hero, Entity* enemy, char board[ROWS][COLS]);
 void mowerFinalActionStrategy(GameState* game, Eceman* hero, Entity* mower, char board[ROWS][COLS]);
 void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]);
-void drawEntity(char board[ROWS][COLS], Entity* entity);
-void clearEntity(char board[ROWS][COLS], Entity* entity);
+void drawEntity(char board[ROWS][COLS], const Entity* entity);
+void clearEntity(char board[ROWS][COLS], const Entity* entity);
 
 #endif // ECEMAN_ENTITY_H

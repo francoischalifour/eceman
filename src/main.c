@@ -1,3 +1,12 @@
+/*
+ * main.c
+ * Point d'entrée du jeu.
+ *
+ * Objectifs :
+ *     -    Afficher le menu
+ *     -    Lancer l'action de l'utilisateur
+ */
+
 #include "../lib/setup.h"
 
 int main() {

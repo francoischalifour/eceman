@@ -73,11 +73,20 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
 
 ### Code Style
 
-[Google C++ Style Guide](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html)
+L'ensemble du projet respecte le [Google C++ Style Guide](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html) :
+```
+#!c
+if (condition) {
+  foo;
+} else {
+  bar;
+}
+```
+
 
 ### Outils utilisés
 
-* [Sublime Text](http://www.sublimetext.com/) avec les snippets correspondant au [Google C++ Style Guide](https://github.com/francoischalifour/cpp-sublime-snippet).
+* [Sublime Text](http://www.sublimetext.com/) avec les [snippets](https://github.com/francoischalifour/cpp-sublime-snippet) correspondant au Google C++ Style Guide.
 * [Slack](https://slack.com/)
 * [Git](https://git-scm.com/)
 

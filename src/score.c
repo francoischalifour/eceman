@@ -1,3 +1,20 @@
+/*
+ * score.c
+ * Ce fichier regroupe l'ensemble des fonctions
+ * qui gèrent le score du jeu.
+ *
+ * Les meilleurs scores sont stockés dans le fichier défini par SCORE_FILE dans
+ * le fichier game.h. Ces scores apparaissent par ordre non trié. C'est dans
+ * l'affichae des meilleurs scores que l'on triera les scores.
+ *
+ * Objectifs :
+ *     -    Récupérer le score de la partie précédente
+ *     -    Récupérer le nombre de scores dans le classement
+ *     -    Supprimer un score
+ *     -    Trier les meilleurs scores
+ *     -    Afficher le classement des meilleurs scores
+ */
+
 #include "../lib/setup.h"
 #include <string.h>
 #include <assert.h>
@@ -76,8 +93,8 @@ int deleteScore(const int score) {
     char c;
     unsigned countLines;
 
-    scoreFileTmp = fopen(SCORE_FILE, "r");
-    assert(scoreFileTmp != NULL);
+    scoreFile = fopen(SCORE_FILE, "r");
+    assert(scoreFile != NULL);
 
     // Créer un fichier des scores temporaires.
     scoreFileTmp = fopen(SCORE_FILE_TMP, "w");
