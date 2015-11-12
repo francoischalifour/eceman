@@ -196,8 +196,9 @@ static void launchEntityAction(GameState* game, char board[ROWS][COLS], Eceman* 
  * @param game L'état du jeu
  * @param hero Le Eceman
  * @param board Le plateau de jeu
+ * @param backToSpawn 1 pour retourner au point de spawn, 0 sinon
  */
-static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero, const int backToSpawn) {
     unsigned short i;
     FILE* map = loadMap(game->level);
     Entity* entityList[ENTITY_MAX] = {NULL};
@@ -209,7 +210,8 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
     drawBoard(map, game, board);
 
-    goToCase(board, hero, SPAWN_CHAR);
+    if (backToSpawn != 0)
+        goToCase(board, hero, SPAWN_CHAR);
 
     extractEntities(board, entityList);
 
@@ -251,7 +253,20 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->levelScore = 0;
     hero->state = NORMAL;
 
-    playGame(game, board, hero);
+    playGame(game, board, hero, 1);
+}
+
+/**
+ * Charge le niveau précédent suite à un malus.
+ * @param game L'état actuel du jeu
+ * @param hero Le héro
+ */
+void loadPreviousLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
+    game->level -= 1;
+    game->levelScore = 0;
+    game->score /= 2;
+
+    playGame(game, board, hero, 0);
 }
 
 /**
@@ -264,7 +279,7 @@ void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->levelScore = 0;
     hero->state = NORMAL;
 
-    playGame(game, board, hero);
+    playGame(game, board, hero, 1);
 }
 
 /**
@@ -308,7 +323,7 @@ void initGame(const int levelType) {
         closeSaving(saving);
     }
 
-    playGame(game, board, hero);
+    playGame(game, board, hero, 1);
 
     destroyEceman(hero);
     destroyGameState(game);

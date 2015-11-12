@@ -16,6 +16,7 @@
 
 #include "../lib/setup.h"
 #include <windows.h>
+#include <conio.h>
 
 /**
  * Convertit la case de la map en élément à afficher.
@@ -53,6 +54,9 @@ char convertCase(char elem) {
             break;
         case TUNNEL_EXIT_CHAR:
             elem = 220;
+            break;
+        case HOLE_CHAR:
+            elem = 221;
             break;
         case MOWER_CHAR:
             elem = 202;
@@ -207,6 +211,14 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
 
         case TUNNEL_CHAR:
             goToCase(board, hero, TUNNEL_EXIT_CHAR);
+            break;
+
+        case HOLE_CHAR:
+            goToXY(1, 18);
+            printf("Vous etes tombe dans un trou\n");
+            getch();
+            loadPreviousLevel(game, board, hero);
+            printf("                            \n");
             break;
 
         case ENEMY_CHAR:

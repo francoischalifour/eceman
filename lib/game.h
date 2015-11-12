@@ -69,7 +69,8 @@ typedef struct GameState {
  */
 
 void initGame(const int isNew);
-void loadNextLevel();
+void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
+void loadPreviousLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero);
 void pauseGame(GameState* game);
 void gameOver(GameState* game);
