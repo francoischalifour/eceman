@@ -50,16 +50,16 @@ void displayMenu() {
 
         setColor(GRAY_COLOR);
         goToXY(20, 14);
-        printf("Niveau %2d", getLastLevel(saving));
+        printf("Niveau %2d\n", getLastLevel(saving));
         goToXY(20, 15);
-        printf("Score %3d\n\n", getLastScore(saving));
+        printf("Score %3d\n", getLastScore(saving));
         resetColor();
 
         closeSaving(saving);
     }
 
     goToXY(2, 19);
-    printf("(n) Niveaux\n");
+    printf("(p) Partie rapide\n");
     goToXY(2, 20);
     printf("(e) Editeur");
     goToXY(2, 21);
@@ -200,11 +200,12 @@ void displayRules() {
  * Affiche le message de fin de jeu.
  * @param score Le score final
  */
-void displayGameOver(const int scoreFinal) {
+void displayGameOver(const int scoreFinal, const float timePlayed) {
     displayTitle();
 
     printf("\tGame Over\n\n");
     printf("\tScore %4d\n", scoreFinal);
+    printf("\tTemps %4.0f\n\n", timePlayed);
 }
 
 /**

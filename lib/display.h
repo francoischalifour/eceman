@@ -7,7 +7,7 @@ void displayLevels(const int mode);
 void displaySettings();
 void displayEditor();
 void displayRules();
-void displayGameOver(const int scoreFinal);
+void displayGameOver(const int scoreFinal, const float timePlayed);
 void displayRanking();
 void displayAbout();
 

@@ -191,11 +191,15 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
 
     switch (currentCase) {
         case DOOR_CHAR:
-            if (game->level < getNbLevels())
-                loadNextLevel(game, board, hero);
-            else
+            if (game->type == CAMPAIGN) {
+                if (game->level < getNbLevels())
+                    loadNextLevel(game, board, hero);
+                else
+                    gameOver(game);
+                break;
+            } else {
                 gameOver(game);
-            break;
+            }
 
         case LIGHTNESS_POTION_CHAR:
             hero->state = LIGHTNESS;

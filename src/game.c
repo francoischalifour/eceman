@@ -35,6 +35,7 @@ static GameState* newGameState() {
     game->playing = 0;
     game->timeStart = 0;
     game->timePlayed = 0;
+    game->type = CAMPAIGN;
 
     return game;
 }
@@ -108,20 +109,26 @@ void pauseGame(GameState* game) {
 void gameOver(GameState* game) {
     int timeBonus;
 
-    timeBonus = BONUS_MAX - game->timePlayed;
+    if (game->type == CAMPAIGN) {
+        timeBonus = BONUS_MAX - game->timePlayed;
 
-    if (timeBonus < 0)
-        timeBonus = 0;
+        if (timeBonus < 0)
+            timeBonus = 0;
 
-    game->playing = 0;
-    game->score += game->levelScore;
-    game->score += timeBonus;
+        game->playing = 0;
+        game->score += game->levelScore;
+        game->score += timeBonus;
 
-    if (game->score > SCORE_MAX)
-        game->score = SCORE_MAX;
+        if (game->score > SCORE_MAX)
+            game->score = SCORE_MAX;
 
-    displayGameOver(game->score);
-    saveRanking(game->score);
+        displayGameOver(game->score, game->timePlayed);
+        saveRanking(game->score);
+    } else {
+        displayGameOver(game->levelScore, game->timePlayed);
+        goBack();
+    }
+
     closeGame(game);
 }
 
@@ -144,7 +151,9 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
             break;
 
         case 'q':
-            save(game);
+            if (game->type == CAMPAIGN)
+                save(game);
+
             closeGame(game);
             break;
 
@@ -260,9 +269,12 @@ void reloadLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 
 /**
  * Initialise une partie de jeu.
- * @param specificLevel Le niveau à commencer
+ * @param levelType Le type de partie à commencer
+ *                  -   -1 : nouvelle partie
+ *                  -   0 : chargement d'une partie
+ *                  -   autre : partie rapide
  */
-void initGame(const int specificLevel) {
+void initGame(const int levelType) {
     GameState* game = NULL;
     Eceman* hero = NULL;
     FILE* saving = NULL;
@@ -274,20 +286,22 @@ void initGame(const int specificLevel) {
     hero = newEceman();
 
 
-    if (specificLevel != 0) {
+    if (levelType != -1) {
         saving = loadSaving();
 
-        if (specificLevel == 1) {
+        if (levelType == 0) {
             level = getLastLevel(saving);
             score = getLastScore(saving);
             timePlayed = getLastTime(saving);
             timeStop = getLastTimeStop(saving);
             game->timeStart = clock() - timeStop; // TODO : corriger le calcul.
         } else {
-            level = specificLevel;
+            level = levelType;
             score = 0;
             timePlayed = 0;
             game->timeStart = clock();
+
+            game->type = PARTIAL;
         }
 
         setGameState(game, level, score, 0, timePlayed, 1);

@@ -39,6 +39,14 @@ enum Direction {
 };
 
 /**
+ * Enumération des différents types de parties.
+ */
+enum GameType {
+    CAMPAIGN,
+    PARTIAL
+};
+
+/**
  * Structure de l'état du jeu.
  *     score : score total du jeu
  *     levelScore : score du niveau courant
@@ -53,6 +61,7 @@ typedef struct GameState {
     unsigned short level;
     unsigned short pause;
     unsigned short playing;
+    enum GameType type;
 } GameState;
 
 /*
