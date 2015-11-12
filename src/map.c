@@ -332,6 +332,7 @@ void editMap(const int level) {
                 case WALL_CHAR:
                 case THIN_CHAR:
                 case THICK_CHAR:
+                case SLIP_CHAR:
                 case MELT_CHAR:
                 case LIGHTNESS_POTION_CHAR:
                 case MOWER_CHAR:
