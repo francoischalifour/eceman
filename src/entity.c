@@ -133,7 +133,7 @@ int enemyCollidePropertyStrategy(const char symbol, const Position* pos) {
  * @return 1 si collision, 0 sinon
  */
 int mowerCollidePropertyStrategy(const char symbol, const Position* pos) {
-    return (symbol != THIN_CHAR && symbol != THICK_CHAR);
+    return (symbol != THIN_CHAR && symbol != THICK_CHAR && symbol != SLIP_CHAR);
 }
 
 /**
@@ -257,6 +257,10 @@ void clearEntity(char board[ROWS][COLS], const Entity* entity) {
         setColor(THIN_CHAR_COLOR);
         board[entity->pos->x][entity->pos->y] = THIN_CHAR;
         putchar(convertCase(THIN_CHAR));
+    } else if (entity->caseBelow == SLIP_CHAR) {
+        setColor(SLIP_CHAR_COLOR);
+        board[entity->pos->x][entity->pos->y] = SLIP_CHAR;
+        putchar(convertCase(SLIP_CHAR));
     } else {
         setColor(entity->nextSymbolColor);
         board[entity->pos->x][entity->pos->y] = entity->nextSymbol;
