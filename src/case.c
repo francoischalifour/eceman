@@ -34,6 +34,9 @@ char convertCase(char elem) {
         case THICK_CHAR:
             elem = 177;
             break;
+        case SLIP_CHAR:
+            elem = 178;
+            break;
         case MELT_CHAR:
             elem = 247;
             break;
@@ -53,10 +56,10 @@ char convertCase(char elem) {
             elem = 220;
             break;
         case TUNNEL_EXIT_CHAR:
-            elem = 220;
+            elem = 223;
             break;
         case HOLE_CHAR:
-            elem = 221;
+            elem = 219;
             break;
         case MOWER_CHAR:
             elem = 202;
@@ -89,6 +92,9 @@ int getCaseColor(const char elem) {
             break;
         case THICK_CHAR:
             color = THICK_CHAR_COLOR;
+            break;
+        case SLIP_CHAR:
+            color = SLIP_CHAR_COLOR;
             break;
         case MELT_CHAR:
             color = MELT_CHAR_COLOR;
@@ -157,6 +163,11 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero)
             }
             break;
 
+        case SLIP_CHAR:
+            elem = SLIP_CHAR;
+            color = SLIP_CHAR_COLOR;
+            break;
+
         case LIGHTNESS_POTION_CHAR:
             elem = THIN_CHAR;
             color = THIN_CHAR_COLOR;
@@ -205,6 +216,12 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
                 gameOver(game);
             }
 
+        case SLIP_CHAR:
+            changeCaseType(game, board, hero);
+            moveEceman(game, board, hero, entityList);
+            drawEceman(board, hero);
+            break;
+
         case LIGHTNESS_POTION_CHAR:
             hero->state = LIGHTNESS;
             break;
@@ -214,7 +231,7 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
             break;
 
         case HOLE_CHAR:
-            goToXY(1, 18);
+            goToXY(1, 19);
             printf("Vous etes tombe dans un trou\n");
             getch();
             loadPreviousLevel(game, board, hero);

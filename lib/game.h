@@ -2,6 +2,7 @@
 #define ECEMAN_GAME_H
 
 #include "game.h"
+#include "direction.h"
 #include "eceman.h"
 
 #define SAVE_FILE "../data/saving/game.sav"
@@ -27,16 +28,6 @@
 #define BONUS_MAX 500
 
 #define NAME_LENGTH 35
-
-/**
- * Enumération des directions.
- */
-enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
 
 /**
  * Enumération des différents types de parties.

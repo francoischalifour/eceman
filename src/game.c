@@ -158,13 +158,26 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
             break;
 
         case UP_KEY:
-        case DOWN_KEY:
-        case LEFT_KEY:
-        case RIGHT_KEY:
-            changeCaseType(game, board, hero);
-            moveEceman(key, game, board, hero, entityList);
-            drawEceman(board, hero);
+            hero->direction = UP;
             break;
+
+        case DOWN_KEY:
+            hero->direction = DOWN;
+            break;
+
+        case LEFT_KEY:
+            hero->direction = LEFT;
+            break;
+
+        case RIGHT_KEY:
+            hero->direction = RIGHT;
+            break;
+    }
+
+    if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
+            changeCaseType(game, board, hero);
+            moveEceman(game, board, hero, entityList);
+            drawEceman(board, hero);
     }
 }
 

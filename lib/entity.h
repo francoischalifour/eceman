@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "position.h"
+#include "direction.h"
 #include "eceman.h"
 
 typedef struct Entity Entity;

@@ -110,40 +110,52 @@ static void drawPanel() {
     printf(" %s\n", "Glace epaisse");
 
     goToXY(26, 9);
+    setColor(getCaseColor(SLIP_CHAR));
+    printf("%c", convertCase(SLIP_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Glace glissante");
+
+    goToXY(26, 10);
     setColor(getCaseColor(MELT_CHAR));
     printf("%c", convertCase(MELT_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Eau");
 
-    goToXY(26, 10);
+    goToXY(26, 11);
     setColor(getCaseColor(LIGHTNESS_POTION_CHAR));
     printf("%c", convertCase(LIGHTNESS_POTION_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Potion de legerete");
 
-    goToXY(26, 11);
+    goToXY(26, 12);
     setColor(getCaseColor(TUNNEL_CHAR));
     printf("%c", convertCase(TUNNEL_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Tunnel");
 
-    goToXY(26, 12);
+    goToXY(26, 13);
     setColor(getCaseColor(MOWER_CHAR));
     printf("%c", convertCase(MOWER_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Tondeuse");
 
-    goToXY(26, 13);
+    goToXY(26, 14);
+    setColor(getCaseColor(HOLE_CHAR));
+    printf("%c", convertCase(HOLE_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Trou");
+
+    goToXY(26, 15);
     setColor(getCaseColor(ENEMY_CHAR));
     printf("%c", convertCase(ENEMY_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Ennemi");
 
-    goToXY(26, 15);
-    printf("%s %4s\n", "(p)", "Pause");
-    goToXY(26, 16);
-    printf("%s %4s\n", "(r)", "Recommencer le niveau");
     goToXY(26, 17);
+    printf("%s %4s\n", "(p)", "Pause");
+    goToXY(26, 18);
+    printf("%s %4s\n", "(r)", "Recommencer le niveau");
+    goToXY(26, 19);
     printf("%s %2s\n", "(q)", "Quitter");
 
     resetColor();

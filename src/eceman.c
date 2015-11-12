@@ -17,7 +17,6 @@
  */
 
 #include "../lib/setup.h"
-#include "../lib/eceman.h"
 #include <windows.h>
 #include <conio.h>
 
@@ -75,6 +74,31 @@ int goToCase(char board[ROWS][COLS], Eceman* hero, const char elem) {
 }
 
 /**
+ * Récupère la case après le héros suivant sa direction.
+ * @param hero Le héros
+ * @param board Le plateau de jeu
+ * @return La case après le héros
+ */
+static char getNextCase(Eceman* hero, char board[ROWS][COLS]) {
+    switch (hero->direction) {
+        case UP:
+            return board[hero->pos->x-1][hero->pos->y];
+            break;
+        case DOWN:
+            return board[hero->pos->x+1][hero->pos->y];
+            break;
+        case LEFT:
+            return board[hero->pos->x][hero->pos->y-1];
+            break;
+        case RIGHT:
+            return board[hero->pos->x][hero->pos->y+1];
+            break;
+    }
+
+    return WALL_CHAR;
+}
+
+/**
  * Vérifie si le héros est entouré de murs ou d'eau.
  * @param board Le plateau sur lequel le joueur joue
  * @param hero Le héros à tester
@@ -117,21 +141,20 @@ void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  * lance l'action de la case actuelle,
  * met à jour la toolbar avec le score,
  * recharge le niveau si le héro est encerclé.
- * @param key La touche appuyée
  * @param game L'état du jeu
  * @param board Le plateau de jeu
  * @param hero Le héros à déplacer
  * @param entityList La liste des entités
  */
-void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
+void moveEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
     unsigned short prevPosX = hero->pos->x;
     unsigned short prevPosY = hero->pos->y;
     unsigned short i;
 
-    switch (key) {
-        case UP_KEY:
-            if (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR) {
-                if (board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR) {
+    switch (hero->direction) {
+        case UP:
+            if (getNextCase(hero, board) == WALL_CHAR || getNextCase(hero, board) == MELT_CHAR || getNextCase(hero, board) == MOWER_CHAR) {
+                if (getNextCase(hero, board) == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
                         entityList[i]->state = ACTIVE;
                         if (entityList[i]->pos->x == hero->pos->x-1 && entityList[i]->pos->y == hero->pos->y) {
@@ -147,9 +170,9 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             hero->pos->x -= 1;
             break;
 
-        case DOWN_KEY:
-            if (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
-                if (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR) {
+        case DOWN:
+            if (getNextCase(hero, board) == WALL_CHAR || getNextCase(hero, board) == MELT_CHAR || getNextCase(hero, board) == MOWER_CHAR) {
+                if (getNextCase(hero, board) == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
                         entityList[i]->state = ACTIVE;
                         if (entityList[i]->pos->x == hero->pos->x+1 && entityList[i]->pos->y == hero->pos->y) {
@@ -165,9 +188,9 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             hero->pos->x += 1;
             break;
 
-        case LEFT_KEY:
-            if (board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR) {
-                if (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR) {
+        case LEFT:
+            if (getNextCase(hero, board) == WALL_CHAR || getNextCase(hero, board) == MELT_CHAR || getNextCase(hero, board) == MOWER_CHAR) {
+                if (getNextCase(hero, board) == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
                         entityList[i]->state = ACTIVE;
                         if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y-1) {
@@ -183,9 +206,9 @@ void moveEceman(const char key, GameState* game, char board[ROWS][COLS], Eceman*
             hero->pos->y -= 1;
             break;
 
-        case RIGHT_KEY:
-            if (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR) {
-                if (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR) {
+        case RIGHT:
+            if (getNextCase(hero, board) == WALL_CHAR || getNextCase(hero, board) == MELT_CHAR || getNextCase(hero, board) == MOWER_CHAR) {
+                if (getNextCase(hero, board) == MOWER_CHAR) {
                     for (i = 0; i < ENTITY_MAX; i++) {
                         entityList[i]->state = ACTIVE;
                         if (entityList[i]->pos->x == hero->pos->x && entityList[i]->pos->y == hero->pos->y+1) {

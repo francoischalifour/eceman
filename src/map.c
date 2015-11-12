@@ -77,35 +77,41 @@ static void drawLegend() {
     printf("%c %s\n", THICK_CHAR, "Glace epaisse");
 
     goToXY(26, 5);
-    printf("%c %s\n", MELT_CHAR, "Eau");
+    printf("%c %s\n", SLIP_CHAR, "Glace glissante");
 
     goToXY(26, 6);
-    printf("%c %s\n", LIGHTNESS_POTION_CHAR, "Potion de legerete");
+    printf("%c %s\n", MELT_CHAR, "Eau");
 
     goToXY(26, 7);
-    printf("%c %s\n", MOWER_CHAR, "Tondeuse");
+    printf("%c %s\n", LIGHTNESS_POTION_CHAR, "Potion de legerete");
 
     goToXY(26, 8);
-    printf("%c %s\n", ENEMY_CHAR, "Ennemi");
+    printf("%c %s\n", MOWER_CHAR, "Tondeuse");
 
     goToXY(26, 9);
-    printf("%c %s\n", TUNNEL_CHAR, "Tunnel");
+    printf("%c %s\n", ENEMY_CHAR, "Ennemi");
 
     goToXY(26, 10);
-    printf("%c %s\n", TUNNEL_EXIT_CHAR, "Sortie du tunnel");
+    printf("%c %s\n", TUNNEL_CHAR, "Tunnel");
 
     goToXY(26, 11);
-    printf("%c %s\n", SPAWN_CHAR, "Lieu d'apparition");
+    printf("%c %s\n", TUNNEL_EXIT_CHAR, "Sortie du tunnel");
 
     goToXY(26, 12);
+    printf("%c %s\n", HOLE_CHAR, "Trou");
+
+    goToXY(26, 13);
+    printf("%c %s\n", SPAWN_CHAR, "Lieu d'apparition");
+
+    goToXY(26, 14);
     printf("%c %s\n", DOOR_CHAR, "Porte de sortie");
 
     resetColor();
 
-    goToXY(26, 14);
+    goToXY(26, 16);
     printf("%s %s\n", "(s)", "Enregistrer le niveau");
 
-    goToXY(26, 15);
+    goToXY(26, 17);
     printf("%s %s\n", "(q)", "Quitter l'editeur");
 }
 
@@ -332,6 +338,7 @@ void editMap(const int level) {
                 case ENEMY_CHAR:
                 case TUNNEL_CHAR:
                 case TUNNEL_EXIT_CHAR:
+                case HOLE_CHAR:
                 case SPAWN_CHAR:
                 case DOOR_CHAR:
                     if (posy >= ROWS - 1 || posx >= COLS)
