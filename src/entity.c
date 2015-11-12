@@ -28,6 +28,7 @@
  * @param x L'abscisse
  * @param y L'ordonnée
  * @param direction La direction
+ * @param caseBelow La case en dessous de l'entité
  * @param symbol Le symbol sur la map
  * @param symbolColor La couleur du symbol
  * @param nextSymbol Le symbol après passage
@@ -37,7 +38,7 @@
  * @param finalActionStrategy L'action après le déplacement
  * @return L'entité initialisée
  */
-static Entity* createEntity(const unsigned int x, const unsigned int y, const enum Direction direction, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
+static Entity* createEntity(const unsigned int x, const unsigned int y, const enum Direction direction, const char caseBelow, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
     Position* pos = malloc(sizeof(Position));
     Entity* entity = malloc(sizeof(Entity));
 
@@ -50,7 +51,7 @@ static Entity* createEntity(const unsigned int x, const unsigned int y, const en
     entity->pos = pos;
     entity->state = ACTIVE;
     entity->direction = direction;
-    entity->caseBelow = THIN_CHAR;
+    entity->caseBelow = caseBelow;
     entity->symbol = symbol;
     entity->symbolColor = symbolColor;
     entity->nextSymbol = nextSymbol;
@@ -81,7 +82,7 @@ void destroyEntity(Entity* entity) {
  * @return Un nouvel ennemi
  */
 Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direction direction) {
-    return createEntity(x, y, direction, ENEMY_CHAR, ENEMY_CHAR_COLOR, THIN_CHAR, THIN_CHAR_COLOR, enemyCollidePropertyStrategy, enemyCollideStrategy, enemyFinalActionStrategy);
+    return createEntity(x, y, direction, THIN_CHAR, ENEMY_CHAR, ENEMY_CHAR_COLOR, THIN_CHAR, THIN_CHAR_COLOR, enemyCollidePropertyStrategy, enemyCollideStrategy, enemyFinalActionStrategy);
 }
 
 /**
@@ -92,7 +93,7 @@ Entity* createEnemy(const unsigned int x, const unsigned int y, const enum Direc
  * @return Une nouvelle tondeuse
  */
 Entity* createMower(const unsigned int x, const unsigned int y) {
-    return createEntity(x, y, UP, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
+    return createEntity(x, y, UP, THICK_CHAR, MOWER_CHAR, MOWER_CHAR_COLOR, MELT_CHAR, MELT_CHAR_COLOR, mowerCollidePropertyStrategy, mowerCollideStrategy, mowerFinalActionStrategy);
 }
 
 /**
