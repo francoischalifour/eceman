@@ -33,8 +33,9 @@ static GameState* newGameState() {
     game->level = 1;
     game->pause = 1;
     game->playing = 0;
-    game->timeStart = 0;
+    game->timeStart = clock();
     game->timePlayed = 0;
+    game->timeTmp = 0;
     game->type = CAMPAIGN;
 
     return game;
@@ -57,6 +58,7 @@ void setGameState(GameState* game, const unsigned short level, const unsigned sh
     game->timePlayed = timePlayed;
     game->pause = pause;
     game->playing = 0;
+    game->timeTmp = 0;
 }
 
 /**
@@ -273,6 +275,7 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     hero->state = NORMAL;
     game->timePlayed += game->timeTmp;
     game->timeTmp = 0;
+    game->timeStart = clock();
 
     playGame(game, board, hero, 1);
 }
@@ -288,6 +291,7 @@ void loadPreviousLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->score /= 2;
     game->timePlayed += game->timeTmp;
     game->timeTmp = 0;
+    game->timeStart = clock();
 
     playGame(game, board, hero, 0);
 }
@@ -318,7 +322,7 @@ void initGame(const int levelType) {
     FILE* saving = NULL;
     char board[ROWS][COLS];
     unsigned int level, score;
-    float timePlayed, timeStop;
+    float timePlayed;
 
     game = newGameState();
     hero = newEceman();
@@ -330,13 +334,10 @@ void initGame(const int levelType) {
             level = getLastLevel(saving);
             score = getLastScore(saving);
             timePlayed = getLastTime(saving);
-            timeStop = getLastTimeStop(saving);
-            game->timeStart = clock() - timeStop; // TODO : corriger le calcul.
         } else {
             level = levelType;
             score = 0;
             timePlayed = 0;
-            game->timeStart = clock();
 
             game->type = PARTIAL;
         }
