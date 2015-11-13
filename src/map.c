@@ -309,7 +309,7 @@ void editMap(const int level) {
                     checkStatus = checkBoard(board);
 
                     if (checkStatus != 0) {
-                        goToXY(1, 17);
+                        goToXY(1, 19);
                         switch (checkStatus) {
                             case -1:
                                 printf("Le niveau de contient pas de point d'apparition.\n");

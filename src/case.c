@@ -172,14 +172,10 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero)
             color = SLIP_CHAR_COLOR;
             break;
 
-        case LIGHTNESS_POTION_CHAR:
-            elem = THIN_CHAR;
-            color = THIN_CHAR_COLOR;
-            break;
-
         case SCORE_BONUS_CHAR:
-            elem = THIN_CHAR;
-            color = THIN_CHAR_COLOR;
+        case LIGHTNESS_POTION_CHAR:
+            elem = MELT_CHAR;
+            color = MELT_CHAR_COLOR;
             break;
 
         case TUNNEL_EXIT_CHAR:
@@ -229,9 +225,9 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
             break;
 
         case SLIP_CHAR:
-            changeCaseType(game, board, hero);
-            moveEceman(game, board, hero, entityList);
             drawEceman(board, hero);
+            moveEceman(game, board, hero, entityList);
+            changeCaseType(game, board, hero);
             break;
 
         case LIGHTNESS_POTION_CHAR:
