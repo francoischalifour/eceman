@@ -128,34 +128,40 @@ static void drawPanel() {
     printf(" %s\n", "Potion de legerete");
 
     goToXY(26, 12);
+    setColor(getCaseColor(SCORE_BONUS_CHAR));
+    printf("%c", convertCase(SCORE_BONUS_CHAR));
+    setColor(GRAY_COLOR);
+    printf(" %s\n", "Bonus de score");
+
+    goToXY(26, 13);
     setColor(getCaseColor(TUNNEL_CHAR));
     printf("%c", convertCase(TUNNEL_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Tunnel");
 
-    goToXY(26, 13);
+    goToXY(26, 14);
     setColor(getCaseColor(MOWER_CHAR));
     printf("%c", convertCase(MOWER_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Tondeuse");
 
-    goToXY(26, 14);
+    goToXY(26, 15);
     setColor(getCaseColor(HOLE_CHAR));
     printf("%c", convertCase(HOLE_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Trou");
 
-    goToXY(26, 15);
+    goToXY(26, 16);
     setColor(getCaseColor(ENEMY_CHAR));
     printf("%c", convertCase(ENEMY_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Ennemi");
 
-    goToXY(26, 17);
-    printf("%s %4s\n", "(p)", "Pause");
     goToXY(26, 18);
-    printf("%s %4s\n", "(r)", "Recommencer le niveau");
+    printf("%s %4s\n", "(p)", "Pause");
     goToXY(26, 19);
+    printf("%s %4s\n", "(r)", "Recommencer le niveau");
+    goToXY(26, 20);
     printf("%s %2s\n", "(q)", "Quitter");
 
     resetColor();

@@ -6,10 +6,8 @@
  * Tous les types de cases sont répertoriés dans le fichier case.h.
  *
  * Objectifs :
- *     -    Convertir le symboles des cases en
- *           éléments semi-graphiques
- *     -    Récupérer la couleur d'une case en
- *           fonction de son symbole
+ *     -    Convertir le symbole des cases en éléments semi-graphiques
+ *     -    Récupérer la couleur d'une case en fonction de son symbole
  *     -    Changer le type d'une case
  *     -    Lancer l'action d'une case
  */
@@ -19,7 +17,7 @@
 #include <conio.h>
 
 /**
- * Convertit la case de la map en élément à afficher.
+ * Convertit la case de la map en élément semi-graphique.
  * @param elem Le caractère initial
  * @return La case à afficher
  */
@@ -51,6 +49,9 @@ char convertCase(char elem) {
             break;
         case LIGHTNESS_POTION_CHAR:
             elem = 236;
+            break;
+        case SCORE_BONUS_CHAR:
+            elem = 254;
             break;
         case TUNNEL_CHAR:
             elem = 220;
@@ -110,6 +111,9 @@ int getCaseColor(const char elem) {
             break;
         case LIGHTNESS_POTION_CHAR:
             color = LIGHTNESS_POTION_CHAR_COLOR;
+            break;
+        case SCORE_BONUS_CHAR:
+            color = SCORE_BONUS_CHAR_COLOR;
             break;
         case TUNNEL_CHAR:
             color = TUNNEL_CHAR_COLOR;
@@ -173,6 +177,11 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero)
             color = THIN_CHAR_COLOR;
             break;
 
+        case SCORE_BONUS_CHAR:
+            elem = THIN_CHAR;
+            color = THIN_CHAR_COLOR;
+            break;
+
         case TUNNEL_EXIT_CHAR:
             elem = TUNNEL_EXIT_CHAR;
             color = TUNNEL_CHAR_COLOR;
@@ -228,13 +237,17 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
             hero->state = LIGHTNESS;
             break;
 
+        case SCORE_BONUS_CHAR:
+            game->levelScore += 10;
+            break;
+
         case TUNNEL_CHAR:
             goToCase(board, hero, TUNNEL_EXIT_CHAR);
             break;
 
         case HOLE_CHAR:
-            goToXY(1, 20);
-            printf("Vous etes tombe dans un trou\n");
+            goToXY(1, 19);
+            printf("Vous etes tombe\n");
             getch();
             loadPreviousLevel(game, board, hero);
             printf("                            \n");
