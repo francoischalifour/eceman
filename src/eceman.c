@@ -105,7 +105,7 @@ static char getNextCase(Eceman* hero, char board[ROWS][COLS]) {
  * @return 1 si le héros est encerclé, 0 sinon
  */
 static int isSurrounded(char board[ROWS][COLS], const Eceman* hero) {
-    if (board[hero->pos->x][hero->pos->y] == DOOR_CHAR || board[hero->pos->x][hero->pos->y] == TUNNEL_CHAR)
+    if (hero->caseBelow == DOOR_CHAR || hero->caseBelow == TUNNEL_CHAR)
         return 0;
 
     if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR)

@@ -74,7 +74,7 @@ static void destroyGameState(GameState* game) {
  * Ferme la partie en cours.
  * @param game L'état du jeu à stopper
  */
-static void closeGame(GameState* game) {
+static void stopGame(GameState* game) {
     game->playing = 0;
 }
 
@@ -111,6 +111,8 @@ void pauseGame(GameState* game) {
 void gameOver(GameState* game) {
     int timeBonus;
 
+    stopGame(game);
+
     if (game->type == CAMPAIGN) {
         timeBonus = BONUS_MAX - game->timePlayed;
 
@@ -130,8 +132,6 @@ void gameOver(GameState* game) {
         displayGameOver(game->levelScore, game->timeTmp);
         goBack();
     }
-
-    closeGame(game);
 }
 
 /**
@@ -156,7 +156,7 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
             if (game->type == CAMPAIGN)
                 save(game);
 
-            closeGame(game);
+            stopGame(game);
             break;
 
         case UP_KEY:
