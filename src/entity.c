@@ -103,7 +103,7 @@ Entity* createMower(const unsigned int x, const unsigned int y) {
  * @return 1 si collision, 0 sinon
  */
 int enemyCollidePropertyStrategy(const char symbol, const Position* pos) {
-    return (symbol != THIN_CHAR && symbol != HERO_CHAR);
+    return (symbol != THIN_CHAR && symbol != SLIP_CHAR && symbol != HERO_CHAR);
 }
 
 /**
