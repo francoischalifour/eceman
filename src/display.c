@@ -58,35 +58,22 @@ void displayMenu() {
         closeSaving(saving);
     }
 
-    goToXY(2, 19);
-    printf("(p) Partie rapide\n");
     goToXY(2, 20);
-    printf("(e) Editeur");
+    printf("(p) Partie rapide\n");
     goToXY(2, 21);
+    printf("(e) Editeur");
+
+    goToXY(28, 20);
     printf("(c) Classement");
-
-    goToXY(20, 19);
+    goToXY(28, 21);
     printf("(r) Regles");
-    goToXY(20, 20);
-    printf("(a) A propos");
-    goToXY(20, 21);
-    printf("(o) Options");
 
+    goToXY(50, 20);
+    printf("(a) A propos");
     goToXY(50, 21);
     printf("(q) Quitter");
 
     printf("\n");
-}
-
-/**
- * Affiche les options.
- */
-void displaySettings() {
-    displayTitle();
-
-    printf("\tOptions\n\n");
-
-    goBack();
 }
 
 /**

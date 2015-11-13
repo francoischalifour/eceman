@@ -47,9 +47,6 @@ void launchAction(const char choice) {
         case 'p':
             displayLevels(0);
             break;
-        case 'o':
-            displaySettings();
-            break;
         case 'r':
             displayRules();
             break;
