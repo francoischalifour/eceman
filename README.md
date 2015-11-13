@@ -5,6 +5,8 @@ Jeu d'arcade en C développé dans le cadre du module Algorithmique et Programma
 
 > Inspiré par *Club Penguin Thin Ice*.
 
+![Aperçu du jeu](https://bitbucket.org/repo/bbredA/images/73665678-eceman_6.jpg)
+
 ## Objectifs du projet
 
 Le projet a pour objectif de nous familiariser avec la programmation en C et ses concepts, ainsi qu'au travail de groupe. Pour gérer ce projet, nous avons utilisé [Slack](https://slack.com/) et [Git](https://git-scm.com/).
@@ -24,8 +26,13 @@ Le plateau de jeu se présente comme une matrice de caractères de 15 lignes par
 ### Types de cases
 
 * Glace fine
+* Glace glissante
 * Banquise épaisse
 * Eau
+* Potion de légèreté
+* Bonus de score
+* Tunnel
+* Trou
 * Lieu d'apparition
 * Porte de sortie
 * Mur
@@ -33,7 +40,6 @@ Le plateau de jeu se présente comme une matrice de caractères de 15 lignes par
 
 ### Les entités
 
-* Potion de légèreté
 * Tondeuse
 * Ennemi
 * Eceman
