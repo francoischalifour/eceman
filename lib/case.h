@@ -41,40 +41,6 @@
 #define GRAY_COLOR 8
 #define DEFAULT_COLOR 15
 
-/**
- * Enumération des types de case.
- */
-enum CaseType {
-    MELT,
-    THIN,
-    THICK,
-    WALL,
-    OUTSIDE,
-    LIGHTNESS_POTION,
-    TUNNEL,
-    TUNNEL_EXIT,
-    DOOR,
-    SPAWN
-};
-
-/**
- * Enumération des natures de case.
- */
-enum CaseNature {
-    OPAQUE,
-    TRANSPARENT
-};
-
-/**
- * Structure de la case.
- */
-typedef struct Case {
-    unsigned char symbol;
-    unsigned char symbolColor;
-    enum CaseType type;
-    enum CaseNature nature;
-} Case;
-
 /*
  * Prototypes
  */
