@@ -127,7 +127,7 @@ void gameOver(GameState* game) {
         displayGameOver(game->score, game->timePlayed);
         saveRanking(game->score);
     } else {
-        displayGameOver(game->levelScore, game->timePlayed);
+        displayGameOver(game->levelScore, game->timeTmp);
         goBack();
     }
 
