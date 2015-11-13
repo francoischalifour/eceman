@@ -97,26 +97,6 @@ Entity* createMower(const unsigned int x, const unsigned int y) {
 }
 
 /**
- * Récupère l'entité présente à un endroit donné en paramètre.
- * @param x L'abscisse
- * @param y L'ordonnée
- * @param entityList La liste des entités
- * @return L'entité en coordonnées (x, y)
- */
-/*static Entity* getEntity(const unsigned int x, const unsigned int y, Entity* entityList[ENTITY_MAX]) {
-    unsigned int i;
-
-    while (entityList[i] != NULL) {
-        if (entityList[i]->pos->x == x && entityList[i]->pos->y == y)
-            return entityList[i];
-
-        i++;
-    }
-
-    return NULL;
-}*/
-
-/**
  * Renvoie la condition de changement d'état pour un ennemi.
  * @param symbol La case actuelle
  * @param pos La position de l'ennemi
