@@ -183,8 +183,10 @@ void changeCaseType(GameState* game, char board[ROWS][COLS], const Eceman* hero)
             color = MELT_CHAR_COLOR;
     }
 
-    if (hero->state != LIGHTNESS)
-        game->levelScore++;
+    if (hero->state != LIGHTNESS) {
+        if (hero->caseBelow != SLIP_CHAR)
+            game->levelScore++;
+    }
 
     goToXY(hero->pos->y, hero->pos->x);
     board[hero->pos->x][hero->pos->y] = elem;
