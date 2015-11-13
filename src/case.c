@@ -51,7 +51,7 @@ char convertCase(char elem) {
             elem = 236;
             break;
         case SCORE_BONUS_CHAR:
-            elem = 254;
+            elem = 167;
             break;
         case TUNNEL_CHAR:
             elem = 220;
@@ -222,10 +222,11 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
                     loadNextLevel(game, board, hero);
                 else
                     gameOver(game);
-                break;
             } else {
                 gameOver(game);
             }
+
+            break;
 
         case SLIP_CHAR:
             changeCaseType(game, board, hero);

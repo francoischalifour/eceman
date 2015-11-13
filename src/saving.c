@@ -51,8 +51,6 @@ void saveRanking(const int score) {
     char name[NAME_LENGTH];
     unsigned int nbScores, minHighScore;
 
-
-
     nbScores = getNbScores();
     minHighScore = getMinHighScore();
 
@@ -65,6 +63,7 @@ void saveRanking(const int score) {
         }
 
         scoreFile = fopen(SCORE_FILE, "a");
+
         assert(scoreFile != NULL);
         fprintf(scoreFile, "%d %s\n", score, name);
     } else {
