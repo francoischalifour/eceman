@@ -284,7 +284,7 @@ void editMap(const int level) {
     while (1) {
         if (kbhit()) {
             // Nettoyer éventuellement la ligne des erreurs
-            goToXY(1, 17);
+            goToXY(1, 19);
             printf("                                                                                                                \n");
 
             elem = getch();
