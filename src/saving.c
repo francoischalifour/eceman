@@ -24,16 +24,13 @@
  * @param game L'état du jeu à sauvegarder (score, level, temps)
  */
 void save(GameState* game) {
-    float timeStop;
     FILE* saveFile = NULL;
 
     saveFile = fopen(SAVE_FILE, "w+");
 
     assert(saveFile != NULL);
 
-    timeStop = clock();
-
-    fprintf(saveFile, "%u\n%u\n%f\n%f", game->level, game->score, game->timePlayed, timeStop);
+    fprintf(saveFile, "%u\n%u\n%f", game->level, game->score, game->timePlayed);
 
     fclose(saveFile);
 }
@@ -54,9 +51,7 @@ void saveRanking(const int score) {
     char name[NAME_LENGTH];
     unsigned int nbScores, minHighScore;
 
-    scoreFile = fopen(SCORE_FILE, "a");
 
-    assert(scoreFile != NULL);
 
     nbScores = getNbScores();
     minHighScore = getMinHighScore();
@@ -69,6 +64,8 @@ void saveRanking(const int score) {
             deleteScore(minHighScore);
         }
 
+        scoreFile = fopen(SCORE_FILE, "a");
+        assert(scoreFile != NULL);
         fprintf(scoreFile, "%d %s\n", score, name);
     } else {
         printf("\tDesole, vous n'avez battu aucun score.\n");

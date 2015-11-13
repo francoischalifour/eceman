@@ -96,7 +96,7 @@ void pauseGame(GameState* game) {
     pauseTime = clock() - pauseTime;
 
     game->pause = 0;
-    game->timeStart += pauseTime;
+    game->timeTmp += pauseTime;
 
     goToXY(7, 17);
     printf("     \n");
@@ -241,7 +241,7 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero, cons
 
         i++;
 
-        game->timePlayed = (clock() - game->timeStart) / 1000;
+        game->timeTmp = (clock() - game->timeStart) / 1000;
         drawTime(game);
 
         Sleep(DELAY);
@@ -265,6 +265,8 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->score += game->levelScore;
     game->levelScore = 0;
     hero->state = NORMAL;
+    game->timePlayed += game->timeTmp;
+    game->timeTmp = 0;
 
     playGame(game, board, hero, 1);
 }
@@ -278,6 +280,8 @@ void loadPreviousLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->level -= 1;
     game->levelScore = 0;
     game->score /= 2;
+    game->timePlayed += game->timeTmp;
+    game->timeTmp = 0;
 
     playGame(game, board, hero, 0);
 }

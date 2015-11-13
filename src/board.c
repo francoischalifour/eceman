@@ -70,7 +70,7 @@ void drawToolbar(const GameState* game) {
  */
 void drawTime(GameState* game) {
     goToXY(26, 2);
-    printf("Temps %3.0f\n", game->timePlayed);
+    printf("Temps %3.0f\n", game->timePlayed + game->timeTmp);
 }
 
 /**

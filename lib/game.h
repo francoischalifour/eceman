@@ -49,6 +49,7 @@ typedef struct GameState {
     unsigned short levelScore;
     float timeStart;
     float timePlayed;
+    float timeTmp;
     unsigned short level;
     unsigned short pause;
     unsigned short playing;
