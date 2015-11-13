@@ -231,7 +231,7 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
             break;
 
         case HOLE_CHAR:
-            goToXY(1, 19);
+            goToXY(1, 20);
             printf("Vous etes tombe dans un trou\n");
             getch();
             loadPreviousLevel(game, board, hero);

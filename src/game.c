@@ -223,8 +223,14 @@ static void playGame(GameState* game, char board[ROWS][COLS], Eceman* hero, cons
 
     drawBoard(map, game, board);
 
-    if (backToSpawn != 0)
+    if (backToSpawn != 0) {
         goToCase(board, hero, SPAWN_CHAR);
+    } else {
+        // Si le joueur tombe dans un trou et se retrouve à un endroit non autorisé.
+        if (board[hero->pos->x][hero->pos->y] == OUTSIDE_CHAR || board[hero->pos->x][hero->pos->y] == WALL_CHAR) {
+            goToCase(board, hero, SPAWN_CHAR);
+        }
+    }
 
     extractEntities(board, entityList);
 
@@ -312,7 +318,6 @@ void initGame(const int levelType) {
 
     game = newGameState();
     hero = newEceman();
-
 
     if (levelType != -1) {
         saving = loadSaving();
