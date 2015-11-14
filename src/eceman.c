@@ -101,25 +101,6 @@ static char getNextCase(Eceman* hero, char board[ROWS][COLS]) {
 }
 
 /**
- * Vérifie la case de l'autre côté de la tondeuse par rapport au joueur.
- * @param  hero   Le héro
- * @param  board  Le plateau de jeu
- * @param  xMower La position de la tondeuse en X
- * @param  yMower La position de la tondeuse en Y
- * @return        Le caractère derrière la tondeuse
- */
-char getNextCaseMower(Eceman* hero, char board[ROWS][COLS], unsigned short xMower, unsigned short yMower) {
-    short x, y;
-    if(board[xMower][yMower] == MOWER_CHAR){
-            x = hero->pos->x - xMower;
-            y = hero->pos->y - yMower;
-            return board[xMower - x][yMower - y];
-    }
-    return OUTSIDE_CHAR;
-
-}
-
-/**
  * Vérifie si le héros est entouré de murs ou d'eau.
  * @param board Le plateau sur lequel le joueur joue
  * @param hero Le héros à tester
@@ -129,10 +110,10 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
     if (hero->caseBelow == DOOR_CHAR || hero->caseBelow == TUNNEL_CHAR)
         return 0;
 
-    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR && (getNextCaseMower(hero, board, hero->pos->x, hero->pos->y-1) == WALL_CHAR || getNextCaseMower(hero, board, hero->pos->x, hero->pos->y-1) == MELT_CHAR)))
-        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR && (getNextCaseMower(hero, board, hero->pos->x, hero->pos->y+1) == WALL_CHAR || getNextCaseMower(hero, board, hero->pos->x, hero->pos->y+1) == MELT_CHAR)))
-        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR && (getNextCaseMower(hero, board, hero->pos->x-1, hero->pos->y) == WALL_CHAR || getNextCaseMower(hero, board, hero->pos->x-1, hero->pos->y) == MELT_CHAR)))
-        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR && (getNextCaseMower(hero, board, hero->pos->x+1, hero->pos->y) == WALL_CHAR || getNextCaseMower(hero, board, hero->pos->x+1, hero->pos->y) == MELT_CHAR))))
+    if ((board[hero->pos->x][hero->pos->y-1] == WALL_CHAR || board[hero->pos->x][hero->pos->y-1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y-1] == MOWER_CHAR && (board[hero->pos->x][hero->pos->y-2] == WALL_CHAR || board[hero->pos->x][hero->pos->y-2] == MELT_CHAR)))
+        && (board[hero->pos->x][hero->pos->y+1] == WALL_CHAR || board[hero->pos->x][hero->pos->y+1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y+1] == MOWER_CHAR && (board[hero->pos->x][hero->pos->y+2] == WALL_CHAR || board[hero->pos->x][hero->pos->y+2] == MELT_CHAR)))
+        && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR && (board[hero->pos->x-2][hero->pos->y] == WALL_CHAR || board[hero->pos->x-2][hero->pos->y] == MELT_CHAR)))
+        && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR && (board[hero->pos->x+2][hero->pos->y] == WALL_CHAR || board[hero->pos->x+2][hero->pos->y] == MELT_CHAR))))
             return 1;
 
     return 0;
