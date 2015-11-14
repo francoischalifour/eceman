@@ -207,6 +207,7 @@ void getRanking(FILE* scoreFile) {
         fscanf(scoreFile, "%u %s\n", &score, name);
         arrayScores[i] = score;
         arrayNames[i] = malloc((strlen(name) + 1) * sizeof(char));
+        assert(arrayNames[i] != NULL);
         strcpy(arrayNames[i], name);
     }
 

@@ -17,6 +17,7 @@
  */
 
 #include "../lib/setup.h"
+#include <assert.h>
 
 /**
  * Créé un nouveau héros.
@@ -26,6 +27,9 @@
 Eceman* newEceman() {
     Position* pos = malloc(sizeof(Position));
     Eceman* hero = malloc(sizeof(Eceman));
+
+    assert(pos != NULL);
+    assert(hero != NULL);
 
     pos->x = 0;
     pos->y = 0;

@@ -18,6 +18,7 @@
 #include <windows.h>
 #include <time.h>
 #include <conio.h>
+#include <assert.h>
 
 /**
  * Initialise l'état du jeu.
@@ -25,6 +26,7 @@
  */
 static GameState* newGameState() {
     GameState* game = malloc(sizeof(GameState));
+    assert(game != NULL);
 
     game->score = 0;
     game->levelScore = 0;
