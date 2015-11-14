@@ -59,16 +59,13 @@ void saveRanking(const int score) {
         printf("\tEntrez votre nom : ");
         gets(name);
 
-        if (nbScores >= RANKING_MAX) {
-            deleteScore(minHighScore);
-        }
-
         scoreFile = fopen(SCORE_FILE, "a");
-
         assert(scoreFile != NULL);
+
         fprintf(scoreFile, "%d %s\n", score, name);
     } else {
         printf("\tDesole, vous n'avez battu aucun score.\n");
+        goBack();
     }
 
     clearSaving();

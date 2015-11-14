@@ -101,6 +101,7 @@ int getNbScores() {
  * @param score Le score à supprimer
  * @return Le score supprimé
  */
+// TODO : supprimer cette fonction si on optimise pas l'enregistrement du classement.
 int deleteScore(const int score) {
     FILE* scoreFile = NULL;
     FILE* scoreFileTmp = NULL;
@@ -111,30 +112,27 @@ int deleteScore(const int score) {
     assert(scoreFile != NULL);
 
     // Créer un fichier des scores temporaires.
-    scoreFileTmp = fopen(SCORE_FILE_TMP, "w");
+    scoreFileTmp = fopen(SCORE_FILE_TMP, "a");
     assert(scoreFileTmp != NULL);
-
-    c = getc(scoreFile);
 
     countLines = 0;
 
-    while ((c = getc(scoreFile)) != EOF) {
+    while ((c = fgetc(scoreFile)) != EOF) {
         if (c == '\n') {
             countLines++;
-        }
 
-        if (countLines != getScoreLine(scoreFile, getMinHighScore())) {
-            putc(c, scoreFileTmp);
+            if (countLines == getScoreLine(scoreFile, score))
+                putc(c, scoreFileTmp);
         }
     }
 
     fclose(scoreFile);
     fclose(scoreFileTmp);
 
-    // Supprimer l'ancien fichier des scores.
+    // Supprimer l'ancien fichier des scores
     remove(SCORE_FILE);
 
-    // Renommer le fichier temporaire avec le nom original.
+    // Renommer le fichier temporaire avec le nom original
     rename(SCORE_FILE_TMP, SCORE_FILE);
 
     return score;
@@ -248,6 +246,9 @@ void getRanking(FILE* scoreFile) {
     }
 
     sortScores(count, arrayScores, arrayNames);
+
+    if (count > RANKING_MAX)
+        count = RANKING_MAX;
 
     for (i = 0; i < count; i++) {
         printf("\t%d\t%s\n", arrayScores[i], arrayNames[i]);
