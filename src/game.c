@@ -96,6 +96,7 @@ void pauseGame(GameState* game) {
 
     game->pause = 0;
     game->timeTmp += pauseTime;
+    game->timeStart += pauseTime;
 }
 
 /**
