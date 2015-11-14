@@ -93,7 +93,7 @@ void pauseGame(GameState* game) {
     goToXY(7, 17);
     printf("Pause\n");
 
-    getch();
+    while (getch() != 'p');
 
     pauseTime = clock() - pauseTime;
 
