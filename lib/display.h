@@ -1,7 +1,6 @@
 #ifndef ECEMAN_DISPLAY_H
 #define ECEMAN_DISPLAY_H
 
-void displayTitle();
 void displayMenu();
 void displayLevels(const int mode);
 void displaySettings();

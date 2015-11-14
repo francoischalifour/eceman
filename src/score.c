@@ -97,48 +97,6 @@ int getNbScores() {
 }
 
 /**
- * Supprimer la ligne correspondant au score passé en paramètres.
- * @param score Le score à supprimer
- * @return Le score supprimé
- */
-// TODO : supprimer cette fonction si on optimise pas l'enregistrement du classement.
-int deleteScore(const int score) {
-    FILE* scoreFile = NULL;
-    FILE* scoreFileTmp = NULL;
-    char c;
-    unsigned countLines;
-
-    scoreFile = fopen(SCORE_FILE, "r");
-    assert(scoreFile != NULL);
-
-    // Créer un fichier des scores temporaires.
-    scoreFileTmp = fopen(SCORE_FILE_TMP, "a");
-    assert(scoreFileTmp != NULL);
-
-    countLines = 0;
-
-    while ((c = fgetc(scoreFile)) != EOF) {
-        if (c == '\n') {
-            countLines++;
-
-            if (countLines == getScoreLine(scoreFile, score))
-                putc(c, scoreFileTmp);
-        }
-    }
-
-    fclose(scoreFile);
-    fclose(scoreFileTmp);
-
-    // Supprimer l'ancien fichier des scores
-    remove(SCORE_FILE);
-
-    // Renommer le fichier temporaire avec le nom original
-    rename(SCORE_FILE_TMP, SCORE_FILE);
-
-    return score;
-}
-
-/**
  * Récupère le minimum des scores enregistrés.
  * Fonction appelée seulement si au moins 10 scores enregistrés.
  * @return Le score minimum enregistré (-1 si fichier non trouvé)

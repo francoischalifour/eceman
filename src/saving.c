@@ -61,14 +61,17 @@ void saveRanking(const int score) {
         assert(scoreFile != NULL);
 
         fprintf(scoreFile, "%d %s\n", score, name);
+
+        printf("\n\tVotre score a bien ete enregistre.\n");
     } else {
         printf("\tDesole, vous n'avez battu aucun score.\n");
-        goBack();
     }
 
     clearSaving();
 
     fclose(scoreFile);
+
+    goBack();
 }
 
 /**

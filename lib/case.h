@@ -38,6 +38,7 @@
 #define HOLE_CHAR_COLOR 0
 #define MOWER_CHAR_COLOR 46
 #define ENEMY_CHAR_COLOR 178
+#define LINK_COLOR 7
 #define GRAY_COLOR 8
 #define RED_COLOR 4
 #define DEFAULT_COLOR 15

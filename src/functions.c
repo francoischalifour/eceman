@@ -19,7 +19,9 @@
  * Attend l'appui d'une touche pour revenir au menu.
  */
 void goBack() {
+    setColor(GRAY_COLOR);
     printf("\n\n\tAppuyez sur une touche pour continuer...\n");
+    resetColor();
 
     getch();
 }
