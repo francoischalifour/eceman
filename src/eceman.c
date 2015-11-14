@@ -106,14 +106,14 @@ static char getNextCase(const Eceman* hero, char board[ROWS][COLS]) {
  * @param hero Le héros à tester
  * @return 1 si le héros est encerclé, 0 sinon
  */
-static int isSurrounded(char board[ROWS][COLS], const Eceman* hero) {
+int isSurrounded(char board[ROWS][COLS], const Eceman* hero) {
     if (hero->caseBelow == DOOR_CHAR || hero->caseBelow == TUNNEL_CHAR)
         return 0;
 
-    if ((board[hero->pos->x][hero->pos->y - 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y - 1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y - 1] == MOWER_CHAR && (board[hero->pos->x][hero->pos->y-2] == WALL_CHAR || board[hero->pos->x][hero->pos->y-2] == MELT_CHAR)))
-        && (board[hero->pos->x][hero->pos->y + 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y + 1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y + 1] == MOWER_CHAR && (board[hero->pos->x][hero->pos->y+2] == WALL_CHAR || board[hero->pos->x][hero->pos->y+2] == MELT_CHAR)))
-        && (board[hero->pos->x - 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x - 1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x - 1][hero->pos->y] == MOWER_CHAR && (board[hero->pos->x-2][hero->pos->y] == WALL_CHAR || board[hero->pos->x-2][hero->pos->y] == MELT_CHAR)))
-        && (board[hero->pos->x + 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x + 1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x + 1][hero->pos->y] == MOWER_CHAR && (board[hero->pos->x+2][hero->pos->y] == WALL_CHAR || board[hero->pos->x+2][hero->pos->y] == MELT_CHAR))))
+    if ((board[hero->pos->x][hero->pos->y - 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y - 1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y - 1] == MOWER_CHAR && (board[hero->pos->x][hero->pos->y - 2] == WALL_CHAR || board[hero->pos->x][hero->pos->y - 2] == MELT_CHAR)))
+        && (board[hero->pos->x][hero->pos->y + 1] == WALL_CHAR || board[hero->pos->x][hero->pos->y + 1] == MELT_CHAR || (board[hero->pos->x][hero->pos->y + 1] == MOWER_CHAR && (board[hero->pos->x][hero->pos->y + 2] == WALL_CHAR || board[hero->pos->x][hero->pos->y + 2] == MELT_CHAR)))
+        && (board[hero->pos->x - 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x - 1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x - 1][hero->pos->y] == MOWER_CHAR && (board[hero->pos->x - 2][hero->pos->y] == WALL_CHAR || board[hero->pos->x - 2][hero->pos->y] == MELT_CHAR)))
+        && (board[hero->pos->x + 1][hero->pos->y] == WALL_CHAR || board[hero->pos->x + 1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x + 1][hero->pos->y] == MOWER_CHAR && (board[hero->pos->x + 2][hero->pos->y] == WALL_CHAR || board[hero->pos->x + 2][hero->pos->y] == MELT_CHAR))))
             return 1;
 
     return 0;
@@ -143,8 +143,6 @@ void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
  * @param entityList La liste des entités
  */
 void moveEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
-    unsigned short prevPosX = hero->pos->x;
-    unsigned short prevPosY = hero->pos->y;
     unsigned short i;
 
     switch (hero->direction) {
@@ -222,17 +220,34 @@ void moveEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* e
     }
 
     hero->caseBelow = board[hero->pos->x][hero->pos->y];
+}
 
-    if (prevPosX != hero->pos->x || prevPosY != hero->pos->y) {
-        runCaseAction(game, board, hero, entityList);
-        drawToolbar(game);
+/**
+ * Fait glisser le héros jusqu'à un obstacle.
+ * @param game L'état du jeu
+ * @param board Le plateau de jeu
+ * @param hero Le héros
+ * @param entityList La liste des entités
+ */
+void throwEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
+    unsigned int i;
+
+    i = 0;
+
+    while (getNextCase(hero, board) == SLIP_CHAR) {
+        i++;
+
+        if (i % 20000000 != 0)
+            continue;
+
+        changeCaseType(game, board, hero);
+        moveEceman(game, board, hero, entityList);
+        drawEceman(board, hero);
     }
 
-    if (isSurrounded(board, hero)) {
-        displayMessage("Vous etes encercle.");
-
-        reloadLevel(game, board, hero);
-    }
+    changeCaseType(game, board, hero);
+    moveEceman(game, board, hero, entityList);
+    drawEceman(board, hero);
 }
 
 /**

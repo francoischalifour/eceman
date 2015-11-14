@@ -18,7 +18,6 @@
  */
 
 #include "../lib/setup.h"
-#include <windows.h>
 #include <assert.h>
 
 /**
@@ -256,11 +255,18 @@ void clearEntity(char board[ROWS][COLS], const Entity* entity) {
  * @param board Le plateau de jeu
  */
 void throwEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]) {
+    unsigned int i;
+
+    i = 0;
+
     while (entity->state != FINAL) {
+        i++;
+
+        if (i % 20000000 != 0)
+            continue;
+
         clearEntity(board, entity);
         moveEntity(game, hero, entity, board);
         drawEntity(board, entity);
-
-        Sleep(100);
     }
 }

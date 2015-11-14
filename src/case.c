@@ -225,7 +225,7 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
             break;
 
         case SLIP_CHAR:
-            moveEceman(game, board, hero, entityList);
+            throwEceman(game, board, hero, entityList);
             break;
 
         case LIGHTNESS_POTION_CHAR:

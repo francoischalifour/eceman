@@ -139,6 +139,9 @@ void gameOver(GameState* game) {
  * @param hero Le Eceman
  */
 static void launchUserAction(const char key, GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]) {
+    unsigned short prevPosX = hero->pos->x;
+    unsigned short prevPosY = hero->pos->y;
+
     switch (key) {
         case 'p':
             pauseGame(game);
@@ -175,6 +178,18 @@ static void launchUserAction(const char key, GameState* game, char board[ROWS][C
     if (key == UP_KEY || key == DOWN_KEY || key == LEFT_KEY || key == RIGHT_KEY) {
             changeCaseType(game, board, hero);
             moveEceman(game, board, hero, entityList);
+
+            if (prevPosX != hero->pos->x || prevPosY != hero->pos->y) {
+                runCaseAction(game, board, hero, entityList);
+                drawToolbar(game);
+            }
+
+            if (isSurrounded(board, hero)) {
+                displayMessage("Vous etes encercle.");
+
+                reloadLevel(game, board, hero);
+            }
+
             drawEceman(board, hero);
     }
 }
