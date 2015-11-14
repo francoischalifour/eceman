@@ -159,7 +159,7 @@ int getScoreLine(FILE* scoreFile, const int score) {
  * @param arrayScores Le tableau des scores
  * @param arrayNames Le tableau des noms
  */
-static void sortScores(const int nbScores, int arrayScores[nbScores], char arrayNames[nbScores][NAME_LENGTH + 1]) {
+static void sortScores(const int nbScores, int* arrayScores, char** arrayNames) {
     unsigned short i, j;
     int tmpScore;
     char tmpName[NAME_LENGTH];
@@ -187,8 +187,8 @@ void getRanking(FILE* scoreFile) {
     unsigned int i, count;
     unsigned int score;
     char name[NAME_LENGTH];
-    int arrayScores[RANKING_MAX];
-    char arrayNames[RANKING_MAX][NAME_LENGTH + 1];
+    int* arrayScores;
+    char** arrayNames;
 
     if (scoreFile == NULL) {
         printf("\tAucun score n'a ete enregistre jusqu'a present.\n");
@@ -197,9 +197,13 @@ void getRanking(FILE* scoreFile) {
 
     count = getNbScores(scoreFile);
 
+    arrayScores = malloc(count * sizeof(int));
+    arrayNames = malloc(count * sizeof(char*));
+
     for (i = 0; i < count; i++) {
         fscanf(scoreFile, "%u %s\n", &score, name);
         arrayScores[i] = score;
+        arrayNames[i] = malloc((strlen(name) + 1) * sizeof(char));
         strcpy(arrayNames[i], name);
     }
 
@@ -211,4 +215,7 @@ void getRanking(FILE* scoreFile) {
     for (i = 0; i < count; i++) {
         printf("\t%d\t%s\n", arrayScores[i], arrayNames[i]);
     }
+
+    free(arrayScores);
+    free(arrayNames);
 }
