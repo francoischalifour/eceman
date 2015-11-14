@@ -312,19 +312,19 @@ void editMap(const int level) {
                         goToXY(1, 19);
                         switch (checkStatus) {
                             case -1:
-                                printf("Le niveau de contient pas de point d'apparition.\n");
+                                displayMessage("Le niveau de contient pas de point d'apparition.");
                                 break;
                             case -2:
-                                printf("Le niveau de contient pas de porte de sortie.\n");
+                                displayMessage("Le niveau de contient pas de porte de sortie.");
                                 break;
                             case -3:
-                                printf("Le tunnel n'est pas lie a une sortie.\n");
+                                displayMessage("Le tunnel n'est pas lie a une sortie.");
                                 break;
                             case -4:
-                                printf("Le niveau contient plus de %d obstacles.\n", ENTITY_MAX);
+                                displayMessage("Le niveau contient trop d'obstacles.");
                                 break;
                             default:
-                                printf("Le niveau contient des erreurs.\n");
+                                displayMessage("Le niveau contient des erreurs.");
                         }
                     } else {
                         saveMap(board, level);

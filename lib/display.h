@@ -10,5 +10,6 @@ void displayRules();
 void displayGameOver(const int scoreFinal, const float timePlayed);
 void displayRanking();
 void displayAbout();
+void displayMessage(char* message);
 
 #endif // ECEMAN_DISPLAY_H

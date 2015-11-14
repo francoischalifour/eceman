@@ -237,3 +237,48 @@ void displayAbout() {
 
     goBack();
 }
+
+/**
+ * Affiche le message passé en paramètre
+ * en dessous du plateau de jeu.
+ * @param message Le message à afficher
+ */
+void displayMessage(char* message) {
+    unsigned int i, j;
+    unsigned countLines;
+
+    countLines = 2;
+
+    goToXY(0, 17);
+
+    setColor(RED_COLOR);
+
+    for (i = 0; message[i] != '\0'; i++) {
+        putchar(message[i]);
+
+        if (i % (COLS + 2) == 0 && i != 0) {
+            putchar('\n');
+            countLines++;
+        }
+    }
+
+    putchar('\n');
+
+    setColor(GRAY_COLOR);
+
+    printf("ESPACE pour continuer\n");
+
+    resetColor();
+
+    while (getch() != ' ');
+
+    goToXY(0, 17);
+
+    for (i = 0; i < countLines; i++) {
+        for (j = 0; j < COLS + 2; j++) {
+            putchar(' ');
+        }
+
+        putchar('\n');
+    }
+}

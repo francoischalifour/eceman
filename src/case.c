@@ -241,11 +241,9 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
             break;
 
         case HOLE_CHAR:
-            goToXY(1, 19);
-            printf("Vous etes tombe\nESPACE pour continuer\n");
-            while (getch() != ' ');
+            displayMessage("Vous etes tombe");
+
             loadPreviousLevel(game, board, hero);
-            printf("                            \n");
             break;
 
         case ENEMY_CHAR:

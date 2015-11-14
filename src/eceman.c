@@ -132,7 +132,7 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
         && (board[hero->pos->x-1][hero->pos->y] == WALL_CHAR || board[hero->pos->x-1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x-1][hero->pos->y] == MOWER_CHAR && (getNextCaseMower(hero, board, hero->pos->x-1, hero->pos->y) == WALL_CHAR || getNextCaseMower(hero, board, hero->pos->x-1, hero->pos->y) == MELT_CHAR)))
         && (board[hero->pos->x+1][hero->pos->y] == WALL_CHAR || board[hero->pos->x+1][hero->pos->y] == MELT_CHAR || (board[hero->pos->x+1][hero->pos->y] == MOWER_CHAR && (getNextCaseMower(hero, board, hero->pos->x+1, hero->pos->y) == WALL_CHAR || getNextCaseMower(hero, board, hero->pos->x+1, hero->pos->y) == MELT_CHAR))))
             return 1;
-    
+
     return 0;
 }
 
@@ -143,13 +143,7 @@ static int isSurrounded(char board[ROWS][COLS], Eceman* hero) {
  * @param hero Le Eceman attaqué
  */
 void gotAttacked(GameState* game, char board[ROWS][COLS], Eceman* hero) {
-    goToXY(1, 17);
-    printf("Vous etes mort.\n");
-
-    getch();
-
-    goToXY(1, 17);
-    printf("               \n");
+    displayMessage("Vous etes attaque");
 
     reloadLevel(game, board, hero);
 }
@@ -252,11 +246,7 @@ void moveEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* e
     }
 
     if (isSurrounded(board, hero)) {
-        goToXY(1, 17);
-        printf("Vous etes encercle\nESPACE pour continuer\n");
-        while (getch() != ' ');
-        goToXY(1, 17);
-        printf("                    \n");
+        displayMessage("Vous etes encercle.");
 
         reloadLevel(game, board, hero);
     }
