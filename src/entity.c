@@ -168,7 +168,7 @@ void mowerFinalActionStrategy(GameState* game, Eceman* hero, Entity* mower, char
 void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][COLS]) {
     switch (entity->direction) {
         case UP:
-            if (entity->collidePropertyStrategy(board[entity->pos->x-1][entity->pos->y], entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x - 1][entity->pos->y], entity->pos)) {
                 entity->collideStrategy(entity, DOWN);
                 return;
             }
@@ -177,7 +177,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
             break;
 
         case DOWN:
-            if (entity->collidePropertyStrategy(board[entity->pos->x+1][entity->pos->y], entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x + 1][entity->pos->y], entity->pos)) {
                 entity->collideStrategy(entity, UP);
                 return;
             }
@@ -186,7 +186,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
             break;
 
         case LEFT:
-            if (entity->collidePropertyStrategy(board[entity->pos->x][entity->pos->y-1], entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x][entity->pos->y - 1], entity->pos)) {
                 entity->collideStrategy(entity, RIGHT);
                 return;
             }
@@ -195,7 +195,7 @@ void moveEntity(GameState* game, Eceman* hero, Entity* entity, char board[ROWS][
             break;
 
         case RIGHT:
-            if (entity->collidePropertyStrategy(board[entity->pos->x][entity->pos->y+1], entity->pos)) {
+            if (entity->collidePropertyStrategy(board[entity->pos->x][entity->pos->y + 1], entity->pos)) {
                 entity->collideStrategy(entity, LEFT);
                 return;
             }
