@@ -125,8 +125,9 @@ void gameOver(GameState* game) {
         saveRanking(game->score);
     } else {
         displayGameOver(game->levelScore, game->timeTmp);
-        goBack();
     }
+
+    goBack();
 }
 
 /**

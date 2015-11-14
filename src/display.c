@@ -182,6 +182,7 @@ void displayLevels(const int mode) {
                     printf("->");
                 }
                 break;
+
             case DOWN_KEY:
                 if (level < getNbLevels()) {
                     level++;
@@ -192,14 +193,14 @@ void displayLevels(const int mode) {
                     printf("->");
                 }
                 break;
+
             case '\r':
                 if (mode != 0)
                     editMap(level);
                 else
                     launchLevel(level);
-                break;
-            case 'r':
                 return;
+                break;
         }
     } while (key != 'r');
 }
@@ -225,9 +226,12 @@ void displayEditor() {
         switch (key) {
             case '1':
                 displayLevels(1);
+                return;
                 break;
+
             case '2':
                 editMap(0);
+                return;
                 break;
         }
     } while (key != 'r');

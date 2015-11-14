@@ -70,8 +70,6 @@ void saveRanking(const int score) {
     clearSaving();
 
     fclose(scoreFile);
-
-    goBack();
 }
 
 /**
