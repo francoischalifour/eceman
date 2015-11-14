@@ -198,7 +198,10 @@ void getRanking(FILE* scoreFile) {
     count = getNbScores(scoreFile);
 
     arrayScores = malloc(count * sizeof(int));
+    assert(arrayScores != NULL);
+
     arrayNames = malloc(count * sizeof(char*));
+    assert(arrayNames != NULL);
 
     for (i = 0; i < count; i++) {
         fscanf(scoreFile, "%u %s\n", &score, name);
