@@ -253,10 +253,8 @@ void moveEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* e
 
     if (isSurrounded(board, hero)) {
         goToXY(1, 17);
-        printf("Vous etes encercle\n");
-
-        getch();
-
+        printf("Vous etes encercle\nESPACE pour continuer\n");
+        while (getch() != ' ');
         goToXY(1, 17);
         printf("                    \n");
 
