@@ -5,6 +5,7 @@
 #include "direction.h"
 #include "eceman.h"
 
+#define SAVE_DIR "../data/saving/"
 #define SAVE_FILE "../data/saving/game.sav"
 #define SCORE_FILE "../data/saving/scores.sav"
 #define SCORE_FILE_TMP "../data/saving/scores.tmp"

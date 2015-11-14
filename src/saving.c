@@ -18,6 +18,7 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <dir.h>
 
 /**
  * Sauvegarde la partie.
@@ -82,12 +83,12 @@ void saveRanking(const int score) {
 FILE* loadSaving() {
     FILE* savingFile = NULL;
 
+    // On ouvre le fichier s'il y a déjà une partie en cours.
     savingFile = fopen(SAVE_FILE, "r");
 
+    // On créé le dossier de sauvegarde sinon
     if (savingFile == NULL)
-        savingFile = fopen(SAVE_FILE, "w");
-
-    assert(savingFile != NULL);
+        mkdir(SAVE_DIR);
 
     return savingFile;
 }
