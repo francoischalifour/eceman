@@ -42,24 +42,24 @@ void displayMenu() {
     displayTitle();
 
     goToXY(10, 10);
-    printf("(1) Commencer une nouvelle partie\n");
+    printf("(1) Commencer une nouvelle partie");
 
     if ((saving = loadSaving())) {
         goToXY(10, 12);
-        printf("(2) Continuer la partie precedente\n");
+        printf("(2) Continuer la partie precedente");
 
         setColor(GRAY_COLOR);
         goToXY(20, 14);
-        printf("Niveau %2d\n", getLastLevel(saving));
+        printf("Niveau %2d", getLastLevel(saving));
         goToXY(20, 15);
-        printf("Score %3d\n", getLastScore(saving));
+        printf("Score %3d", getLastScore(saving));
         resetColor();
 
         closeSaving(saving);
     }
 
     goToXY(2, 20);
-    printf("(p) Partie rapide\n");
+    printf("(p) Partie rapide");
     goToXY(2, 21);
     printf("(e) Editeur");
 
@@ -72,8 +72,6 @@ void displayMenu() {
     printf("(a) A propos");
     goToXY(50, 21);
     printf("(q) Quitter");
-
-    printf("\n");
 }
 
 /**

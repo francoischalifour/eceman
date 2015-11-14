@@ -16,6 +16,5 @@ int main() {
         launchAction(getChoice());
     } while (1);
 
-    getchar();
     return 0;
 }
