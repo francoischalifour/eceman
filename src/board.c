@@ -14,8 +14,6 @@
  */
 
 #include "../lib/setup.h"
-#include <time.h>
-#include <windows.h>
 
 /**
  * Extrait les entités de la map.

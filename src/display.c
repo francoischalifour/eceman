@@ -16,8 +16,8 @@
  */
 
 #include "../lib/setup.h"
-#include <windows.h>
-#include <string.h>
+#include <time.h>
+#include <sys/stat.h>
 #include <conio.h>
 
 /**
@@ -37,6 +37,7 @@ void displayTitle() {
  * Affiche le menu.
  */
 void displayMenu() {
+    struct stat attr;
     FILE* saving = NULL;
 
     displayTitle();
@@ -45,6 +46,8 @@ void displayMenu() {
     printf("(1) Commencer une nouvelle partie");
 
     if ((saving = loadSaving())) {
+        stat(SAVE_FILE, &attr);
+
         goToXY(10, 12);
         printf("(2) Continuer la partie precedente");
 
@@ -53,6 +56,8 @@ void displayMenu() {
         printf("Niveau %2d", getLastLevel(saving));
         goToXY(20, 15);
         printf("Score %3d", getLastScore(saving));
+        goToXY(20, 16);
+        printf("%s", ctime(&attr.st_mtime));
         resetColor();
 
         closeSaving(saving);

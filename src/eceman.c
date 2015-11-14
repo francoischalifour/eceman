@@ -17,8 +17,6 @@
  */
 
 #include "../lib/setup.h"
-#include <windows.h>
-#include <conio.h>
 
 /**
  * Créé un nouveau héros.

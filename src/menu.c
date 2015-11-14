@@ -11,8 +11,8 @@
  *     -    Lancer l'action de l'utilisateur
  */
 
-#include <conio.h>
 #include "../lib/setup.h"
+#include <conio.h>
 
 /**
  * Enregistre le choix de l'utilisateur.

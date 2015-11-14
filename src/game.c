@@ -15,11 +15,9 @@
  */
 
 #include "../lib/setup.h"
-#include <conio.h>
-#include <assert.h>
 #include <windows.h>
-#include <math.h>
 #include <time.h>
+#include <conio.h>
 
 /**
  * Initialise l'état du jeu.

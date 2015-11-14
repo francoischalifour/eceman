@@ -12,9 +12,8 @@
  */
 
 #include "../lib/setup.h"
-#include <conio.h>
 #include <windows.h>
-#include <string.h>
+#include <conio.h>
 
 /**
  * Attend l'appui d'une touche pour revenir au menu.

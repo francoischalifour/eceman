@@ -18,8 +18,6 @@
  */
 
 #include "../lib/setup.h"
-#include "../lib/game.h"
-#include "../lib/entity.h"
 #include <windows.h>
 #include <assert.h>
 

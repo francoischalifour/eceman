@@ -15,8 +15,6 @@
  */
 
 #include "../lib/setup.h"
-#include <string.h>
-#include <time.h>
 #include <assert.h>
 #include <dir.h>
 
