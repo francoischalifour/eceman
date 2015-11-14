@@ -1,5 +1,5 @@
 # Fichiers de sauvegarde du jeu
-data/saving/*
+data/saving/
 
 # Object files
 *.o

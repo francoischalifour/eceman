@@ -245,8 +245,13 @@ void throwEceman(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* 
         drawEceman(board, hero);
     }
 
-    changeCaseType(game, board, hero);
-    moveEceman(game, board, hero, entityList);
+    if (getNextCase(hero, board) != WALL_CHAR && getNextCase(hero, board) != MELT_CHAR && getNextCase(hero, board) != MOWER_CHAR) {
+        changeCaseType(game, board, hero);
+        moveEceman(game, board, hero, entityList);
+        runCaseAction(game, board, hero, entityList);
+    }
+
+    drawToolbar(game);
     drawEceman(board, hero);
 }
 
