@@ -37,9 +37,9 @@
  */
 static Entity* createEntity(const unsigned int x, const unsigned int y, const enum Direction direction, const char caseBelow, const char symbol, const char symbolColor, const char nextSymbol, const char nextSymbolColor, CollidePropertyStrategy collidePropertyStrategy, CollideStrategy collideStrategy, FinalActionStrategy finalActionStrategy) {
     Position* pos = malloc(sizeof(Position));
-    Entity* entity = malloc(sizeof(Entity));
-
     assert(pos != NULL);
+
+    Entity* entity = malloc(sizeof(Entity));
     assert(entity != NULL);
 
     pos->x = x;

@@ -294,7 +294,7 @@ void loadNextLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 /**
  * Charge le niveau précédent suite à un malus.
  * @param game L'état actuel du jeu
- * @param hero Le héro
+ * @param hero Le héros
  */
 void loadPreviousLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
     game->level -= 1;
@@ -308,7 +308,7 @@ void loadPreviousLevel(GameState* game, char board[ROWS][COLS], Eceman* hero) {
 }
 
 /**
- * Redémarre le niveau
+ * Redémarre le niveau.
  * @param game La partie à redémarrer
  * @param board Le plateau à reinitialiser
  * @param hero Le héro

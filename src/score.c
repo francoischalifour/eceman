@@ -55,22 +55,6 @@ float getLastTime(FILE* savingFile) {
 }
 
 /**
- * Récupère le temps de fin de dernière partie.
- * @param savingFile Le fichier de sauvegarde
- * @return Le temps à la dernière partie enregistré (0 si fichier non trouvé)
- */
-float getLastTimeStop(FILE* savingFile) {
-    float timeStop;
-
-    if (savingFile == NULL)
-        return 0;
-
-    fscanf(savingFile, "%f\n", &timeStop);
-
-    return timeStop;
-}
-
-/**
  * Récupère le nombre de scores enregistrés.
  * @return Le nombre de scores enregistrés (0 si fichier non trouvé)
  */
@@ -126,35 +110,6 @@ int getMinHighScore() {
 }
 
 /**
- * Récupère la ligne du score enregistré.
- * Fonction appelée seulement si au moins 10 scores enregistrés.
- * @param scoreFile Le fichier contenant les scores
- * @param score Le score dont on veut la ligne
- * @return La ligne du score souhaité (-1 si non trouvé)
- */
-int getScoreLine(FILE* scoreFile, const int score) {
-    unsigned int currentScore;
-    char name[NAME_LENGTH];
-    int countLines;
-    char c;
-
-    assert(scoreFile != NULL);
-
-    countLines = 1;
-
-    while ((c = fgetc(scoreFile)) != EOF) {
-        fscanf(scoreFile, "%u %s", &currentScore, name);
-
-        countLines++;
-
-        if (currentScore == score)
-            return countLines;
-    }
-
-    return -1;
-}
-
-/**
  * Trie le tableau des scores.
  * @param arrayScores Le tableau des scores
  * @param arrayNames Le tableau des noms
@@ -187,8 +142,8 @@ void getRanking(FILE* scoreFile) {
     unsigned int i, count;
     unsigned int score;
     char name[NAME_LENGTH];
-    int* arrayScores;
-    char** arrayNames;
+    int* arrayScores = NULL;
+    char** arrayNames = NULL;
 
     if (scoreFile == NULL) {
         printf("\tAucun score n'a ete enregistre jusqu'a present.\n");
