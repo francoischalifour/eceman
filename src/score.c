@@ -59,7 +59,7 @@ float getLastTime(FILE* savingFile) {
  * @return Le nombre de scores enregistrés (0 si fichier non trouvé)
  */
 int getNbScores() {
-    unsigned short nbLines = 0;
+    unsigned short nbLines;
     unsigned char c;
     FILE* scoreFile = NULL;
 
@@ -67,6 +67,8 @@ int getNbScores() {
 
     if (scoreFile == 0)
         return 0;
+
+    nbLines = 0;
 
     while (!feof(scoreFile)) {
         c = fgetc(scoreFile);

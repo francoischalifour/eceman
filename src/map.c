@@ -287,16 +287,32 @@ void editMap(const int level) {
 
             switch (elem) {
                 case UP_KEY:
+                    if (posy <= 0)
+                        continue;
                     posy--;
                     break;
                 case DOWN_KEY:
+                    if (posy >= ROWS - 1)
+                        continue;
                     posy++;
                     break;
                 case LEFT_KEY:
-                    posx--;
+                    if (posx <= 0) {
+                        posy--;
+                        posx = COLS - 1;
+                    } else {
+                        posx--;
+                    }
                     break;
                 case RIGHT_KEY:
-                    posx++;
+                    if (posx >= COLS -1) {
+                        if (posy >= ROWS - 1)
+                            continue;
+                        posy++;
+                        posx = 0;
+                    } else {
+                        posx++;
+                    }
                     break;
                 case 'q':
                     return;
@@ -342,7 +358,7 @@ void editMap(const int level) {
                 case HOLE_CHAR:
                 case SPAWN_CHAR:
                 case DOOR_CHAR:
-                    if (posy >= ROWS - 1 || posx >= COLS)
+                    if (posy >= ROWS || posx >= COLS)
                         continue;
 
                     board[posy][posx] = elem;
@@ -352,12 +368,13 @@ void editMap(const int level) {
                     resetColor();
 
                     posx++;
-                    break;
-            }
 
-            if (posx != 0 && posx % COLS == 0) {
-                posx = 0;
-                posy++;
+                    if (posx != 0 && posx % COLS == 0) {
+                        posx = 0;
+                        posy++;
+                    }
+
+                    break;
             }
 
             goToXY(posx, posy);
