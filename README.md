@@ -23,6 +23,8 @@ Le personnage principal, nommé Eceman, se déplace dans les 4 directions dans u
 
 Attention, une fois que le personnage marche sur une case, celle-ci fond et l'empêche de revenir en arrière.
 
+Les règles et les informations à propos du jeu sont stockées dans le dossier `data/info/`.
+
 ### Plateau de jeu
 
 Le plateau de jeu se présente comme une matrice de caractères de 15 lignes par 19 colonnes. Cette matrice est créée à partir d'un fichier *map* composé de caractères correspondant à un certain type de case.
@@ -51,6 +53,8 @@ Le plateau de jeu se présente comme une matrice de caractères de 15 lignes par
 ### Les scores
 
 A chaque fois que le joueur quitte la partie, le score s'enregistre dans un fichier. Lorsqu'il finit le jeu, on enregistre son score final dans un fichier de classements.
+
+Les scores sont stockés dans le dossier `data/saving/`.
 
 ### L'éditeur de niveaux
 
