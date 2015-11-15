@@ -33,7 +33,7 @@ void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]) {
 
             switch (board[x][y]) {
                 case ENEMY_CHAR:
-                    if (board[x+1][y] != THIN_CHAR && board[x-1][y] != THIN_CHAR)
+                    if (board[x + 1][y] != THIN_CHAR && board[x - 1][y] != THIN_CHAR)
                         entity = createEnemy(x, y, RIGHT);
                     else
                         entity = createEnemy(x, y, UP);
