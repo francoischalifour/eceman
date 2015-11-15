@@ -25,7 +25,9 @@
  * @return L'état de jeu initialisé
  */
 static GameState* newGameState() {
-    GameState* game = malloc(sizeof(GameState));
+    GameState* game = NULL;
+
+    game = malloc(sizeof(GameState));
     assert(game != NULL);
 
     game->score = 0;

@@ -25,10 +25,13 @@
  * @return Le héros initialisé
  */
 Eceman* newEceman() {
-    Position* pos = malloc(sizeof(Position));
+    Position* pos = NULL;
+    Eceman* hero = NULL;
+
+    pos = malloc(sizeof(Position));
     assert(pos != NULL);
 
-    Eceman* hero = malloc(sizeof(Eceman));
+    hero = malloc(sizeof(Eceman));
     assert(hero != NULL);
 
     pos->x = 0;

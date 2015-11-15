@@ -242,7 +242,7 @@ void displayEditor() {
  */
 void displayRules() {
     FILE* rules = NULL;
-    char c;
+    int ch;
 
     rules = fopen(RULES_FILE, "r");
 
@@ -250,8 +250,8 @@ void displayRules() {
 
     displaySubtitle("Regles");
 
-    while ((c = fgetc(rules)) != EOF) {
-        putchar(c);
+    while ((ch = fgetc(rules)) != EOF) {
+        putchar(ch);
     }
 
     fclose(rules);
@@ -298,7 +298,7 @@ void displayRanking() {
  */
 void displayAbout() {
     FILE* about = NULL;
-    char c;
+    int ch;
 
     about = fopen(ABOUT_FILE, "r");
 
@@ -306,8 +306,8 @@ void displayAbout() {
 
     displaySubtitle("A propos");
 
-    while ((c = fgetc(about)) != EOF) {
-        putchar(c);
+    while ((ch = fgetc(about)) != EOF) {
+        putchar(ch);
     }
 
     fclose(about);
