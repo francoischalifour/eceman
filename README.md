@@ -1,4 +1,5 @@
 # Eceman
+*Pour Windows uniquement.*
 
 Jeu d'arcade en C développé dans le cadre du module Algorithmique et Programmation en C.
 
@@ -12,6 +13,9 @@ Jeu d'arcade en C développé dans le cadre du module Algorithmique et Programma
 Le projet a pour objectif de nous familiariser avec la programmation en C et ses concepts, ainsi qu'au travail de groupe. Pour gérer ce projet, nous avons utilisé [Slack](https://slack.com/) et [Git](https://git-scm.com/).
 
 ## Explication du jeu
+
+![Ecran d'accueil](https://bitbucket.org/repo/bbredA/images/2422347722-eceman-home.png)
+
 
 ### Règles du jeu
 
@@ -52,9 +56,11 @@ A chaque fois que le joueur quitte la partie, le score s'enregistre dans un fich
 
 Il est possible d'éditer ou de créer un niveau directement dans le jeu avec l'éditeur. Il facilite la création de niveau et permet un rendu plus productif avec son aperçu en temps réel.
 
+![Editeur de niveaux](https://bitbucket.org/repo/bbredA/images/2356488607-eceman-editor.jpg)
+
 ## Graphe d'appels
 
-> A venir.
+![Graphe d'appels](https://bitbucket.org/repo/bbredA/images/1144391987-Graphe%20d'appel.png)
 
 
 ## Notes
