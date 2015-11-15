@@ -26,9 +26,9 @@
  */
 Eceman* newEceman() {
     Position* pos = malloc(sizeof(Position));
-    Eceman* hero = malloc(sizeof(Eceman));
-
     assert(pos != NULL);
+
+    Eceman* hero = malloc(sizeof(Eceman));
     assert(hero != NULL);
 
     pos->x = 0;
@@ -101,7 +101,7 @@ static char getNextCase(const Eceman* hero, char board[ROWS][COLS]) {
 }
 
 /**
- * Vérifie si le héros est entouré de murs ou d'eau.
+ * Vérifie si le héros est encerclé (mur, eau, tondeuse).
  * @param board Le plateau sur lequel le joueur joue
  * @param hero Le héros à tester
  * @return 1 si le héros est encerclé, 0 sinon
