@@ -2,4 +2,4 @@ Jeu d'arcade en C developpe dans le cadre du module Algorithmique et Programmati
 
 Par Francois Chaliour et Bertrand d'Aure
 Version 1.0
-by Wikode
+Team Wikode

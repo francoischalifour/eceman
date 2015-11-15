@@ -64,57 +64,57 @@ void closeMap(FILE* map) {
 static void drawLegend() {
     setColor(GRAY_COLOR);
 
-    goToXY(26, 1);
+    goToXY(INFOPANEL_X, 1);
     printf("%c %s\n", OUTSIDE_CHAR, "Exterieur");
 
-    goToXY(26, 2);
+    goToXY(INFOPANEL_X, 2);
     printf("%c %s\n", WALL_CHAR, "Mur");
 
-    goToXY(26, 3);
+    goToXY(INFOPANEL_X, 3);
     printf("%c %s\n", THIN_CHAR, "Glace fine");
 
-    goToXY(26, 4);
+    goToXY(INFOPANEL_X, 4);
     printf("%c %s\n", THICK_CHAR, "Glace epaisse");
 
-    goToXY(26, 5);
+    goToXY(INFOPANEL_X, 5);
     printf("%c %s\n", SLIP_CHAR, "Glace glissante");
 
-    goToXY(26, 6);
+    goToXY(INFOPANEL_X, 6);
     printf("%c %s\n", MELT_CHAR, "Eau");
 
-    goToXY(26, 7);
+    goToXY(INFOPANEL_X, 7);
     printf("%c %s\n", LIGHTNESS_POTION_CHAR, "Potion de legerete");
 
-    goToXY(26, 8);
+    goToXY(INFOPANEL_X, 8);
     printf("%c %s\n", SCORE_BONUS_CHAR, "Bonus de score");
 
-    goToXY(26, 9);
+    goToXY(INFOPANEL_X, 9);
     printf("%c %s\n", MOWER_CHAR, "Tondeuse");
 
-    goToXY(26, 10);
+    goToXY(INFOPANEL_X, 10);
     printf("%c %s\n", ENEMY_CHAR, "Ennemi");
 
-    goToXY(26, 11);
+    goToXY(INFOPANEL_X, 11);
     printf("%c %s\n", TUNNEL_CHAR, "Tunnel");
 
-    goToXY(26, 12);
+    goToXY(INFOPANEL_X, 12);
     printf("%c %s\n", TUNNEL_EXIT_CHAR, "Sortie du tunnel");
 
-    goToXY(26, 13);
+    goToXY(INFOPANEL_X, 13);
     printf("%c %s\n", HOLE_CHAR, "Trou");
 
-    goToXY(26, 14);
+    goToXY(INFOPANEL_X, 14);
     printf("%c %s\n", SPAWN_CHAR, "Lieu d'apparition");
 
-    goToXY(26, 15);
+    goToXY(INFOPANEL_X, 15);
     printf("%c %s\n", DOOR_CHAR, "Porte de sortie");
 
     resetColor();
 
-    goToXY(26, 17);
+    goToXY(INFOPANEL_X, 17);
     printf("%s %s\n", "(s)", "Enregistrer le niveau");
 
-    goToXY(26, 18);
+    goToXY(INFOPANEL_X, 18);
     printf("%s %s\n", "(q)", "Quitter l'editeur");
 }
 

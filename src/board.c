@@ -56,9 +56,9 @@ void extractEntities(char board[ROWS][COLS], Entity* entityList[ENTITY_MAX]) {
  * @param game L'état actuel du jeu
  */
 void drawToolbar(const GameState* game) {
-    goToXY(26, 0);
+    goToXY(INFOPANEL_X, 0);
     printf("Niveau %2u\n", game->level);
-    goToXY(26, 1);
+    goToXY(INFOPANEL_X, 1);
     printf("Score %3u\n", game->score + game->levelScore);
 }
 
@@ -67,7 +67,7 @@ void drawToolbar(const GameState* game) {
  * @param game L'état du jeu
  */
 void drawTime(GameState* game) {
-    goToXY(26, 2);
+    goToXY(INFOPANEL_X, 2);
     printf("Temps %3.0f\n", game->timePlayed + game->timeTmp);
 }
 
@@ -77,89 +77,89 @@ void drawTime(GameState* game) {
 static void drawPanel() {
     setColor(GRAY_COLOR);
 
-    goToXY(26, 4);
+    goToXY(INFOPANEL_X, 4);
     setColor(getCaseColor(HERO_CHAR));
     printf("%c", convertCase(HERO_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Personnage");
 
-    goToXY(26, 5);
+    goToXY(INFOPANEL_X, 5);
     setColor(getCaseColor(WALL_CHAR));
     printf("%c", convertCase(WALL_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Mur");
 
-    goToXY(26, 6);
+    goToXY(INFOPANEL_X, 6);
     setColor(getCaseColor(DOOR_CHAR));
     printf("%c", convertCase(DOOR_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Porte de sortie");
 
-    goToXY(26, 7);
+    goToXY(INFOPANEL_X, 7);
     setColor(getCaseColor(THIN_CHAR));
     printf("%c", convertCase(THIN_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Glace fine");
 
-    goToXY(26, 8);
+    goToXY(INFOPANEL_X, 8);
     setColor(getCaseColor(THICK_CHAR));
     printf("%c", convertCase(THICK_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Glace epaisse");
 
-    goToXY(26, 9);
+    goToXY(INFOPANEL_X, 9);
     setColor(getCaseColor(SLIP_CHAR));
     printf("%c", convertCase(SLIP_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Glace glissante");
 
-    goToXY(26, 10);
+    goToXY(INFOPANEL_X, 10);
     setColor(getCaseColor(MELT_CHAR));
     printf("%c", convertCase(MELT_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Eau");
 
-    goToXY(26, 11);
+    goToXY(INFOPANEL_X, 11);
     setColor(getCaseColor(LIGHTNESS_POTION_CHAR));
     printf("%c", convertCase(LIGHTNESS_POTION_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Potion de legerete");
 
-    goToXY(26, 12);
+    goToXY(INFOPANEL_X, 12);
     setColor(getCaseColor(SCORE_BONUS_CHAR));
     printf("%c", convertCase(SCORE_BONUS_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Bonus de score");
 
-    goToXY(26, 13);
+    goToXY(INFOPANEL_X, 13);
     setColor(getCaseColor(TUNNEL_CHAR));
     printf("%c", convertCase(TUNNEL_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Tunnel");
 
-    goToXY(26, 14);
+    goToXY(INFOPANEL_X, 14);
     setColor(getCaseColor(MOWER_CHAR));
     printf("%c", convertCase(MOWER_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Tondeuse");
 
-    goToXY(26, 15);
+    goToXY(INFOPANEL_X, 15);
     setColor(getCaseColor(HOLE_CHAR));
     printf("%c", convertCase(HOLE_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Trou");
 
-    goToXY(26, 16);
+    goToXY(INFOPANEL_X, 16);
     setColor(getCaseColor(ENEMY_CHAR));
     printf("%c", convertCase(ENEMY_CHAR));
     setColor(GRAY_COLOR);
     printf(" %s\n", "Ennemi");
 
-    goToXY(26, 18);
+    goToXY(INFOPANEL_X, 18);
     printf("%s %4s\n", "(p)", "Pause");
-    goToXY(26, 19);
+    goToXY(INFOPANEL_X, 19);
     printf("%s %4s\n", "(r)", "Recommencer le niveau");
-    goToXY(26, 20);
+    goToXY(INFOPANEL_X, 20);
     printf("%s %2s\n", "(q)", "Quitter");
 
     resetColor();

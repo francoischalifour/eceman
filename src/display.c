@@ -111,11 +111,11 @@ void displayMenu() {
         printf("(2) Continuer la partie precedente");
 
         setColor(GRAY_COLOR);
-        goToXY(20, 14);
+        goToXY(14, 14);
         printf("Niveau %2d", getLastLevel(saving));
-        goToXY(20, 15);
+        goToXY(14, 15);
         printf("Score %3d", getLastScore(saving));
-        goToXY(20, 16);
+        goToXY(14, 16);
         printf("%s", ctime(&attr.st_mtime));
         resetColor();
 
@@ -124,14 +124,14 @@ void displayMenu() {
 
     setColor(LINK_COLOR);
 
-    goToXY(2, 20);
+    goToXY(4, 20);
     printf("(p) Partie rapide");
-    goToXY(2, 21);
+    goToXY(4, 21);
     printf("(e) Editeur");
 
-    goToXY(28, 20);
+    goToXY(29, 20);
     printf("(c) Classement");
-    goToXY(28, 21);
+    goToXY(29, 21);
     printf("(r) Regles");
 
     goToXY(50, 20);

@@ -21,6 +21,8 @@
 #define ROWS 15
 #define COLS 19
 
+#define INFOPANEL_X 26
+
 #define DELAY 50
 
 #define SCORE_MAX 9999
