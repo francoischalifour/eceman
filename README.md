@@ -82,7 +82,6 @@ Toutes les fonctions sont entièrement documentées de la façon suivante :
  * @param entityList La liste des entités
  */
 void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity* entityList[ENTITY_MAX]);
-
 ```
 
 
@@ -106,5 +105,5 @@ if (condition) {
 * [Git](https://git-scm.com/)
 
 ## Auteurs
-* [François Chalifour](www.francoischalifour.com)
+* [François Chalifour](http://www.francoischalifour.com)
 * Bertrand d'Aure
