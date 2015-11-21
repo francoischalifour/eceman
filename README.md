@@ -6,7 +6,7 @@ Jeu d'arcade en C développé dans le cadre du module Algorithmique et Programma
 
 > Inspiré par *Club Penguin Thin Ice*.
 
-![Aperçu du jeu](https://bitbucket.org/repo/bbredA/images/73665678-eceman_6.jpg)
+![Aperçu du jeu](https://cloud.githubusercontent.com/assets/6137112/11317974/e5aedc72-9040-11e5-93a3-4603370a117a.jpg)
 
 ## Objectifs du projet
 
@@ -14,7 +14,7 @@ Le projet a pour objectif de nous familiariser avec la programmation en C et ses
 
 ## Explication du jeu
 
-![Ecran d'accueil](https://bitbucket.org/repo/bbredA/images/2422347722-eceman-home.png)
+![Accueil du jeu](https://cloud.githubusercontent.com/assets/6137112/11317972/db03d700-9040-11e5-8dae-3083988243ce.png)
 
 
 ### Règles du jeu
@@ -60,11 +60,11 @@ Les scores sont stockés dans le dossier `data/saving/`.
 
 Il est possible d'éditer ou de créer un niveau directement dans le jeu avec l'éditeur. Il facilite la création de niveau et permet un rendu plus productif avec son aperçu en temps réel.
 
-![Editeur de niveaux](https://bitbucket.org/repo/bbredA/images/2356488607-eceman-editor.jpg)
+![Editeur de niveaux](https://cloud.githubusercontent.com/assets/6137112/11317970/cde1e86e-9040-11e5-9262-960038d310ab.jpg)
 
 ## Graphe d'appels
 
-![Graphe d'appels](https://bitbucket.org/repo/bbredA/images/1144391987-Graphe%20d'appel.png)
+![Graphe d'appels](https://cloud.githubusercontent.com/assets/6137112/11317967/b6a5730a-9040-11e5-9c61-d24553bb3d07.png)
 
 
 ## Notes
@@ -73,7 +73,6 @@ Il est possible d'éditer ou de créer un niveau directement dans le jeu avec l'
 Toutes les fonctions sont entièrement documentées de la façon suivante :
 
 ```
-#!c
 /**
  * Change le comportement du jeu en fonction de l'arrivée du héros sur une case.
  * Cette fonction est appelée après le déplacement du joueur.
@@ -90,8 +89,8 @@ void runCaseAction(GameState* game, char board[ROWS][COLS], Eceman* hero, Entity
 ### Code Style
 
 L'ensemble du projet respecte le [Google C++ Style Guide](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html) :
+
 ```
-#!c
 if (condition) {
   foo;
 } else {
